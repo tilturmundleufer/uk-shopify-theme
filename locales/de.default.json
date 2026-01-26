@@ -1,0 +1,242 @@
+{
+  "general": {
+    "meta": {
+      "tags": "Getaggt mit {{ tags }}",
+      "page": "Seite {{ page }}"
+    },
+    "password_page": {
+      "login_form_heading": "Shop mit Passwort betreten"
+    },
+    "breadcrumbs": {
+      "home": "Startseite"
+    },
+    "search": {
+      "placeholder": "Suchen...",
+      "submit": "Suchen",
+      "no_results": "Keine Ergebnisse für \"{{ terms }}\"",
+      "results_count": "{{ count }} Ergebnisse für \"{{ terms }}\""
+    }
+  },
+  "accessibility": {
+    "skip_to_content": "Zum Inhalt springen",
+    "close": "Schließen",
+    "menu": "Menü",
+    "cart": "Warenkorb",
+    "loading": "Wird geladen...",
+    "increase_quantity": "Menge erhöhen",
+    "decrease_quantity": "Menge verringern",
+    "quantity": "Menge"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "In den Warenkorb",
+      "buy_now": "Jetzt kaufen",
+      "sold_out": "Ausverkauft",
+      "on_sale": "Reduziert",
+      "price": "Preis",
+      "compare_at_price": "Vergleichspreis",
+      "quantity": "Menge",
+      "in_stock": "Auf Lager",
+      "out_of_stock": "Nicht auf Lager",
+      "low_stock": "Nur noch {{ count }} verfügbar",
+      "description": "Beschreibung",
+      "shipping": "Lieferung & Versand",
+      "downloads": "Downloads",
+      "delivery_time": "Lieferzeit",
+      "per_unit": "/ Stück",
+      "net": "netto",
+      "tier_prices": "Staffelpreise",
+      "from_pieces": "ab {{ count }} Stück",
+      "out_of_stock_message": "Dieses Produkt ist nicht mehr auf Lager",
+      "vat_notice": "0% Mehrwertsteuer",
+      "payment_options": "Zahlungsmöglichkeiten",
+      "product_question": "Fragen zu unserem Shop oder Artikeln?",
+      "product_question_text": "Kontaktieren Sie unser Team. Wir melden uns innerhalb kürzester Zeit bei Ihnen!"
+    }
+  },
+  "collections": {
+    "general": {
+      "all_products": "Alle Produkte",
+      "no_products": "Keine Produkte in dieser Kollektion",
+      "view_all": "Alle Artikel ansehen",
+      "sort_by": "Sortieren nach",
+      "sort_options": {
+        "manual": "Empfohlen",
+        "best_selling": "Bestseller",
+        "title_asc": "A-Z",
+        "title_desc": "Z-A",
+        "price_asc": "Preis aufsteigend",
+        "price_desc": "Preis absteigend",
+        "created_asc": "Älteste",
+        "created_desc": "Neueste"
+      }
+    },
+    "pagination": {
+      "previous": "Zurück",
+      "next": "Weiter",
+      "page": "Seite {{ page }}"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Warenkorb",
+      "empty": "Ihr Warenkorb ist leer",
+      "continue_shopping": "Einkauf fortsetzen",
+      "remove": "Entfernen",
+      "note": "Anmerkung zur Bestellung",
+      "subtotal": "Zwischensumme",
+      "taxes_and_shipping": "Steuern und Versand werden beim Checkout berechnet",
+      "checkout": "Zur Kasse",
+      "update": "Warenkorb aktualisieren"
+    },
+    "added_to_cart": "Zum Warenkorb hinzugefügt",
+    "error": "Es gab einen Fehler beim Hinzufügen zum Warenkorb",
+    "quantity_error": "Nur {{ quantity }} verfügbar"
+  },
+  "sections": {
+    "announcement": {
+      "previous": "Vorherige Ankündigung",
+      "next": "Nächste Ankündigung"
+    },
+    "header": {
+      "menu": "Menü",
+      "cart": "Warenkorb",
+      "search": "Suchen",
+      "account": "Konto"
+    },
+    "footer": {
+      "newsletter": "Newsletter",
+      "newsletter_placeholder": "Ihre E-Mail-Adresse",
+      "subscribe": "Abonnieren",
+      "payment_methods": "Zahlungsmethoden",
+      "copyright": "© {{ year }} {{ shop_name }}"
+    },
+    "hero": {
+      "default_heading": "Willkommen in unserem Shop",
+      "default_subheading": "Entdecken Sie unsere Produkte"
+    },
+    "featured_collection": {
+      "view_all": "Alle Artikel ansehen"
+    },
+    "usp": {
+      "default_heading": "Warum bei uns kaufen?"
+    },
+    "contact": {
+      "heading": "Sie haben Fragen?",
+      "subheading": "Unser Team hilft Ihnen gerne weiter!",
+      "cta_text": "Jetzt kontaktieren"
+    }
+  },
+  "customer": {
+    "account": {
+      "title": "Mein Konto",
+      "orders": "Bestellungen",
+      "addresses": "Adressen",
+      "logout": "Abmelden"
+    },
+    "login": {
+      "title": "Anmelden",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "submit": "Anmelden",
+      "forgot_password": "Passwort vergessen?",
+      "create_account": "Konto erstellen"
+    },
+    "register": {
+      "title": "Konto erstellen",
+      "first_name": "Vorname",
+      "last_name": "Nachname",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "submit": "Konto erstellen"
+    }
+  },
+  "contact": {
+    "form": {
+      "name": "Name",
+      "email": "E-Mail",
+      "phone": "Telefon",
+      "message": "Nachricht",
+      "submit": "Absenden",
+      "success": "Vielen Dank für Ihre Nachricht. Wir melden uns in Kürze bei Ihnen."
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "title": "Geschenkkarte",
+      "subtext": "Ihre Geschenkkarte",
+      "gift_card_code": "Geschenkkarten-Code",
+      "copy_code": "Code kopieren",
+      "print": "Drucken"
+    }
+  },
+  "settings_schema": {
+    "colors": {
+      "name": "Farben",
+      "primary": "Primärfarbe",
+      "secondary": "Sekundärfarbe",
+      "background": "Hintergrund",
+      "text": "Text",
+      "border": "Rahmen",
+      "status": "Statusfarben",
+      "success": "Erfolg",
+      "error": "Fehler",
+      "sale": "Sale"
+    },
+    "typography": {
+      "name": "Typografie",
+      "headings": "Überschriften",
+      "heading_font": "Überschriften-Schriftart",
+      "body": "Fließtext",
+      "body_font": "Fließtext-Schriftart",
+      "base_size": "Basis-Schriftgröße"
+    },
+    "layout": {
+      "name": "Layout",
+      "page_width": "Seitenbreite",
+      "border_radius": "Eckenradius",
+      "radius_small": "Klein",
+      "radius_medium": "Mittel",
+      "radius_large": "Groß"
+    },
+    "buttons": {
+      "name": "Buttons",
+      "primary": "Primärer Button",
+      "secondary": "Sekundärer Button",
+      "background": "Hintergrund",
+      "text": "Text"
+    },
+    "product": {
+      "name": "Produkt",
+      "delivery": "Lieferung",
+      "default_delivery_time": "Standard-Lieferzeit",
+      "vat": "Mehrwertsteuer",
+      "show_vat_notice": "MwSt.-Hinweis anzeigen",
+      "vat_notice_text": "MwSt.-Hinweistext",
+      "shipping": "Versand",
+      "shipping_info": "Versandinformationen"
+    },
+    "cart": {
+      "name": "Warenkorb",
+      "type": "Warenkorb-Typ",
+      "type_page": "Seite",
+      "type_drawer": "Seitenleiste",
+      "show_note": "Bestellnotiz anzeigen"
+    },
+    "social": {
+      "name": "Kontakt & Social Media",
+      "contact": "Kontakt",
+      "phone": "Telefon",
+      "email": "E-Mail",
+      "links": "Social Media Links"
+    },
+    "favicon": {
+      "name": "Favicon",
+      "image": "Favicon-Bild"
+    },
+    "search": {
+      "name": "Suche",
+      "enable_predictive": "Vorschlagssuche aktivieren"
+    }
+  }
+}

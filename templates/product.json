@@ -1,0 +1,26 @@
+{
+  "sections": {
+    "main-product": {
+      "type": "main-product",
+      "settings": {
+        "show_dynamic_checkout": true,
+        "show_payment_icons": true,
+        "show_contact_cta": true
+      }
+    },
+    "contact-cta": {
+      "type": "contact-cta",
+      "settings": {
+        "subheading": "Hilfe & Kontakt",
+        "heading": "Sie haben Fragen?",
+        "description": "Rufen Sie uns an oder schreiben Sie uns per Mail!",
+        "button_text": "Jetzt kontaktieren",
+        "background_color": "#1a1a1a"
+      }
+    }
+  },
+  "order": [
+    "main-product",
+    "contact-cta"
+  ]
+}

@@ -1,0 +1,212 @@
+{%- comment -%}
+  Contact CTA Section
+{%- endcomment -%}
+
+<section class="contact-cta section" id="contact-{{ section.id }}" style="background-color: {{ section.settings.background_color }};">
+  <div class="page-width">
+    <div class="contact-cta__inner">
+      <div class="contact-cta__content">
+        {%- if section.settings.subheading != blank -%}
+          <p class="contact-cta__subheading">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+        
+        {%- if section.settings.heading != blank -%}
+          <h2 class="contact-cta__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        
+        {%- if section.settings.description != blank -%}
+          <p class="contact-cta__description">{{ section.settings.description }}</p>
+        {%- endif -%}
+        
+        <div class="contact-cta__links">
+          {%- if settings.contact_phone != blank -%}
+            <a href="tel:{{ settings.contact_phone | remove: ' ' }}" class="contact-cta__link">
+              {%- render 'icon-phone' -%}
+              <span>{{ settings.contact_phone }}</span>
+            </a>
+          {%- endif -%}
+          {%- if settings.contact_email != blank -%}
+            <a href="mailto:{{ settings.contact_email }}" class="contact-cta__link">
+              {%- render 'icon-mail' -%}
+              <span>{{ settings.contact_email }}</span>
+            </a>
+          {%- endif -%}
+        </div>
+        
+        {%- if section.settings.button_text != blank and section.settings.button_url != blank -%}
+          <a href="{{ section.settings.button_url }}" class="btn btn--white contact-cta__btn">
+            {%- render 'icon-arrow' -%}
+            {{ section.settings.button_text }}
+          </a>
+        {%- endif -%}
+      </div>
+      
+      {%- if section.settings.image != blank -%}
+        <div class="contact-cta__image">
+          <img
+            src="{{ section.settings.image | image_url: width: 400 }}"
+            alt="{{ section.settings.heading | escape }}"
+            loading="lazy"
+            width="{{ section.settings.image.width }}"
+            height="{{ section.settings.image.height }}"
+          >
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-cta {
+    color: #fff;
+  }
+  
+  .contact-cta__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--spacing-xl);
+  }
+  
+  @media (min-width: 750px) {
+    .contact-cta__inner {
+      flex-direction: row;
+      text-align: left;
+    }
+  }
+  
+  .contact-cta__content {
+    flex: 1;
+  }
+  
+  .contact-cta__subheading {
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.8;
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .contact-cta__heading {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  @media (min-width: 750px) {
+    .contact-cta__heading {
+      font-size: var(--font-size-3xl);
+    }
+  }
+  
+  .contact-cta__description {
+    opacity: 0.9;
+    margin-bottom: var(--spacing-lg);
+    max-width: 500px;
+  }
+  
+  .contact-cta__links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  @media (min-width: 750px) {
+    .contact-cta__links {
+      flex-direction: row;
+      gap: var(--spacing-lg);
+    }
+  }
+  
+  .contact-cta__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-md);
+    font-weight: 600;
+    color: inherit;
+  }
+  
+  .contact-cta__link svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .contact-cta__link:hover {
+    opacity: 0.8;
+  }
+  
+  .contact-cta__image {
+    flex-shrink: 0;
+  }
+  
+  .contact-cta__image img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  @media (min-width: 750px) {
+    .contact-cta__image img {
+      width: 150px;
+      height: 150px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Kontakt CTA",
+  "tag": "section",
+  "class": "section-contact-cta",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Untertitel",
+      "default": "Hilfe & Kontakt"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "Sie haben Fragen? Unser Team hilft gerne weiter!"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Beschreibung",
+      "default": "Rufen Sie uns an oder schreiben Sie uns per Mail!"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button-Text",
+      "default": "Jetzt kontaktieren"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button-Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Bild (optional)"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Hintergrundfarbe",
+      "default": "#1a1a1a"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Kontakt CTA"
+    }
+  ]
+}
+{% endschema %}

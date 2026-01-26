@@ -1,0 +1,135 @@
+/* ============================================
+   BADGE COMPONENT
+   ============================================ */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 4px 10px;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  line-height: 1.2;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+/* Stock Badges */
+.badge--in-stock {
+  background-color: rgba(34, 197, 94, 0.1);
+  color: var(--color-success);
+}
+
+.badge--out-of-stock {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: var(--color-error);
+}
+
+.badge--low-stock {
+  background-color: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+}
+
+/* Sale Badge */
+.badge--sale {
+  background-color: var(--color-sale);
+  color: #fff;
+}
+
+/* Discount Badge */
+.badge--discount {
+  background-color: rgba(var(--color-sale-rgb, 239, 68, 68), 0.1);
+  color: var(--color-sale);
+}
+
+/* New Badge */
+.badge--new {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+/* Generic Badges */
+.badge--primary {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+.badge--secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+}
+
+.badge--outline {
+  background-color: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+/* Badge with Icon */
+.badge svg {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+/* Stock Badge with Dot */
+.badge--dot::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.badge--in-stock.badge--dot::before {
+  background-color: var(--color-success);
+}
+
+.badge--out-of-stock.badge--dot::before {
+  background-color: var(--color-error);
+}
+
+.badge--low-stock.badge--dot::before {
+  background-color: #f59e0b;
+}
+
+/* Size Variants */
+.badge--sm {
+  padding: 2px 6px;
+  font-size: 10px;
+}
+
+.badge--lg {
+  padding: 6px 14px;
+  font-size: var(--font-size-sm);
+}
+
+/* Position Utilities for Card Badges */
+.badge-container {
+  position: relative;
+}
+
+.badge--absolute {
+  position: absolute;
+  z-index: 1;
+}
+
+.badge--top-left {
+  top: var(--spacing-sm);
+  left: var(--spacing-sm);
+}
+
+.badge--top-right {
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+}
+
+.badge--bottom-left {
+  bottom: var(--spacing-sm);
+  left: var(--spacing-sm);
+}
+
+.badge--bottom-right {
+  bottom: var(--spacing-sm);
+  right: var(--spacing-sm);
+}

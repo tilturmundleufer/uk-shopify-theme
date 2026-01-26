@@ -1,0 +1,50 @@
+{
+  "sections": {
+    "main-page": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "heading": "Häufig gestellte Fragen",
+        "subheading": "Hier finden Sie Antworten auf die wichtigsten Fragen"
+      },
+      "blocks": {
+        "faq-1": {
+          "type": "faq",
+          "settings": {
+            "question": "Wie lange ist die Lieferzeit?",
+            "answer": "<p>Die Lieferzeit beträgt in der Regel 1-4 Werktage. Bei größeren Bestellungen oder Sonderanfertigungen kann die Lieferzeit variieren.</p>"
+          }
+        },
+        "faq-2": {
+          "type": "faq",
+          "settings": {
+            "question": "Welche Zahlungsmethoden werden akzeptiert?",
+            "answer": "<p>Wir akzeptieren alle gängigen Zahlungsmethoden wie Kreditkarte, PayPal, Überweisung und Kauf auf Rechnung.</p>"
+          }
+        },
+        "faq-3": {
+          "type": "faq",
+          "settings": {
+            "question": "Kann ich meine Bestellung zurückgeben?",
+            "answer": "<p>Ja, Sie haben ein 14-tägiges Widerrufsrecht. Bitte kontaktieren Sie uns für weitere Informationen.</p>"
+          }
+        },
+        "faq-4": {
+          "type": "faq",
+          "settings": {
+            "question": "Bieten Sie eine Beratung an?",
+            "answer": "<p>Ja, unsere Experten beraten Sie gerne telefonisch oder per E-Mail zu allen Fragen rund um Ihr Solarprojekt.</p>"
+          }
+        }
+      },
+      "block_order": ["faq-1", "faq-2", "faq-3", "faq-4"]
+    }
+  },
+  "order": [
+    "main-page",
+    "faq"
+  ]
+}

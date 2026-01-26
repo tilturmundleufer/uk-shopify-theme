@@ -1,0 +1,130 @@
+{%- comment -%}
+  Featured Collection Section
+  Displays products from a selected collection
+{%- endcomment -%}
+
+{{ 'section-featured-products.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign collection = collections[section.settings.collection]
+  assign products_to_show = section.settings.products_to_show
+  assign show_view_all = section.settings.show_view_all
+-%}
+
+<section class="featured-products section{% if section.settings.alternate_bg %} featured-products--alt{% endif %}" id="featured-{{ section.id }}">
+  <div class="page-width">
+    <div class="featured-products__header">
+      <div class="featured-products__title-wrapper">
+        {%- if section.settings.subheading != blank -%}
+          <p class="featured-products__subtitle">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+        
+        {%- if section.settings.heading != blank -%}
+          <h2 class="featured-products__title">{{ section.settings.heading }}</h2>
+        {%- elsif collection != blank -%}
+          <h2 class="featured-products__title">{{ collection.title }}</h2>
+        {%- endif -%}
+      </div>
+      
+      {%- if show_view_all and collection != blank -%}
+        <a href="{{ collection.url }}" class="featured-products__link">
+          {{ 'sections.featured_collection.view_all' | t }}
+          {%- render 'icon-arrow' -%}
+        </a>
+      {%- endif -%}
+    </div>
+    
+    <div class="featured-products__grid product-grid">
+      {%- if collection != blank -%}
+        {%- for product in collection.products limit: products_to_show -%}
+          {%- render 'product-card', 
+            product: product, 
+            show_qty_stepper: section.settings.show_qty_stepper,
+            lazy_load: true
+          -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..products_to_show) -%}
+          <div class="product-card">
+            <div class="product-card__image-wrapper">
+              {{ 'product-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+            <div class="product-card__content">
+              <h3 class="product-card__title">Beispielprodukt {{ forloop.index }}</h3>
+              <div class="product-card__price-wrapper">
+                <span class="product-card__price">{{ 1999 | money }}</span>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+    
+    {%- if show_view_all and collection != blank -%}
+      <div class="featured-products__footer md:hidden">
+        <a href="{{ collection.url }}" class="btn btn--secondary">
+          {{ 'sections.featured_collection.view_all' | t }}
+          {%- render 'icon-arrow' -%}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Collection",
+  "tag": "section",
+  "class": "section-featured-collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Untertitel (optional)"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Überschrift",
+      "info": "Leer lassen, um Collection-Titel zu verwenden"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Anzahl Produkte",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "show_qty_stepper",
+      "label": "Mengen-Stepper anzeigen",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "\"Alle ansehen\" Link anzeigen",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "alternate_bg",
+      "label": "Alternativer Hintergrund",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection"
+    }
+  ]
+}
+{% endschema %}

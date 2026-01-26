@@ -1,0 +1,384 @@
+{%- comment -%}
+  Main Collection Section
+  Collection page with product grid
+{%- endcomment -%}
+
+{%- liquid
+  assign products_per_page = section.settings.products_per_page
+-%}
+
+{%- paginate collection.products by products_per_page -%}
+<section class="collection-page section" data-section-id="{{ section.id }}">
+  <div class="page-width">
+    {%- comment -%} Collection Header {%- endcomment -%}
+    <div class="collection-header">
+      <div class="collection-header__inner">
+        <h1 class="collection-header__title">{{ collection.title }}</h1>
+        {%- if collection.description != blank -%}
+          <div class="collection-header__description rte">
+            {{ collection.description }}
+          </div>
+        {%- endif -%}
+      </div>
+      
+      {%- if section.settings.show_sorting -%}
+        <div class="collection-header__sort">
+          <label for="SortBy" class="visually-hidden">{{ 'collections.general.sort_by' | t }}</label>
+          <select id="SortBy" class="collection-sort__select" data-collection-sort>
+            {%- for option in collection.sort_options -%}
+              <option value="{{ option.value }}"{% if option.value == collection.sort_by %} selected{% endif %}>
+                {{ option.name }}
+              </option>
+            {%- endfor -%}
+          </select>
+        </div>
+      {%- endif -%}
+    </div>
+    
+    <div class="collection-page__layout{% if section.settings.show_sidebar %} collection-page__layout--with-sidebar{% endif %}">
+      {%- comment -%} Sidebar {%- endcomment -%}
+      {%- if section.settings.show_sidebar -%}
+        <aside class="collection-sidebar">
+          <div class="collection-sidebar__inner">
+            {%- if section.settings.sidebar_heading != blank -%}
+              <h3 class="collection-sidebar__title">{{ section.settings.sidebar_heading }}</h3>
+            {%- endif -%}
+            
+            {%- if section.settings.sidebar_text != blank -%}
+              <p class="collection-sidebar__text">{{ section.settings.sidebar_text }}</p>
+            {%- endif -%}
+            
+            {%- if section.settings.sidebar_image != blank -%}
+              <img 
+                src="{{ section.settings.sidebar_image | image_url: width: 300 }}" 
+                alt=""
+                class="collection-sidebar__image"
+                loading="lazy"
+              >
+            {%- endif -%}
+            
+            <div class="collection-sidebar__contact">
+              {%- if settings.contact_phone != blank -%}
+                <a href="tel:{{ settings.contact_phone | remove: ' ' }}" class="collection-sidebar__link">
+                  {%- render 'icon-phone' -%}
+                  {{ settings.contact_phone }}
+                </a>
+              {%- endif -%}
+            </div>
+          </div>
+        </aside>
+      {%- endif -%}
+      
+      {%- comment -%} Product Grid {%- endcomment -%}
+      <div class="collection-products">
+        {%- if collection.products.size > 0 -%}
+          <div class="product-grid collection-grid" style="--grid-cols: {{ section.settings.columns_desktop }};">
+            {%- for product in collection.products -%}
+              {%- render 'product-card', 
+                product: product, 
+                show_qty_stepper: section.settings.show_qty_stepper,
+                lazy_load: true
+              -%}
+            {%- endfor -%}
+          </div>
+          
+          {%- comment -%} Pagination {%- endcomment -%}
+          {%- if paginate.pages > 1 -%}
+            <nav class="pagination" aria-label="Pagination">
+              <ul class="pagination__list">
+                {%- if paginate.previous -%}
+                  <li>
+                    <a href="{{ paginate.previous.url }}" class="pagination__link pagination__link--prev">
+                      {{ 'collections.pagination.previous' | t }}
+                    </a>
+                  </li>
+                {%- endif -%}
+                
+                {%- for part in paginate.parts -%}
+                  <li>
+                    {%- if part.is_link -%}
+                      <a href="{{ part.url }}" class="pagination__link">{{ part.title }}</a>
+                    {%- else -%}
+                      {%- if part.title == paginate.current_page -%}
+                        <span class="pagination__link pagination__link--current" aria-current="page">{{ part.title }}</span>
+                      {%- else -%}
+                        <span class="pagination__link pagination__link--gap">{{ part.title }}</span>
+                      {%- endif -%}
+                    {%- endif -%}
+                  </li>
+                {%- endfor -%}
+                
+                {%- if paginate.next -%}
+                  <li>
+                    <a href="{{ paginate.next.url }}" class="pagination__link pagination__link--next">
+                      {{ 'collections.pagination.next' | t }}
+                    </a>
+                  </li>
+                {%- endif -%}
+              </ul>
+            </nav>
+          {%- endif -%}
+        {%- else -%}
+          <div class="collection-empty">
+            <p>{{ 'collections.general.no_products' | t }}</p>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+{%- endpaginate -%}
+
+<style>
+  .collection-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px solid var(--color-border);
+  }
+  
+  @media (min-width: 750px) {
+    .collection-header {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+  }
+  
+  .collection-header__title {
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .collection-header__description {
+    font-size: var(--font-size-md);
+    color: var(--color-text-light);
+    max-width: 600px;
+  }
+  
+  .collection-sort__select {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-sm);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: #fff;
+    min-width: 200px;
+  }
+  
+  .collection-page__layout {
+    display: block;
+  }
+  
+  .collection-page__layout--with-sidebar {
+    display: grid;
+    gap: var(--spacing-xl);
+  }
+  
+  @media (min-width: 990px) {
+    .collection-page__layout--with-sidebar {
+      grid-template-columns: 280px 1fr;
+    }
+  }
+  
+  /* Sidebar */
+  .collection-sidebar {
+    display: none;
+  }
+  
+  @media (min-width: 990px) {
+    .collection-sidebar {
+      display: block;
+    }
+  }
+  
+  .collection-sidebar__inner {
+    position: sticky;
+    top: calc(var(--header-height) + var(--spacing-lg));
+    padding: var(--spacing-lg);
+    background-color: #f9fafb;
+    border-radius: var(--radius-md);
+  }
+  
+  .collection-sidebar__title {
+    font-size: var(--font-size-md);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .collection-sidebar__text {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .collection-sidebar__image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .collection-sidebar__link {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+  
+  .collection-sidebar__link svg {
+    width: 16px;
+    height: 16px;
+  }
+  
+  /* Grid Override */
+  .collection-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (min-width: 750px) {
+    .collection-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (min-width: 990px) {
+    .collection-grid {
+      grid-template-columns: repeat(var(--grid-cols, 4), 1fr);
+    }
+    
+    .collection-page__layout--with-sidebar .collection-grid {
+      grid-template-columns: repeat(calc(var(--grid-cols, 4) - 1), 1fr);
+    }
+  }
+  
+  /* Pagination */
+  .pagination {
+    margin-top: var(--spacing-2xl);
+  }
+  
+  .pagination__list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-xs);
+  }
+  
+  .pagination__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+  }
+  
+  .pagination__link:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+  
+  .pagination__link--current {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #fff;
+  }
+  
+  .pagination__link--gap {
+    border: none;
+  }
+  
+  /* Empty State */
+  .collection-empty {
+    text-align: center;
+    padding: var(--spacing-3xl);
+    color: var(--color-text-light);
+  }
+</style>
+
+<script>
+  // Collection sort
+  document.addEventListener('DOMContentLoaded', function() {
+    const sortSelect = document.querySelector('[data-collection-sort]');
+    if (sortSelect) {
+      sortSelect.addEventListener('change', function() {
+        const url = new URL(window.location.href);
+        url.searchParams.set('sort_by', this.value);
+        window.location.href = url.toString();
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Collection Produkte",
+  "tag": "section",
+  "class": "section-main-collection",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Produkte pro Seite",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Spalten (Desktop)",
+      "min": 2,
+      "max": 5,
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "show_qty_stepper",
+      "label": "Mengen-Stepper anzeigen",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sorting",
+      "label": "Sortierung anzeigen",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Sidebar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sidebar",
+      "label": "Sidebar anzeigen",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "sidebar_heading",
+      "label": "Sidebar Überschrift",
+      "default": "Sie haben Fragen?"
+    },
+    {
+      "type": "textarea",
+      "id": "sidebar_text",
+      "label": "Sidebar Text",
+      "default": "Unsere Experten helfen Ihnen gerne weiter!"
+    },
+    {
+      "type": "image_picker",
+      "id": "sidebar_image",
+      "label": "Sidebar Bild"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,101 @@
+{%- comment -%}
+  Price Display Component
+  
+  Accepts:
+  - product: {Object} Product Liquid object
+  - variant: {Object} Variant Liquid object (optional, uses first available if not provided)
+  - show_compare: {Boolean} Show compare at price (default: true)
+  - show_unit: {Boolean} Show unit price (default: true)
+  - show_net_label: {Boolean} Show "netto" label (default: true)
+  - size: {String} Size variant: 'sm', 'lg' (optional)
+  - class: {String} Additional CSS classes
+{%- endcomment -%}
+
+{%- liquid
+  assign variant = variant | default: product.selected_or_first_available_variant
+  assign show_compare = show_compare | default: true
+  assign show_unit = show_unit | default: true
+  assign show_net_label = show_net_label | default: true
+  
+  assign is_on_sale = false
+  if variant.compare_at_price > variant.price
+    assign is_on_sale = true
+  endif
+  
+  assign unit_price = product.metafields.custom.unit_price
+  assign unit_label = product.metafields.custom.unit_label | default: '/ Stück'
+-%}
+
+<div class="price-display{% if size %} price-display--{{ size }}{% endif %}{% if class %} {{ class }}{% endif %}">
+  {%- comment -%} Compare at Price {%- endcomment -%}
+  {%- if show_compare and is_on_sale -%}
+    <span class="price-display__compare">
+      <span class="visually-hidden">{{ 'products.product.compare_at_price' | t }}</span>
+      {{ variant.compare_at_price | money }}
+    </span>
+  {%- endif -%}
+  
+  {%- comment -%} Current Price {%- endcomment -%}
+  <span class="price-display__price{% if is_on_sale %} price-display__price--sale{% endif %}">
+    <span class="visually-hidden">{{ 'products.product.price' | t }}</span>
+    {{ variant.price | money }}
+  </span>
+  
+  {%- comment -%} Unit Price {%- endcomment -%}
+  {%- if show_unit -%}
+    <span class="price-display__unit">
+      ({% if unit_price != blank %}{{ unit_price }}{% else %}{{ variant.price | money }}{% endif %}{{ unit_label }})
+    </span>
+  {%- endif -%}
+  
+  {%- comment -%} Net Label {%- endcomment -%}
+  {%- if show_net_label -%}
+    <span class="price-display__net">{{ 'products.product.net' | t }}</span>
+  {%- endif -%}
+</div>
+
+<style>
+  .price-display {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--spacing-xs);
+  }
+  
+  .price-display__compare {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    text-decoration: line-through;
+  }
+  
+  .price-display__price {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+  }
+  
+  .price-display__price--sale {
+    color: var(--color-sale);
+  }
+  
+  .price-display__unit {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+  }
+  
+  .price-display__net {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-light);
+    background-color: #f3f4f6;
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+  }
+  
+  /* Size Variants */
+  .price-display--sm .price-display__price {
+    font-size: var(--font-size-lg);
+  }
+  
+  .price-display--lg .price-display__price {
+    font-size: var(--font-size-3xl);
+  }
+</style>

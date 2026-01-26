@@ -1,0 +1,225 @@
+/* ============================================
+   BUTTON COMPONENT
+   ============================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  padding: 12px 24px;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast),
+              color var(--transition-fast),
+              border-color var(--transition-fast),
+              transform var(--transition-fast),
+              box-shadow var(--transition-fast);
+}
+
+.btn:disabled,
+.btn[disabled],
+.btn.is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Primary Button */
+.btn--primary {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.btn--primary:hover {
+  background-color: transparent;
+  color: var(--color-primary);
+}
+
+.btn--primary:active {
+  transform: scale(0.98);
+}
+
+/* Secondary Button */
+.btn--secondary {
+  background-color: transparent;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.btn--secondary:hover {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+.btn--secondary:active {
+  transform: scale(0.98);
+}
+
+/* Ghost Button (minimal) */
+.btn--ghost {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--color-text);
+}
+
+.btn--ghost:hover {
+  background-color: rgba(var(--color-text-rgb, 0, 0, 0), 0.05);
+}
+
+/* CTA Button (accent color) */
+.btn--cta {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+  color: var(--color-primary);
+}
+
+.btn--cta:hover {
+  filter: brightness(1.1);
+}
+
+/* White Button */
+.btn--white {
+  background-color: #fff;
+  border-color: #fff;
+  color: var(--color-primary);
+}
+
+.btn--white:hover {
+  background-color: transparent;
+  color: #fff;
+}
+
+/* Size Variants */
+.btn--sm {
+  padding: 8px 16px;
+  font-size: var(--font-size-xs);
+}
+
+.btn--lg {
+  padding: 16px 32px;
+  font-size: var(--font-size-md);
+}
+
+.btn--full {
+  width: 100%;
+}
+
+/* Icon Button */
+.btn--icon {
+  padding: 10px;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.btn--icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Button with Icon */
+.btn svg {
+  flex-shrink: 0;
+}
+
+.btn__icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Loading State */
+.btn.is-loading {
+  position: relative;
+  color: transparent;
+  pointer-events: none;
+}
+
+.btn.is-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+.btn--primary.is-loading::after {
+  border-color: #fff;
+  border-right-color: transparent;
+}
+
+/* Button Group */
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.btn-group--stacked {
+  flex-direction: column;
+}
+
+@media (min-width: 750px) {
+  .btn-group--stacked {
+    flex-direction: row;
+  }
+}
+
+/* Link Button */
+.link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-primary);
+  transition: color var(--transition-fast);
+}
+
+.link-btn:hover {
+  text-decoration: underline;
+}
+
+.link-btn svg {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--transition-fast);
+}
+
+.link-btn:hover svg {
+  transform: translateX(4px);
+}
+
+/* Dynamic Checkout Button Override */
+.shopify-payment-button__button {
+  border-radius: var(--radius-md) !important;
+  min-height: 48px !important;
+}
+
+.shopify-payment-button__button--unbranded {
+  background-color: var(--color-secondary) !important;
+  color: var(--color-primary) !important;
+  font-weight: 600 !important;
+}
+
+.shopify-payment-button__button--unbranded:hover {
+  filter: brightness(1.1) !important;
+}

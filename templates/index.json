@@ -1,0 +1,137 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "badge_text": "Ihr Partner für Solar",
+        "heading": "Wir haben alles für Ihr nächstes Solarprojekt",
+        "subheading": "Ihr zuverlässiger Partner für PV-Unterkonstruktion und mehr. Von Eigenheim bis Großprojekt - wir haben es auf Lager!",
+        "primary_cta_text": "Zum Konfigurator",
+        "primary_cta_url": "",
+        "secondary_cta_text": "Alle Produkte",
+        "secondary_cta_url": "shopify://collections/all"
+      }
+    },
+    "category-overview": {
+      "type": "category-overview",
+      "settings": {
+        "subheading": "Alle Kategorien",
+        "heading": "Qualität, auf die Sie bauen können",
+        "columns": 5
+      },
+      "blocks": {
+        "category-1": {
+          "type": "category",
+          "settings": {
+            "title": "Unterkonstruktion"
+          }
+        },
+        "category-2": {
+          "type": "category",
+          "settings": {
+            "title": "Solarmodule"
+          }
+        },
+        "category-3": {
+          "type": "category",
+          "settings": {
+            "title": "Wechselrichter"
+          }
+        },
+        "category-4": {
+          "type": "category",
+          "settings": {
+            "title": "Batteriespeicher"
+          }
+        },
+        "category-5": {
+          "type": "category",
+          "settings": {
+            "title": "Zubehör"
+          }
+        }
+      },
+      "block_order": ["category-1", "category-2", "category-3", "category-4", "category-5"]
+    },
+    "featured-collection-1": {
+      "type": "featured-collection",
+      "settings": {
+        "subheading": "Unterkonstruktion",
+        "heading": "Alles für's Dach",
+        "products_to_show": 4,
+        "show_qty_stepper": true,
+        "show_view_all": true,
+        "alternate_bg": false
+      }
+    },
+    "featured-collection-2": {
+      "type": "featured-collection",
+      "settings": {
+        "subheading": "Solarmodule",
+        "heading": "Unsere PV-Module",
+        "products_to_show": 4,
+        "show_qty_stepper": true,
+        "show_view_all": true,
+        "alternate_bg": true
+      }
+    },
+    "usp-service": {
+      "type": "usp-service",
+      "settings": {
+        "subheading": "Service",
+        "heading": "Gute Gründe für uns",
+        "columns": 3
+      },
+      "blocks": {
+        "usp-1": {
+          "type": "usp",
+          "settings": {
+            "title": "Hochwertige Produkte",
+            "description": "Wir setzen auf geprüfte Markenqualität."
+          }
+        },
+        "usp-2": {
+          "type": "usp",
+          "settings": {
+            "title": "Schneller Versand",
+            "description": "Schnelle und zuverlässige Lieferung."
+          }
+        },
+        "usp-3": {
+          "type": "usp",
+          "settings": {
+            "title": "24/7 für Sie da",
+            "description": "Unser Team hilft Ihnen gerne weiter."
+          }
+        }
+      },
+      "block_order": ["usp-1", "usp-2", "usp-3"]
+    },
+    "partner-logos": {
+      "type": "partner-logos",
+      "settings": {
+        "subheading": "Unsere Partner",
+        "enable_scroll": true
+      }
+    },
+    "contact-cta": {
+      "type": "contact-cta",
+      "settings": {
+        "subheading": "Hilfe & Kontakt",
+        "heading": "Sie haben Fragen? Unser Team hilft gerne weiter!",
+        "description": "Rufen Sie uns an oder schreiben Sie uns per Mail!",
+        "button_text": "Jetzt kontaktieren",
+        "background_color": "#1a1a1a"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "category-overview",
+    "featured-collection-1",
+    "featured-collection-2",
+    "usp-service",
+    "partner-logos",
+    "contact-cta"
+  ]
+}

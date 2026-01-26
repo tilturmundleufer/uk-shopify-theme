@@ -1,0 +1,56 @@
+{%- comment -%}
+  Payment Icons Component
+  
+  Accepts:
+  - title: {String} Section title (optional)
+  - class: {String} Additional CSS classes
+{%- endcomment -%}
+
+<div class="payment-icons{% if class %} {{ class }}{% endif %}">
+  {%- if title -%}
+    <p class="payment-icons__title">{{ title }}</p>
+  {%- endif -%}
+  
+  <div class="payment-icons__list">
+    {%- for type in shop.enabled_payment_types -%}
+      <span class="payment-icons__icon">
+        {{ type | payment_type_svg_tag }}
+      </span>
+    {%- endfor -%}
+  </div>
+</div>
+
+<style>
+  .payment-icons {
+    margin: var(--spacing-md) 0;
+  }
+  
+  .payment-icons__title {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .payment-icons__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+  }
+  
+  .payment-icons__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+    padding: 4px 6px;
+    background-color: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+  }
+  
+  .payment-icons__icon svg {
+    height: 100%;
+    width: auto;
+    max-width: 40px;
+  }
+</style>

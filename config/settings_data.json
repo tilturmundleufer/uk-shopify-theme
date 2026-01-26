@@ -1,0 +1,114 @@
+{
+  "current": {
+    "color_primary": "#1a1a1a",
+    "color_secondary": "#f5a623",
+    "color_background": "#ffffff",
+    "color_text": "#1a1a1a",
+    "color_border": "#e5e5e5",
+    "color_success": "#22c55e",
+    "color_error": "#ef4444",
+    "color_sale": "#ef4444",
+    "type_header_font": "assistant_n6",
+    "type_body_font": "assistant_n4",
+    "type_base_size": 16,
+    "page_width": 1400,
+    "border_radius_sm": 4,
+    "border_radius_md": 8,
+    "border_radius_lg": 12,
+    "button_primary_bg": "#1a1a1a",
+    "button_primary_text": "#ffffff",
+    "button_secondary_bg": "#ffffff",
+    "button_secondary_text": "#1a1a1a",
+    "default_delivery_time": "1-4 Werktage",
+    "show_vat_notice": true,
+    "vat_notice_text": "Gemäß §12 Abs. 3 UstG unterliegen Photovoltaikanlagen und dessen Bestandteile 0% MwSt.",
+    "shipping_info": "<p>Wir versenden unsere Produkte standardmäßig per Spedition inklusive telefonischer Avisierung. Das bedeutet, Sie erhalten vor der Anlieferung einen Anruf, um den genauen Liefertermin abzustimmen.</p><p>In manchen Fällen werden kleinere Bestellungen per DHL versendet, um eine schnelle und unkomplizierte Zustellung zu gewährleisten.</p><p>Alternativ können Sie Ihre Bestellung auch direkt in unseren Lagern abholen.</p>",
+    "cart_type": "page",
+    "show_cart_note": true,
+    "contact_phone": "+49 123 456789",
+    "contact_email": "info@example.com",
+    "social_facebook": "",
+    "social_instagram": "",
+    "social_linkedin": "",
+    "predictive_search_enabled": true,
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo_width": 120,
+          "menu": "main-menu",
+          "show_topbar": true,
+          "sticky_header": true,
+          "cta_text": "Zum Konfigurator",
+          "cta_url": ""
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "tagline": "Ihr zuverlässiger Partner für hochwertige PV-Komponenten.",
+          "show_payment_icons": true
+        },
+        "blocks": {
+          "menu-1": {
+            "type": "menu",
+            "settings": {
+              "heading": "Kategorien"
+            }
+          },
+          "menu-2": {
+            "type": "menu",
+            "settings": {
+              "heading": "Navigation"
+            }
+          },
+          "cta": {
+            "type": "cta_box",
+            "settings": {
+              "heading": "Sie haben Fragen?",
+              "text": "Unser Team hilft Ihnen gerne weiter!",
+              "button_text": "Jetzt kontaktieren"
+            }
+          },
+          "legal-1": {
+            "type": "legal_link",
+            "settings": {
+              "label": "Datenschutz"
+            }
+          },
+          "legal-2": {
+            "type": "legal_link",
+            "settings": {
+              "label": "Impressum"
+            }
+          },
+          "legal-3": {
+            "type": "legal_link",
+            "settings": {
+              "label": "AGB"
+            }
+          }
+        },
+        "block_order": ["menu-1", "menu-2", "cta", "legal-1", "legal-2", "legal-3"]
+      },
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {
+          "show_announcement": true,
+          "text": "Tagesaktuelle Bestpreise - Ganzjährige Top-Deals!",
+          "background_color": "#1a1a1a",
+          "text_color": "#ffffff"
+        }
+      }
+    },
+    "content_for_index": []
+  },
+  "presets": {
+    "Default": {
+      "color_primary": "#1a1a1a",
+      "color_secondary": "#f5a623",
+      "color_background": "#ffffff",
+      "color_text": "#1a1a1a"
+    }
+  }
+}

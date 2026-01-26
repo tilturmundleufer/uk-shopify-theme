@@ -1,0 +1,83 @@
+{%- comment -%}
+  Tier Prices Component
+  
+  Accepts:
+  - product: {Object} Product Liquid object
+  - class: {String} Additional CSS classes
+  
+  Expected Metafield Format (product.metafields.custom.tier_prices):
+  JSON array: [{"qty": 40, "price": "11.59"}, {"qty": 80, "price": "11.25"}]
+{%- endcomment -%}
+
+{%- liquid
+  assign tier_prices_json = product.metafields.custom.tier_prices
+  assign has_tier_prices = false
+  
+  if tier_prices_json != blank
+    assign has_tier_prices = true
+  endif
+-%}
+
+{%- if has_tier_prices -%}
+  <div class="tier-prices{% if class %} {{ class }}{% endif %}">
+    <h4 class="tier-prices__title">{{ 'products.product.tier_prices' | t }}</h4>
+    <table class="tier-prices__table">
+      <tbody>
+        {%- assign tier_prices = tier_prices_json.value -%}
+        {%- for tier in tier_prices -%}
+          <tr class="tier-prices__row">
+            <td class="tier-prices__qty">
+              {{ 'products.product.from_pieces' | t: count: tier.qty }}
+            </td>
+            <td class="tier-prices__price">
+              {{ tier.price }}€
+            </td>
+          </tr>
+        {%- endfor -%}
+      </tbody>
+    </table>
+  </div>
+{%- endif -%}
+
+<style>
+  .tier-prices {
+    margin: var(--spacing-md) 0;
+    padding: var(--spacing-md);
+    background-color: #f9fafb;
+    border-radius: var(--radius-md);
+  }
+  
+  .tier-prices__title {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .tier-prices__table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .tier-prices__row {
+    border-bottom: 1px solid var(--color-border);
+  }
+  
+  .tier-prices__row:last-child {
+    border-bottom: none;
+  }
+  
+  .tier-prices__qty,
+  .tier-prices__price {
+    padding: var(--spacing-xs) 0;
+    font-size: var(--font-size-sm);
+  }
+  
+  .tier-prices__qty {
+    color: var(--color-text-light);
+  }
+  
+  .tier-prices__price {
+    font-weight: 600;
+    text-align: right;
+  }
+</style>

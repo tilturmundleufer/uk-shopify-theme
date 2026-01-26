@@ -1,0 +1,284 @@
+{%- comment -%}
+  Header Section
+  Includes: Topbar with contact, Main navigation, Mobile drawer
+{%- endcomment -%}
+
+{%- liquid
+  assign logo = section.settings.logo
+  assign logo_width = section.settings.logo_width
+  assign menu = section.settings.menu
+  assign show_topbar = section.settings.show_topbar
+  assign cta_text = section.settings.cta_text
+  assign cta_url = section.settings.cta_url
+  assign sticky_header = section.settings.sticky_header
+-%}
+
+<header class="header{% if sticky_header %} header--sticky{% endif %}" data-header>
+  {%- if show_topbar -%}
+    <div class="topbar">
+      <div class="page-width">
+        <div class="topbar__inner">
+          <div class="topbar__contact">
+            {%- if settings.contact_phone != blank -%}
+              <a href="tel:{{ settings.contact_phone | remove: ' ' }}" class="topbar__link">
+                {%- render 'icon-phone' -%}
+                <span>{{ settings.contact_phone }}</span>
+              </a>
+            {%- endif -%}
+            {%- if settings.contact_email != blank -%}
+              <a href="mailto:{{ settings.contact_email }}" class="topbar__link">
+                {%- render 'icon-mail' -%}
+                <span>{{ settings.contact_email }}</span>
+              </a>
+            {%- endif -%}
+          </div>
+          
+          <nav class="topbar__nav" aria-label="{{ 'sections.header.menu' | t }}">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'topbar_link' -%}
+                <a href="{{ block.settings.link }}" class="topbar__nav-link">
+                  {{ block.settings.label }}
+                </a>
+              {%- endif -%}
+            {%- endfor -%}
+          </nav>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+  
+  <div class="header__main">
+    <div class="page-width">
+      <div class="header__inner">
+        {%- comment -%} Logo {%- endcomment -%}
+        <div class="header__logo">
+          <a href="{{ routes.root_url }}" class="header__logo-link">
+            {%- if logo != blank -%}
+              <img
+                src="{{ logo | image_url: width: logo_width | times: 2 }}"
+                alt="{{ shop.name }}"
+                class="header__logo-img"
+                width="{{ logo_width }}"
+                height="{{ logo_width | divided_by: logo.aspect_ratio | round }}"
+                loading="eager"
+              >
+            {%- else -%}
+              <span class="header__logo-text">{{ shop.name }}</span>
+            {%- endif -%}
+          </a>
+        </div>
+        
+        {%- comment -%} Navigation {%- endcomment -%}
+        <nav class="header__nav" aria-label="{{ 'sections.header.menu' | t }}">
+          {%- for link in linklists[menu].links -%}
+            <div class="header__nav-item">
+              {%- if link.links != blank -%}
+                <button 
+                  class="header__nav-link" 
+                  aria-expanded="false"
+                  aria-controls="dropdown-{{ forloop.index }}"
+                >
+                  {{ link.title }}
+                  {%- render 'icon-chevron' -%}
+                </button>
+                <div class="header__dropdown" id="dropdown-{{ forloop.index }}">
+                  {%- for child_link in link.links -%}
+                    <a href="{{ child_link.url }}" class="header__dropdown-link">
+                      {{ child_link.title }}
+                    </a>
+                  {%- endfor -%}
+                </div>
+              {%- else -%}
+                <a href="{{ link.url }}" class="header__nav-link{% if link.active %} header__nav-link--active{% endif %}">
+                  {{ link.title }}
+                </a>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </nav>
+        
+        {%- comment -%} Actions {%- endcomment -%}
+        <div class="header__actions">
+          {%- if cta_text != blank and cta_url != blank -%}
+            <a href="{{ cta_url }}" class="btn btn--cta header__cta">
+              {{ cta_text }}
+            </a>
+          {%- endif -%}
+          
+          <a href="{{ routes.cart_url }}" class="header__action-btn" aria-label="{{ 'sections.header.cart' | t }}">
+            {%- render 'icon-cart' -%}
+            <span class="header__cart-count" data-cart-count>{{ cart.item_count }}</span>
+          </a>
+          
+          <button 
+            type="button" 
+            class="header__action-btn header__menu-toggle" 
+            aria-label="{{ 'accessibility.menu' | t }}"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+            data-menu-toggle
+          >
+            {%- render 'icon-menu' -%}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  {%- comment -%} Mobile Menu Drawer {%- endcomment -%}
+  <div class="mobile-menu" id="mobile-menu" data-mobile-menu aria-hidden="true">
+    <div class="mobile-menu__header">
+      <div class="header__logo">
+        <a href="{{ routes.root_url }}" class="header__logo-link">
+          {%- if logo != blank -%}
+            <img
+              src="{{ logo | image_url: width: logo_width | times: 2 }}"
+              alt="{{ shop.name }}"
+              class="header__logo-img"
+              width="{{ logo_width }}"
+              height="{{ logo_width | divided_by: logo.aspect_ratio | round }}"
+            >
+          {%- else -%}
+            <span class="header__logo-text">{{ shop.name }}</span>
+          {%- endif -%}
+        </a>
+      </div>
+      <button 
+        type="button" 
+        class="mobile-menu__close" 
+        aria-label="{{ 'accessibility.close' | t }}"
+        data-menu-close
+      >
+        {%- render 'icon-close' -%}
+      </button>
+    </div>
+    
+    <div class="mobile-menu__content">
+      <nav class="mobile-menu__nav" aria-label="{{ 'sections.header.menu' | t }}">
+        {%- for link in linklists[menu].links -%}
+          <div class="mobile-menu__nav-item">
+            {%- if link.links != blank -%}
+              <button 
+                class="mobile-menu__nav-link" 
+                aria-expanded="false"
+                data-submenu-toggle
+              >
+                {{ link.title }}
+                {%- render 'icon-chevron' -%}
+              </button>
+              <div class="mobile-menu__subnav" data-submenu hidden>
+                {%- for child_link in link.links -%}
+                  <a href="{{ child_link.url }}" class="mobile-menu__subnav-link">
+                    {{ child_link.title }}
+                  </a>
+                {%- endfor -%}
+              </div>
+            {%- else -%}
+              <a href="{{ link.url }}" class="mobile-menu__nav-link">
+                {{ link.title }}
+              </a>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </nav>
+      
+      <div class="mobile-menu__contact">
+        {%- if settings.contact_phone != blank -%}
+          <a href="tel:{{ settings.contact_phone | remove: ' ' }}" class="mobile-menu__contact-link">
+            {%- render 'icon-phone' -%}
+            <span>{{ settings.contact_phone }}</span>
+          </a>
+        {%- endif -%}
+        {%- if settings.contact_email != blank -%}
+          <a href="mailto:{{ settings.contact_email }}" class="mobile-menu__contact-link">
+            {%- render 'icon-mail' -%}
+            <span>{{ settings.contact_email }}</span>
+          </a>
+        {%- endif -%}
+      </div>
+      
+      {%- if cta_text != blank and cta_url != blank -%}
+        <a href="{{ cta_url }}" class="btn btn--cta btn--full mobile-menu__cta">
+          {{ cta_text }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+  
+  <div class="header-overlay" data-header-overlay></div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Logo-Breite",
+      "min": 50,
+      "max": 250,
+      "step": 10,
+      "default": 120,
+      "unit": "px"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Hauptmenü",
+      "default": "main-menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_topbar",
+      "label": "Topbar anzeigen",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_header",
+      "label": "Sticky Header",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "CTA Button"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button-Text",
+      "default": "Zum Konfigurator"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button-Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "topbar_link",
+      "name": "Topbar Link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Text"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

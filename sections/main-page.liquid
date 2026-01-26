@@ -1,0 +1,55 @@
+{%- comment -%}
+  Main Page Section
+  Standard content page
+{%- endcomment -%}
+
+<section class="page-content section" data-section-id="{{ section.id }}">
+  <div class="page-width">
+    <article class="page-article">
+      <header class="page-article__header">
+        <h1 class="page-article__title">{{ page.title }}</h1>
+      </header>
+      
+      {%- if page.content != blank -%}
+        <div class="page-article__content rte">
+          {{ page.content }}
+        </div>
+      {%- endif -%}
+    </article>
+  </div>
+</section>
+
+<style>
+  .page-article {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .page-article__header {
+    margin-bottom: var(--spacing-xl);
+    text-align: center;
+  }
+  
+  .page-article__title {
+    font-size: var(--font-size-3xl);
+  }
+  
+  @media (min-width: 750px) {
+    .page-article__title {
+      font-size: var(--font-size-4xl);
+    }
+  }
+  
+  .page-article__content {
+    font-size: var(--font-size-md);
+    line-height: 1.8;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Seiteninhalt",
+  "tag": "section",
+  "class": "section-main-page"
+}
+{% endschema %}

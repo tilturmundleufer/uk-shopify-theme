@@ -1,0 +1,54 @@
+{%- comment -%}
+  Stock Badge Component
+  
+  Accepts:
+  - product: {Object} Product Liquid object
+  - variant: {Object} Variant Liquid object (optional)
+  - show_quantity: {Boolean} Show low stock quantity (default: false)
+  - low_stock_threshold: {Number} Threshold for low stock (default: 5)
+  - class: {String} Additional CSS classes
+{%- endcomment -%}
+
+{%- liquid
+  assign variant = variant | default: product.selected_or_first_available_variant
+  assign show_quantity = show_quantity | default: false
+  assign low_stock_threshold = low_stock_threshold | default: 5
+  
+  assign is_available = variant.available
+  assign inventory_quantity = variant.inventory_quantity | default: 0
+  assign inventory_management = variant.inventory_management
+  assign inventory_policy = variant.inventory_policy
+  
+  assign stock_status = 'in_stock'
+  
+  unless is_available
+    assign stock_status = 'out_of_stock'
+  else
+    if inventory_management and inventory_policy == 'deny'
+      if inventory_quantity <= low_stock_threshold and inventory_quantity > 0
+        assign stock_status = 'low_stock'
+      endif
+    endif
+  endunless
+-%}
+
+{%- case stock_status -%}
+  {%- when 'in_stock' -%}
+    <span class="badge badge--in-stock badge--dot{% if class %} {{ class }}{% endif %}">
+      {{ 'products.product.in_stock' | t }}
+    </span>
+    
+  {%- when 'low_stock' -%}
+    <span class="badge badge--low-stock badge--dot{% if class %} {{ class }}{% endif %}">
+      {%- if show_quantity -%}
+        {{ 'products.product.low_stock' | t: count: inventory_quantity }}
+      {%- else -%}
+        {{ 'products.product.in_stock' | t }}
+      {%- endif -%}
+    </span>
+    
+  {%- when 'out_of_stock' -%}
+    <span class="badge badge--out-of-stock badge--dot{% if class %} {{ class }}{% endif %}">
+      {{ 'products.product.out_of_stock' | t }}
+    </span>
+{%- endcase -%}

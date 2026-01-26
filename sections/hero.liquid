@@ -1,0 +1,164 @@
+{%- comment -%}
+  Hero Section
+{%- endcomment -%}
+
+{{ 'section-hero.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign heading = section.settings.heading
+  assign subheading = section.settings.subheading
+  assign primary_cta_text = section.settings.primary_cta_text
+  assign primary_cta_url = section.settings.primary_cta_url
+  assign secondary_cta_text = section.settings.secondary_cta_text
+  assign secondary_cta_url = section.settings.secondary_cta_url
+  assign image = section.settings.image
+  assign video_url = section.settings.video_url
+-%}
+
+<section class="hero section" id="hero-{{ section.id }}">
+  <div class="page-width">
+    <div class="hero__inner">
+      <div class="hero__content">
+        {%- if section.settings.badge_text != blank -%}
+          <span class="badge badge--secondary hero__badge">{{ section.settings.badge_text }}</span>
+        {%- endif -%}
+        
+        {%- if heading != blank -%}
+          <h1 class="hero__title">
+            {{ heading }}
+          </h1>
+        {%- endif -%}
+        
+        {%- if subheading != blank -%}
+          <p class="hero__subtitle">{{ subheading }}</p>
+        {%- endif -%}
+        
+        <div class="hero__actions btn-group">
+          {%- if primary_cta_text != blank and primary_cta_url != blank -%}
+            <a href="{{ primary_cta_url }}" class="btn btn--cta btn--lg">
+              {{ primary_cta_text }}
+            </a>
+          {%- endif -%}
+          
+          {%- if secondary_cta_text != blank and secondary_cta_url != blank -%}
+            <a href="{{ secondary_cta_url }}" class="btn btn--primary btn--lg">
+              {{ secondary_cta_text }}
+              {%- render 'icon-arrow' -%}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+      
+      {%- if image != blank or video_url != blank -%}
+        <div class="hero__media">
+          {%- if video_url != blank -%}
+            <video 
+              class="hero__video" 
+              autoplay 
+              muted 
+              loop 
+              playsinline
+              poster="{{ image | image_url: width: 800 }}"
+            >
+              <source src="{{ video_url }}" type="video/mp4">
+            </video>
+          {%- elsif image != blank -%}
+            <img
+              src="{{ image | image_url: width: 800 }}"
+              srcset="
+                {{ image | image_url: width: 400 }} 400w,
+                {{ image | image_url: width: 600 }} 600w,
+                {{ image | image_url: width: 800 }} 800w,
+                {{ image | image_url: width: 1000 }} 1000w
+              "
+              sizes="(min-width: 990px) 50vw, 100vw"
+              alt="{{ image.alt | escape | default: heading }}"
+              class="hero__image"
+              width="{{ image.width }}"
+              height="{{ image.height }}"
+              loading="eager"
+            >
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "tag": "section",
+  "class": "section-hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge-Text (optional)",
+      "default": "Ihr Partner für Solar"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "Wir haben alles für Ihr nächstes Solarprojekt"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Untertitel",
+      "default": "Ihr zuverlässiger Partner für PV-Unterkonstruktion und mehr. Von Eigenheim bis Großprojekt - wir haben es auf Lager!"
+    },
+    {
+      "type": "header",
+      "content": "Primärer CTA"
+    },
+    {
+      "type": "text",
+      "id": "primary_cta_text",
+      "label": "Button-Text",
+      "default": "Zum Konfigurator"
+    },
+    {
+      "type": "url",
+      "id": "primary_cta_url",
+      "label": "Button-Link"
+    },
+    {
+      "type": "header",
+      "content": "Sekundärer CTA"
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_text",
+      "label": "Button-Text",
+      "default": "Alle Produkte"
+    },
+    {
+      "type": "url",
+      "id": "secondary_cta_url",
+      "label": "Button-Link"
+    },
+    {
+      "type": "header",
+      "content": "Medien"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Bild"
+    },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "Video-URL (optional)",
+      "info": "MP4 Video URL für Autoplay"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero"
+    }
+  ]
+}
+{% endschema %}

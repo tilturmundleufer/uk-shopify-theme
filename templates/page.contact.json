@@ -1,0 +1,19 @@
+{
+  "sections": {
+    "main-page": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "contact-form": {
+      "type": "contact-form",
+      "settings": {
+        "heading": "Kontaktieren Sie uns",
+        "text": "<p>Haben Sie Fragen? Wir helfen Ihnen gerne weiter!</p>"
+      }
+    }
+  },
+  "order": [
+    "main-page",
+    "contact-form"
+  ]
+}

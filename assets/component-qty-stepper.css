@@ -1,0 +1,199 @@
+/* ============================================
+   QUANTITY STEPPER COMPONENT
+   ============================================ */
+
+.qty-stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.qty-stepper__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.qty-stepper__btn:hover:not(:disabled) {
+  background-color: rgba(var(--color-primary-rgb), 0.05);
+}
+
+.qty-stepper__btn:focus-visible {
+  outline: none;
+  background-color: rgba(var(--color-primary-rgb), 0.1);
+}
+
+.qty-stepper__btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.qty-stepper__btn svg {
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+}
+
+.qty-stepper__input {
+  width: 48px;
+  height: 36px;
+  padding: 0;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  text-align: center;
+  border: none;
+  border-left: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+  background-color: transparent;
+  -moz-appearance: textfield;
+}
+
+.qty-stepper__input::-webkit-outer-spin-button,
+.qty-stepper__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.qty-stepper__input:focus {
+  outline: none;
+  background-color: rgba(var(--color-primary-rgb), 0.05);
+}
+
+/* Size Variants */
+.qty-stepper--sm .qty-stepper__btn {
+  width: 28px;
+  height: 28px;
+}
+
+.qty-stepper--sm .qty-stepper__btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.qty-stepper--sm .qty-stepper__input {
+  width: 36px;
+  height: 28px;
+  font-size: var(--font-size-xs);
+}
+
+.qty-stepper--lg .qty-stepper__btn {
+  width: 44px;
+  height: 44px;
+}
+
+.qty-stepper--lg .qty-stepper__btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.qty-stepper--lg .qty-stepper__input {
+  width: 60px;
+  height: 44px;
+  font-size: var(--font-size-md);
+}
+
+/* Full Width Variant */
+.qty-stepper--full {
+  width: 100%;
+}
+
+.qty-stepper--full .qty-stepper__input {
+  flex-grow: 1;
+}
+
+/* Dark Variant */
+.qty-stepper--dark {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.qty-stepper--dark .qty-stepper__btn {
+  color: #fff;
+}
+
+.qty-stepper--dark .qty-stepper__btn:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.qty-stepper--dark .qty-stepper__input {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Compact Variant (for product cards) */
+.qty-stepper--compact {
+  border-radius: var(--radius-sm);
+}
+
+.qty-stepper--compact .qty-stepper__btn {
+  width: 32px;
+  height: 32px;
+}
+
+.qty-stepper--compact .qty-stepper__input {
+  width: 40px;
+  height: 32px;
+}
+
+/* Disabled State */
+.qty-stepper.is-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Loading State */
+.qty-stepper.is-loading {
+  position: relative;
+}
+
+.qty-stepper.is-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin-top: -8px;
+  margin-left: -8px;
+  border: 2px solid var(--color-primary);
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+.qty-stepper.is-loading .qty-stepper__input {
+  color: transparent;
+}
+
+/* Cart Quantity Stepper */
+.cart-qty-stepper {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.cart-qty-stepper__remove {
+  padding: var(--spacing-xs);
+  color: var(--color-text-light);
+  transition: color var(--transition-fast);
+}
+
+.cart-qty-stepper__remove:hover {
+  color: var(--color-error);
+}
+
+.cart-qty-stepper__remove svg {
+  width: 16px;
+  height: 16px;
+}

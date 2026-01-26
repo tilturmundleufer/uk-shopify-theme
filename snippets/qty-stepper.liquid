@@ -1,0 +1,78 @@
+{%- comment -%}
+  Quantity Stepper Component
+  
+  Accepts:
+  - variant: {Object} Variant Liquid object (optional)
+  - value: {Number} Initial value (default: 1)
+  - min: {Number} Minimum value (default: 1)
+  - max: {Number} Maximum value (default: inventory or 99)
+  - size: {String} Size variant: 'sm', 'compact', 'lg' (optional)
+  - form_id: {String} Associated form ID (optional)
+  - name: {String} Input name attribute (default: 'quantity')
+  - input_id: {String} Input ID (optional)
+  - disabled: {Boolean} Disable the stepper (default: false)
+{%- endcomment -%}
+
+{%- liquid
+  assign value = value | default: 1
+  assign min = min | default: 1
+  assign name = name | default: 'quantity'
+  assign disabled = disabled | default: false
+  
+  if variant
+    if variant.inventory_management and variant.inventory_policy == 'deny'
+      assign max = max | default: variant.inventory_quantity | at_most: 99
+    else
+      assign max = max | default: 99
+    endif
+    unless variant.available
+      assign disabled = true
+    endunless
+  else
+    assign max = max | default: 99
+  endif
+  
+  assign unique_id = input_id | default: 'qty-' | append: form_id | append: '-' | append: variant.id
+-%}
+
+<qty-stepper 
+  class="qty-stepper{% if size %} qty-stepper--{{ size }}{% endif %}{% if disabled %} is-disabled{% endif %}"
+  data-qty-stepper
+  {% if form_id %}data-form-id="{{ form_id }}"{% endif %}
+>
+  <button
+    type="button"
+    class="qty-stepper__btn"
+    data-qty-decrease
+    aria-label="{{ 'accessibility.decrease_quantity' | t }}"
+    {% if value <= min %}disabled{% endif %}
+  >
+    {%- render 'icon-minus' -%}
+  </button>
+  
+  <input
+    type="number"
+    class="qty-stepper__input"
+    name="{{ name }}"
+    id="{{ unique_id }}"
+    value="{{ value }}"
+    min="{{ min }}"
+    max="{{ max }}"
+    step="1"
+    inputmode="numeric"
+    pattern="[0-9]*"
+    aria-label="{{ 'accessibility.quantity' | t }}"
+    data-qty-value
+    {% if disabled %}disabled{% endif %}
+  >
+  
+  <button
+    type="button"
+    class="qty-stepper__btn"
+    data-qty-increase
+    aria-label="{{ 'accessibility.increase_quantity' | t }}"
+    {% if value >= max %}disabled{% endif %}
+  >
+    {%- render 'icon-plus' -%}
+  </button>
+</qty-stepper>

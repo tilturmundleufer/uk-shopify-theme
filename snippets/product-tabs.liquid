@@ -1,0 +1,201 @@
+{%- comment -%}
+  Product Tabs Component
+  Shows Description, Shipping, Downloads as tabs (desktop) or accordion (mobile)
+  
+  Accepts:
+  - product: {Object} Product Liquid object
+{%- endcomment -%}
+
+{%- liquid
+  assign downloads_json = product.metafields.custom.downloads
+  assign has_downloads = false
+  if downloads_json != blank
+    assign has_downloads = true
+  endif
+-%}
+
+{%- comment -%} Desktop Tabs {%- endcomment -%}
+<div class="product-tabs tabs" data-tabs>
+  <div class="tabs__list" role="tablist">
+    <button 
+      class="tabs__btn" 
+      role="tab" 
+      aria-selected="true" 
+      aria-controls="tab-description"
+      id="tab-btn-description"
+      data-tab-btn
+    >
+      {{ 'products.product.description' | t }}
+    </button>
+    <button 
+      class="tabs__btn" 
+      role="tab" 
+      aria-selected="false" 
+      aria-controls="tab-shipping"
+      id="tab-btn-shipping"
+      data-tab-btn
+    >
+      {{ 'products.product.shipping' | t }}
+    </button>
+    {%- if has_downloads -%}
+      <button 
+        class="tabs__btn" 
+        role="tab" 
+        aria-selected="false" 
+        aria-controls="tab-downloads"
+        id="tab-btn-downloads"
+        data-tab-btn
+      >
+        {{ 'products.product.downloads' | t }}
+      </button>
+    {%- endif -%}
+  </div>
+  
+  <div 
+    class="tabs__panel" 
+    role="tabpanel" 
+    id="tab-description"
+    aria-labelledby="tab-btn-description"
+    data-tab-panel
+  >
+    <div class="tabs__panel-content rte">
+      {%- if product.description != blank -%}
+        {{ product.description }}
+      {%- else -%}
+        <p>{{ 'products.product.no_description' | t | default: 'Keine Beschreibung verfügbar.' }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+  
+  <div 
+    class="tabs__panel" 
+    role="tabpanel" 
+    id="tab-shipping"
+    aria-labelledby="tab-btn-shipping"
+    hidden
+    data-tab-panel
+  >
+    <div class="tabs__panel-content rte">
+      {%- if settings.shipping_info != blank -%}
+        {{ settings.shipping_info }}
+      {%- else -%}
+        <p>Wir versenden unsere Produkte standardmäßig per Spedition inklusive telefonischer Avisierung.</p>
+      {%- endif -%}
+    </div>
+  </div>
+  
+  {%- if has_downloads -%}
+    <div 
+      class="tabs__panel" 
+      role="tabpanel" 
+      id="tab-downloads"
+      aria-labelledby="tab-btn-downloads"
+      hidden
+      data-tab-panel
+    >
+      <div class="tabs__panel-content">
+        <div class="downloads-list">
+          {%- assign downloads = downloads_json.value -%}
+          {%- for download in downloads -%}
+            <a href="{{ download.url }}" class="btn btn--secondary btn--sm downloads-list__item" target="_blank" rel="noopener">
+              {%- render 'icon-download' -%}
+              {{ download.title }}
+            </a>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+{%- comment -%} Mobile Accordion {%- endcomment -%}
+<div class="product-accordion accordion accordion--minimal" data-accordion>
+  <div class="accordion__item">
+    <button 
+      class="accordion__header" 
+      aria-expanded="true"
+      aria-controls="accordion-description"
+      data-accordion-header
+    >
+      {{ 'products.product.description' | t }}
+      <span class="accordion__icon">{%- render 'icon-chevron' -%}</span>
+    </button>
+    <div class="accordion__content" id="accordion-description" aria-hidden="false" data-accordion-content>
+      <div class="accordion__inner">
+        <div class="accordion__body rte">
+          {%- if product.description != blank -%}
+            {{ product.description }}
+          {%- else -%}
+            <p>Keine Beschreibung verfügbar.</p>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="accordion__item">
+    <button 
+      class="accordion__header" 
+      aria-expanded="false"
+      aria-controls="accordion-shipping"
+      data-accordion-header
+    >
+      {{ 'products.product.shipping' | t }}
+      <span class="accordion__icon">{%- render 'icon-chevron' -%}</span>
+    </button>
+    <div class="accordion__content" id="accordion-shipping" aria-hidden="true" data-accordion-content>
+      <div class="accordion__inner">
+        <div class="accordion__body rte">
+          {%- if settings.shipping_info != blank -%}
+            {{ settings.shipping_info }}
+          {%- else -%}
+            <p>Wir versenden unsere Produkte standardmäßig per Spedition inklusive telefonischer Avisierung.</p>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  {%- if has_downloads -%}
+    <div class="accordion__item">
+      <button 
+        class="accordion__header" 
+        aria-expanded="false"
+        aria-controls="accordion-downloads"
+        data-accordion-header
+      >
+        {{ 'products.product.downloads' | t }}
+        <span class="accordion__icon">{%- render 'icon-chevron' -%}</span>
+      </button>
+      <div class="accordion__content" id="accordion-downloads" aria-hidden="true" data-accordion-content>
+        <div class="accordion__inner">
+          <div class="accordion__body">
+            <div class="downloads-list">
+              {%- assign downloads = downloads_json.value -%}
+              {%- for download in downloads -%}
+                <a href="{{ download.url }}" class="btn btn--secondary btn--sm downloads-list__item" target="_blank" rel="noopener">
+                  {%- render 'icon-download' -%}
+                  {{ download.title }}
+                </a>
+              {%- endfor -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+<style>
+  .downloads-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+  }
+  
+  .downloads-list__item svg {
+    width: 16px;
+    height: 16px;
+    margin-right: var(--spacing-xs);
+  }
+</style>

@@ -1,0 +1,325 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "UK Solar Theme",
+    "theme_version": "1.0.0",
+    "theme_author": "Custom",
+    "theme_documentation_url": "https://github.com/",
+    "theme_support_url": "https://github.com/"
+  },
+  {
+    "name": "t:settings_schema.colors.name",
+    "settings": [
+      {
+        "type": "header",
+        "content": "t:settings_schema.colors.primary"
+      },
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "t:settings_schema.colors.primary",
+        "default": "#1a1a1a"
+      },
+      {
+        "type": "color",
+        "id": "color_secondary",
+        "label": "t:settings_schema.colors.secondary",
+        "default": "#f5a623"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.colors.background"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "t:settings_schema.colors.background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "t:settings_schema.colors.text",
+        "default": "#1a1a1a"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "label": "t:settings_schema.colors.border",
+        "default": "#e5e5e5"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.colors.status"
+      },
+      {
+        "type": "color",
+        "id": "color_success",
+        "label": "t:settings_schema.colors.success",
+        "default": "#22c55e"
+      },
+      {
+        "type": "color",
+        "id": "color_error",
+        "label": "t:settings_schema.colors.error",
+        "default": "#ef4444"
+      },
+      {
+        "type": "color",
+        "id": "color_sale",
+        "label": "t:settings_schema.colors.sale",
+        "default": "#ef4444"
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.typography.name",
+    "settings": [
+      {
+        "type": "header",
+        "content": "t:settings_schema.typography.headings"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_header_font",
+        "label": "t:settings_schema.typography.heading_font",
+        "default": "assistant_n6"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.typography.body"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_body_font",
+        "label": "t:settings_schema.typography.body_font",
+        "default": "assistant_n4"
+      },
+      {
+        "type": "range",
+        "id": "type_base_size",
+        "label": "t:settings_schema.typography.base_size",
+        "min": 12,
+        "max": 20,
+        "step": 1,
+        "default": 16,
+        "unit": "px"
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.layout.name",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "label": "t:settings_schema.layout.page_width",
+        "min": 1000,
+        "max": 1600,
+        "step": 50,
+        "default": 1400,
+        "unit": "px"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.layout.border_radius"
+      },
+      {
+        "type": "range",
+        "id": "border_radius_sm",
+        "label": "t:settings_schema.layout.radius_small",
+        "min": 0,
+        "max": 16,
+        "step": 1,
+        "default": 4,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "border_radius_md",
+        "label": "t:settings_schema.layout.radius_medium",
+        "min": 0,
+        "max": 24,
+        "step": 1,
+        "default": 8,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "border_radius_lg",
+        "label": "t:settings_schema.layout.radius_large",
+        "min": 0,
+        "max": 32,
+        "step": 1,
+        "default": 12,
+        "unit": "px"
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.buttons.name",
+    "settings": [
+      {
+        "type": "header",
+        "content": "t:settings_schema.buttons.primary"
+      },
+      {
+        "type": "color",
+        "id": "button_primary_bg",
+        "label": "t:settings_schema.buttons.background",
+        "default": "#1a1a1a"
+      },
+      {
+        "type": "color",
+        "id": "button_primary_text",
+        "label": "t:settings_schema.buttons.text",
+        "default": "#ffffff"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.buttons.secondary"
+      },
+      {
+        "type": "color",
+        "id": "button_secondary_bg",
+        "label": "t:settings_schema.buttons.background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "button_secondary_text",
+        "label": "t:settings_schema.buttons.text",
+        "default": "#1a1a1a"
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.product.name",
+    "settings": [
+      {
+        "type": "header",
+        "content": "t:settings_schema.product.delivery"
+      },
+      {
+        "type": "text",
+        "id": "default_delivery_time",
+        "label": "t:settings_schema.product.default_delivery_time",
+        "default": "1-4 Werktage"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.product.vat"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_vat_notice",
+        "label": "t:settings_schema.product.show_vat_notice",
+        "default": true
+      },
+      {
+        "type": "textarea",
+        "id": "vat_notice_text",
+        "label": "t:settings_schema.product.vat_notice_text",
+        "default": "Gemäß §12 Abs. 3 UstG unterliegen Photovoltaikanlagen und dessen Bestandteile 0% MwSt."
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.product.shipping"
+      },
+      {
+        "type": "richtext",
+        "id": "shipping_info",
+        "label": "t:settings_schema.product.shipping_info",
+        "default": "<p>Wir versenden unsere Produkte standardmäßig per Spedition inklusive telefonischer Avisierung.</p>"
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.cart.name",
+    "settings": [
+      {
+        "type": "select",
+        "id": "cart_type",
+        "label": "t:settings_schema.cart.type",
+        "options": [
+          {
+            "value": "page",
+            "label": "t:settings_schema.cart.type_page"
+          },
+          {
+            "value": "drawer",
+            "label": "t:settings_schema.cart.type_drawer"
+          }
+        ],
+        "default": "page"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_cart_note",
+        "label": "t:settings_schema.cart.show_note",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.social.name",
+    "settings": [
+      {
+        "type": "header",
+        "content": "t:settings_schema.social.contact"
+      },
+      {
+        "type": "text",
+        "id": "contact_phone",
+        "label": "t:settings_schema.social.phone",
+        "default": "+49 123 456789"
+      },
+      {
+        "type": "text",
+        "id": "contact_email",
+        "label": "t:settings_schema.social.email",
+        "default": "info@example.com"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.social.links"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook",
+        "label": "Facebook"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "Instagram"
+      },
+      {
+        "type": "text",
+        "id": "social_linkedin",
+        "label": "LinkedIn"
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.favicon.name",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "t:settings_schema.favicon.image"
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.search.name",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "predictive_search_enabled",
+        "label": "t:settings_schema.search.enable_predictive",
+        "default": true
+      }
+    ]
+  }
+]

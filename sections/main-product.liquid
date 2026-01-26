@@ -1,0 +1,552 @@
+{%- comment -%}
+  Main Product Section
+  Product detail page with gallery, info, and form
+{%- endcomment -%}
+
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign featured_image = product.featured_image
+  
+  assign is_on_sale = false
+  if current_variant.compare_at_price > current_variant.price
+    assign is_on_sale = true
+  endif
+  
+  assign short_subtitle = product.metafields.custom.short_subtitle
+  assign delivery_time = product.metafields.custom.delivery_time | default: settings.default_delivery_time
+-%}
+
+<section class="product-page section" data-section-id="{{ section.id }}">
+  <div class="page-width">
+    {%- comment -%} Breadcrumb {%- endcomment -%}
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol class="breadcrumb__list">
+        <li class="breadcrumb__item">
+          <a href="{{ routes.root_url }}">{{ 'general.breadcrumbs.home' | t }}</a>
+        </li>
+        {%- if product.collections.size > 0 -%}
+          <li class="breadcrumb__item">
+            <a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a>
+          </li>
+        {%- endif -%}
+        <li class="breadcrumb__item breadcrumb__item--active" aria-current="page">
+          {{ product.title }}
+        </li>
+      </ol>
+    </nav>
+    
+    <div class="product-page__inner">
+      {%- comment -%} Gallery {%- endcomment -%}
+      <div class="product-page__gallery">
+        <div class="product-gallery">
+          <div class="product-gallery__main">
+            {%- if featured_image -%}
+              <img
+                src="{{ featured_image | image_url: width: 800 }}"
+                srcset="
+                  {{ featured_image | image_url: width: 400 }} 400w,
+                  {{ featured_image | image_url: width: 600 }} 600w,
+                  {{ featured_image | image_url: width: 800 }} 800w,
+                  {{ featured_image | image_url: width: 1000 }} 1000w
+                "
+                sizes="(min-width: 990px) 50vw, 100vw"
+                alt="{{ featured_image.alt | escape | default: product.title }}"
+                class="product-gallery__image"
+                id="product-main-image"
+                width="{{ featured_image.width }}"
+                height="{{ featured_image.height }}"
+                loading="eager"
+              >
+            {%- else -%}
+              <div class="product-gallery__placeholder">
+                {{ 'product-1' | placeholder_svg_tag }}
+              </div>
+            {%- endif -%}
+          </div>
+          
+          {%- if product.images.size > 1 -%}
+            <div class="product-gallery__thumbnails">
+              {%- for image in product.images -%}
+                <button 
+                  type="button" 
+                  class="product-gallery__thumb{% if forloop.first %} is-active{% endif %}"
+                  data-image-url="{{ image | image_url: width: 800 }}"
+                  data-gallery-thumb
+                  aria-label="{{ 'products.product.media' | t }} {{ forloop.index }}"
+                >
+                  <img
+                    src="{{ image | image_url: width: 100 }}"
+                    alt="{{ image.alt | escape | default: product.title }}"
+                    width="80"
+                    height="80"
+                    loading="lazy"
+                  >
+                </button>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+      
+      {%- comment -%} Content {%- endcomment -%}
+      <div class="product-page__content">
+        <div class="product-info">
+          {%- comment -%} Title {%- endcomment -%}
+          <h1 class="product-info__title">{{ product.title }}</h1>
+          
+          {%- if short_subtitle != blank -%}
+            <p class="product-info__subtitle">{{ short_subtitle }}</p>
+          {%- endif -%}
+          
+          {%- comment -%} Price {%- endcomment -%}
+          <div class="product-info__price">
+            {%- render 'price-display', product: product, variant: current_variant, size: 'lg' -%}
+          </div>
+          
+          {%- comment -%} Tier Prices {%- endcomment -%}
+          {%- render 'tier-prices', product: product -%}
+          
+          {%- comment -%} Delivery Time {%- endcomment -%}
+          {%- if delivery_time != blank -%}
+            <div class="product-info__delivery">
+              <span class="product-info__delivery-label">{{ 'products.product.delivery_time' | t }}:</span>
+              <span class="product-info__delivery-value">{{ delivery_time }}</span>
+            </div>
+          {%- endif -%}
+          
+          {%- comment -%} Stock Badge {%- endcomment -%}
+          <div class="product-info__stock">
+            {%- render 'stock-badge', product: product, variant: current_variant, show_quantity: true -%}
+          </div>
+          
+          {%- comment -%} Product Form {%- endcomment -%}
+          <product-form class="product-form" data-product-form>
+            {%- form 'product', product, id: 'product-form', class: 'product-form__form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+              <input type="hidden" name="id" value="{{ current_variant.id }}">
+              
+              {%- comment -%} Variant Selector (if multiple variants) {%- endcomment -%}
+              {%- if product.has_only_default_variant == false -%}
+                <div class="product-form__variants">
+                  {%- for option in product.options_with_values -%}
+                    <div class="product-form__option">
+                      <label class="product-form__option-label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+                        {{ option.name }}
+                      </label>
+                      <select
+                        id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                        class="product-form__select"
+                        name="options[{{ option.name | escape }}]"
+                        data-variant-option
+                      >
+                        {%- for value in option.values -%}
+                          <option 
+                            value="{{ value | escape }}"
+                            {% if option.selected_value == value %}selected{% endif %}
+                          >
+                            {{ value }}
+                          </option>
+                        {%- endfor -%}
+                      </select>
+                    </div>
+                  {%- endfor -%}
+                </div>
+              {%- endif -%}
+              
+              {%- comment -%} Quantity & Add to Cart {%- endcomment -%}
+              <div class="product-form__actions">
+                <div class="product-form__qty">
+                  <label class="visually-hidden" for="Quantity-{{ section.id }}">{{ 'products.product.quantity' | t }}</label>
+                  {%- render 'qty-stepper', variant: current_variant, size: 'lg', form_id: section.id -%}
+                </div>
+                
+                <button
+                  type="submit"
+                  name="add"
+                  class="btn btn--primary btn--lg product-form__submit"
+                  {% unless current_variant.available %}disabled{% endunless %}
+                  data-add-to-cart
+                >
+                  {%- if current_variant.available -%}
+                    {{ 'products.product.add_to_cart' | t }}
+                  {%- else -%}
+                    {{ 'products.product.sold_out' | t }}
+                  {%- endif -%}
+                </button>
+              </div>
+              
+              {%- comment -%} Buy Now Button {%- endcomment -%}
+              {%- if section.settings.show_dynamic_checkout and current_variant.available -%}
+                <div class="product-form__dynamic-checkout">
+                  {{ form | payment_button }}
+                </div>
+              {%- endif -%}
+            {%- endform -%}
+          </product-form>
+          
+          {%- comment -%} Sold Out Message {%- endcomment -%}
+          {%- unless current_variant.available -%}
+            <div class="product-info__sold-out-message">
+              <p>{{ 'products.product.out_of_stock_message' | t }}</p>
+            </div>
+          {%- endunless -%}
+          
+          {%- comment -%} VAT Notice {%- endcomment -%}
+          {%- if settings.show_vat_notice and settings.vat_notice_text != blank -%}
+            <div class="product-info__vat-notice">
+              <strong>{{ 'products.product.vat_notice' | t }}</strong>
+              <p>{{ settings.vat_notice_text }}</p>
+            </div>
+          {%- endif -%}
+          
+          {%- comment -%} Payment Icons {%- endcomment -%}
+          {%- if section.settings.show_payment_icons -%}
+            {%- render 'payment-icons', title: 'products.product.payment_options' | t -%}
+          {%- endif -%}
+          
+          {%- comment -%} Contact CTA {%- endcomment -%}
+          {%- if section.settings.show_contact_cta -%}
+            <div class="product-info__contact">
+              <p class="product-info__contact-title">{{ 'products.product.product_question' | t }}</p>
+              <p class="product-info__contact-text">{{ 'products.product.product_question_text' | t }}</p>
+              <div class="product-info__contact-links">
+                {%- if settings.contact_phone != blank -%}
+                  <a href="tel:{{ settings.contact_phone | remove: ' ' }}" class="product-info__contact-link">
+                    {%- render 'icon-phone' -%}
+                    {{ settings.contact_phone }}
+                  </a>
+                {%- endif -%}
+                {%- if settings.contact_email != blank -%}
+                  <a href="mailto:{{ settings.contact_email }}" class="product-info__contact-link">
+                    {%- render 'icon-mail' -%}
+                    {{ settings.contact_email }}
+                  </a>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+    
+    {%- comment -%} Product Tabs {%- endcomment -%}
+    <div class="product-tabs-wrapper">
+      {%- render 'product-tabs', product: product -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .breadcrumb {
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .breadcrumb__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: var(--font-size-sm);
+  }
+  
+  .breadcrumb__item::after {
+    content: '/';
+    margin-left: var(--spacing-xs);
+    color: var(--color-text-light);
+  }
+  
+  .breadcrumb__item:last-child::after {
+    display: none;
+  }
+  
+  .breadcrumb__item a {
+    color: var(--color-text-light);
+  }
+  
+  .breadcrumb__item a:hover {
+    color: var(--color-primary);
+  }
+  
+  .breadcrumb__item--active {
+    color: var(--color-text);
+  }
+  
+  .product-page__inner {
+    display: grid;
+    gap: var(--spacing-xl);
+  }
+  
+  @media (min-width: 990px) {
+    .product-page__inner {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-2xl);
+    }
+  }
+  
+  /* Gallery */
+  .product-gallery__main {
+    position: relative;
+    aspect-ratio: 1;
+    background-color: #f9fafb;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .product-gallery__image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  
+  .product-gallery__placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #d1d5db;
+  }
+  
+  .product-gallery__thumbnails {
+    display: flex;
+    gap: var(--spacing-sm);
+    overflow-x: auto;
+    padding-bottom: var(--spacing-xs);
+  }
+  
+  .product-gallery__thumb {
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color var(--transition-fast);
+  }
+  
+  .product-gallery__thumb:hover,
+  .product-gallery__thumb.is-active {
+    border-color: var(--color-primary);
+  }
+  
+  .product-gallery__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Product Info */
+  .product-info__title {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  @media (min-width: 750px) {
+    .product-info__title {
+      font-size: var(--font-size-3xl);
+    }
+  }
+  
+  .product-info__subtitle {
+    font-size: var(--font-size-md);
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .product-info__price {
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .product-info__delivery {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .product-info__delivery-label {
+    color: var(--color-text-light);
+  }
+  
+  .product-info__delivery-value {
+    font-weight: 600;
+  }
+  
+  .product-info__stock {
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  /* Product Form */
+  .product-form {
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .product-form__variants {
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .product-form__option {
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .product-form__option-label {
+    display: block;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .product-form__select {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: #fff;
+  }
+  
+  .product-form__actions {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .product-form__qty {
+    flex-shrink: 0;
+  }
+  
+  .product-form__submit {
+    flex-grow: 1;
+  }
+  
+  .product-form__dynamic-checkout {
+    margin-bottom: var(--spacing-md);
+  }
+  
+  /* Sold Out Message */
+  .product-info__sold-out-message {
+    padding: var(--spacing-md);
+    background-color: rgba(239, 68, 68, 0.1);
+    border-radius: var(--radius-md);
+    color: var(--color-error);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  /* VAT Notice */
+  .product-info__vat-notice {
+    padding: var(--spacing-md);
+    background-color: #f9fafb;
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--font-size-sm);
+  }
+  
+  .product-info__vat-notice strong {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .product-info__vat-notice p {
+    color: var(--color-text-light);
+  }
+  
+  /* Contact CTA */
+  .product-info__contact {
+    padding: var(--spacing-lg);
+    background-color: #f9fafb;
+    border-radius: var(--radius-md);
+    margin-top: var(--spacing-lg);
+  }
+  
+  .product-info__contact-title {
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .product-info__contact-text {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .product-info__contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  
+  @media (min-width: 750px) {
+    .product-info__contact-links {
+      flex-direction: row;
+      gap: var(--spacing-lg);
+    }
+  }
+  
+  .product-info__contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+  
+  .product-info__contact-link svg {
+    width: 16px;
+    height: 16px;
+  }
+  
+  /* Tabs Wrapper */
+  .product-tabs-wrapper {
+    margin-top: var(--spacing-2xl);
+  }
+</style>
+
+<script>
+  // Gallery thumbnail switching
+  document.addEventListener('DOMContentLoaded', function() {
+    const thumbs = document.querySelectorAll('[data-gallery-thumb]');
+    const mainImage = document.getElementById('product-main-image');
+    
+    thumbs.forEach(thumb => {
+      thumb.addEventListener('click', function() {
+        const imageUrl = this.dataset.imageUrl;
+        if (mainImage && imageUrl) {
+          mainImage.src = imageUrl;
+          thumbs.forEach(t => t.classList.remove('is-active'));
+          this.classList.add('is-active');
+        }
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Produktseite",
+  "tag": "section",
+  "class": "section-main-product",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_dynamic_checkout",
+      "label": "Dynamic Checkout Button anzeigen",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "Zahlungsarten anzeigen",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_contact_cta",
+      "label": "Kontakt-CTA anzeigen",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

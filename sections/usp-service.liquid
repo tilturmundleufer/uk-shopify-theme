@@ -1,0 +1,212 @@
+{%- comment -%}
+  USP / Service Section
+  Displays service points with icons
+{%- endcomment -%}
+
+<section class="usp-service section" id="usp-{{ section.id }}">
+  <div class="page-width">
+    {%- if section.settings.heading != blank -%}
+      <div class="section-header text-center">
+        {%- if section.settings.subheading != blank -%}
+          <p class="section-subtitle text-sm text-muted uppercase">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+        <h2 class="section-title">{{ section.settings.heading }}</h2>
+        {%- if section.settings.description != blank -%}
+          <p class="section-subtitle mt-md">{{ section.settings.description }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    
+    <div class="usp-service__grid">
+      {%- for block in section.blocks -%}
+        <div class="usp-card" {{ block.shopify_attributes }}>
+          {%- if block.settings.icon != blank -%}
+            <div class="usp-card__icon">
+              {{ block.settings.icon }}
+            </div>
+          {%- elsif block.settings.image != blank -%}
+            <div class="usp-card__icon">
+              <img
+                src="{{ block.settings.image | image_url: width: 80 }}"
+                alt="{{ block.settings.title | escape }}"
+                width="40"
+                height="40"
+                loading="lazy"
+              >
+            </div>
+          {%- else -%}
+            <div class="usp-card__icon">
+              {%- render 'icon-check' -%}
+            </div>
+          {%- endif -%}
+          
+          {%- if block.settings.title != blank -%}
+            <h3 class="usp-card__title">{{ block.settings.title }}</h3>
+          {%- endif -%}
+          
+          {%- if block.settings.description != blank -%}
+            <p class="usp-card__description">{{ block.settings.description }}</p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+    
+    {%- if section.settings.show_image and section.settings.side_image != blank -%}
+      <div class="usp-service__image mt-2xl">
+        <img
+          src="{{ section.settings.side_image | image_url: width: 1200 }}"
+          alt="{{ section.settings.heading | escape }}"
+          loading="lazy"
+          class="rounded-lg"
+        >
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  .usp-service__grid {
+    display: grid;
+    gap: var(--spacing-lg);
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (min-width: 750px) {
+    .usp-service__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (min-width: 990px) {
+    .usp-service__grid {
+      grid-template-columns: repeat({{ section.settings.columns }}, 1fr);
+    }
+  }
+  
+  .usp-card {
+    text-align: center;
+    padding: var(--spacing-lg);
+  }
+  
+  .usp-card__icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto var(--spacing-md);
+    color: var(--color-primary);
+  }
+  
+  .usp-card__icon svg {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .usp-card__icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  
+  .usp-card__title {
+    font-size: var(--font-size-md);
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .usp-card__description {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    line-height: 1.5;
+  }
+  
+  .usp-service__image img {
+    width: 100%;
+    height: auto;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "USP / Service",
+  "tag": "section",
+  "class": "section-usp",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Untertitel",
+      "default": "Service"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "Gute Gründe für uns"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Beschreibung (optional)"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "Spalten (Desktop)",
+      "min": 2,
+      "max": 6,
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image",
+      "label": "Bild anzeigen",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "side_image",
+      "label": "Bild"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "usp",
+      "name": "USP Punkt",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titel",
+          "default": "Hochwertige Produkte"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Beschreibung",
+          "default": "Wir setzen auf geprüfte Markenqualität."
+        },
+        {
+          "type": "html",
+          "id": "icon",
+          "label": "Icon (SVG)",
+          "info": "SVG-Code einfügen"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Bild (alternativ zu Icon)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "USP / Service",
+      "blocks": [
+        { "type": "usp", "settings": { "title": "Hochwertige Produkte" } },
+        { "type": "usp", "settings": { "title": "Schneller Versand" } },
+        { "type": "usp", "settings": { "title": "24/7 für Sie da" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
