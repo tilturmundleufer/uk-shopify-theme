@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "color_primary": "#f5a623",
@@ -45,10 +54,6 @@
       },
       "footer": {
         "type": "footer",
-        "settings": {
-          "tagline": "Ihr zuverlässiger Partner für hochwertige PV-Komponenten.",
-          "show_payment_icons": true
-        },
         "blocks": {
           "menu-1": {
             "type": "menu",
@@ -89,17 +94,26 @@
             }
           }
         },
-        "block_order": ["menu-1", "menu-2", "cta", "legal-1", "legal-2", "legal-3"]
+        "block_order": [
+          "menu-1",
+          "menu-2",
+          "cta",
+          "legal-1",
+          "legal-2",
+          "legal-3"
+        ],
+        "settings": {
+          "tagline": "Ihr zuverlässiger Partner für hochwertige PV-Komponenten.",
+          "show_payment_icons": true
+        }
       },
       "announcement-bar": {
         "type": "announcement-bar",
         "settings": {
           "show_announcement": true,
           "text": "Tagesaktuelle Bestpreise",
-          "text_2": "Ganzjährige Top-Deals!",
           "background_color": "#1a2744",
-          "text_color": "#ffffff",
-          "accent_color": "#f5a623"
+          "text_color": "#ffffff"
         }
       }
     },

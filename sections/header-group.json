@@ -1,14 +1,38 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "header",
   "name": "t:sections.header.name",
   "sections": {
     "announcement-bar": {
       "type": "announcement-bar",
-      "settings": {}
+      "settings": {
+        "show_announcement": true,
+        "text": "Tagesaktuelle Bestpreise - Ganzjährige Top-Deals!",
+        "text_2": "Ganzjährige Top-Deals!",
+        "background_color": "#1a1a1a",
+        "text_color": "#ffffff",
+        "accent_color": "#f5a623"
+      }
     },
     "header": {
       "type": "header",
-      "settings": {}
+      "settings": {
+        "logo": "shopify://shop_images/schneider_Logo.svg",
+        "logo_width": 120,
+        "menu": "main-menu",
+        "show_topbar": true,
+        "sticky_header": true,
+        "cta_text": "Zum Konfigurator",
+        "cta_url": ""
+      }
     }
   },
   "order": [
