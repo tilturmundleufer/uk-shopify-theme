@@ -1,5 +1,6 @@
 /* ============================================
    BUTTON COMPONENT
+   Inspired by unterkonstruktion.de
    ============================================ */
 
 .btn {
@@ -36,36 +37,48 @@
   outline-offset: 2px;
 }
 
-/* Primary Button */
+/* Primary Button - Orange */
 .btn--primary {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
-  color: #fff;
+  color: var(--color-secondary);
 }
 
 .btn--primary:hover {
-  background-color: transparent;
-  color: var(--color-primary);
+  filter: brightness(1.1);
+  transform: translateY(-1px);
 }
 
 .btn--primary:active {
   transform: scale(0.98);
 }
 
-/* Secondary Button */
+/* Secondary Button - Dark Navy Outline */
 .btn--secondary {
   background-color: transparent;
-  border-color: var(--color-primary);
-  color: var(--color-primary);
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
 }
 
 .btn--secondary:hover {
-  background-color: var(--color-primary);
+  background-color: var(--color-secondary);
   color: #fff;
 }
 
 .btn--secondary:active {
   transform: scale(0.98);
+}
+
+/* Dark Button - Navy filled */
+.btn--dark {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+  color: #fff;
+}
+
+.btn--dark:hover {
+  background-color: #0d1b2a;
+  border-color: #0d1b2a;
 }
 
 /* Ghost Button (minimal) */
@@ -76,30 +89,44 @@
 }
 
 .btn--ghost:hover {
-  background-color: rgba(var(--color-text-rgb, 0, 0, 0), 0.05);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
-/* CTA Button (accent color) */
+/* CTA Button (Orange - Main CTA) */
 .btn--cta {
-  background-color: var(--color-secondary);
-  border-color: var(--color-secondary);
-  color: var(--color-primary);
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-secondary);
+  font-weight: 600;
 }
 
 .btn--cta:hover {
   filter: brightness(1.1);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(245, 166, 35, 0.3);
 }
 
 /* White Button */
 .btn--white {
   background-color: #fff;
   border-color: #fff;
-  color: var(--color-primary);
+  color: var(--color-secondary);
 }
 
 .btn--white:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Outline White Button */
+.btn--outline-white {
   background-color: transparent;
+  border-color: #fff;
   color: #fff;
+}
+
+.btn--outline-white:hover {
+  background-color: #fff;
+  color: var(--color-secondary);
 }
 
 /* Size Variants */
@@ -109,7 +136,7 @@
 }
 
 .btn--lg {
-  padding: 16px 32px;
+  padding: 14px 28px;
   font-size: var(--font-size-md);
 }
 
@@ -161,7 +188,13 @@
   animation: spin 0.75s linear infinite;
 }
 
-.btn--primary.is-loading::after {
+.btn--primary.is-loading::after,
+.btn--cta.is-loading::after {
+  border-color: var(--color-secondary);
+  border-right-color: transparent;
+}
+
+.btn--dark.is-loading::after {
   border-color: #fff;
   border-right-color: transparent;
 }
@@ -208,6 +241,21 @@
   transform: translateX(4px);
 }
 
+/* Arrow Button */
+.btn--arrow {
+  gap: var(--spacing-xs);
+}
+
+.btn--arrow svg {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--transition-fast);
+}
+
+.btn--arrow:hover svg {
+  transform: translateX(4px);
+}
+
 /* Dynamic Checkout Button Override */
 .shopify-payment-button__button {
   border-radius: var(--radius-md) !important;
@@ -216,10 +264,10 @@
 
 .shopify-payment-button__button--unbranded {
   background-color: var(--color-secondary) !important;
-  color: var(--color-primary) !important;
+  color: #fff !important;
   font-weight: 600 !important;
 }
 
 .shopify-payment-button__button--unbranded:hover {
-  filter: brightness(1.1) !important;
+  background-color: #0d1b2a !important;
 }

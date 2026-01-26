@@ -1,5 +1,6 @@
 {%- comment -%}
   Hero Section
+  Inspired by unterkonstruktion.de with full-width background image
 {%- endcomment -%}
 
 {{ 'section-hero.css' | asset_url | stylesheet_tag }}
@@ -11,21 +12,27 @@
   assign primary_cta_url = section.settings.primary_cta_url
   assign secondary_cta_text = section.settings.secondary_cta_text
   assign secondary_cta_url = section.settings.secondary_cta_url
-  assign image = section.settings.image
-  assign video_url = section.settings.video_url
+  assign background_image = section.settings.background_image
+  
+  assign cta_box_heading = section.settings.cta_box_heading
+  assign cta_box_image = section.settings.cta_box_image
+  assign cta_box_text = section.settings.cta_box_text
+  assign cta_box_url = section.settings.cta_box_url
 -%}
 
-<section class="hero section" id="hero-{{ section.id }}">
+<section class="hero" id="hero-{{ section.id }}"{% if background_image != blank %} style="background-image: url('{{ background_image | image_url: width: 1920 }}');"{% endif %}>
+  <div class="hero__overlay"></div>
   <div class="page-width">
     <div class="hero__inner">
       <div class="hero__content">
-        {%- if section.settings.badge_text != blank -%}
-          <span class="badge badge--secondary hero__badge">{{ section.settings.badge_text }}</span>
-        {%- endif -%}
-        
         {%- if heading != blank -%}
           <h1 class="hero__title">
-            {{ heading }}
+            {%- assign words = heading | split: ' ' -%}
+            {%- for word in words -%}
+              {%- if forloop.index == 3 -%}<strong>{% endif -%}
+              {{ word }}{% unless forloop.last %} {% endunless %}
+              {%- if forloop.index == 3 -%}</strong>{% endif -%}
+            {%- endfor -%}
           </h1>
         {%- endif -%}
         
@@ -33,15 +40,15 @@
           <p class="hero__subtitle">{{ subheading }}</p>
         {%- endif -%}
         
-        <div class="hero__actions btn-group">
-          {%- if primary_cta_text != blank and primary_cta_url != blank -%}
-            <a href="{{ primary_cta_url }}" class="btn btn--cta btn--lg">
+        <div class="hero__actions">
+          {%- if primary_cta_text != blank -%}
+            <a href="{{ primary_cta_url | default: '#' }}" class="btn btn--white btn--lg">
               {{ primary_cta_text }}
             </a>
           {%- endif -%}
           
-          {%- if secondary_cta_text != blank and secondary_cta_url != blank -%}
-            <a href="{{ secondary_cta_url }}" class="btn btn--primary btn--lg">
+          {%- if secondary_cta_text != blank -%}
+            <a href="{{ secondary_cta_url | default: '#' }}" class="btn btn--outline-white btn--lg btn--arrow">
               {{ secondary_cta_text }}
               {%- render 'icon-arrow' -%}
             </a>
@@ -49,36 +56,33 @@
         </div>
       </div>
       
-      {%- if image != blank or video_url != blank -%}
-        <div class="hero__media">
-          {%- if video_url != blank -%}
-            <video 
-              class="hero__video" 
-              autoplay 
-              muted 
-              loop 
-              playsinline
-              poster="{{ image | image_url: width: 800 }}"
-            >
-              <source src="{{ video_url }}" type="video/mp4">
-            </video>
-          {%- elsif image != blank -%}
-            <img
-              src="{{ image | image_url: width: 800 }}"
-              srcset="
-                {{ image | image_url: width: 400 }} 400w,
-                {{ image | image_url: width: 600 }} 600w,
-                {{ image | image_url: width: 800 }} 800w,
-                {{ image | image_url: width: 1000 }} 1000w
-              "
-              sizes="(min-width: 990px) 50vw, 100vw"
-              alt="{{ image.alt | escape | default: heading }}"
-              class="hero__image"
-              width="{{ image.width }}"
-              height="{{ image.height }}"
-              loading="eager"
-            >
-          {%- endif -%}
+      {%- if section.settings.show_cta_box -%}
+        <div class="hero__cta-box">
+          <div class="hero__cta-box-inner">
+            {%- if cta_box_heading != blank -%}
+              <h2 class="hero__cta-box-title">{{ cta_box_heading }}</h2>
+            {%- endif -%}
+            
+            {%- if cta_box_image != blank -%}
+              <div class="hero__cta-box-image">
+                <img
+                  src="{{ cta_box_image | image_url: width: 300 }}"
+                  alt="{{ cta_box_heading }}"
+                  width="200"
+                  height="200"
+                  loading="eager"
+                >
+                {%- if cta_box_text != blank -%}
+                  <span class="hero__cta-box-label">{{ cta_box_text }}</span>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+            
+            <a href="{{ cta_box_url | default: '#' }}" class="btn btn--cta btn--lg btn--full btn--arrow">
+              {{ primary_cta_text | default: 'Zum Konfigurator' }}
+              {%- render 'icon-arrow' -%}
+            </a>
+          </div>
         </div>
       {%- endif -%}
     </div>
@@ -92,10 +96,8 @@
   "class": "section-hero",
   "settings": [
     {
-      "type": "text",
-      "id": "badge_text",
-      "label": "Badge-Text (optional)",
-      "default": "Ihr Partner für Solar"
+      "type": "header",
+      "content": "Inhalt"
     },
     {
       "type": "text",
@@ -141,18 +143,44 @@
     },
     {
       "type": "header",
-      "content": "Medien"
+      "content": "Hintergrundbild"
     },
     {
       "type": "image_picker",
-      "id": "image",
-      "label": "Bild"
+      "id": "background_image",
+      "label": "Hintergrundbild"
+    },
+    {
+      "type": "header",
+      "content": "CTA-Box (rechts)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta_box",
+      "label": "CTA-Box anzeigen",
+      "default": true
     },
     {
       "type": "text",
-      "id": "video_url",
-      "label": "Video-URL (optional)",
-      "info": "MP4 Video URL für Autoplay"
+      "id": "cta_box_heading",
+      "label": "Überschrift",
+      "default": "Jetzt Unterkonstruktion selbst konfigurieren!"
+    },
+    {
+      "type": "image_picker",
+      "id": "cta_box_image",
+      "label": "Bild/Icon"
+    },
+    {
+      "type": "text",
+      "id": "cta_box_text",
+      "label": "Bildunterschrift",
+      "default": "Solarmodul"
+    },
+    {
+      "type": "url",
+      "id": "cta_box_url",
+      "label": "Link"
     }
   ],
   "presets": [

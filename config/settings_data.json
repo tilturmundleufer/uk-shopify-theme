@@ -1,7 +1,7 @@
 {
   "current": {
-    "color_primary": "#1a1a1a",
-    "color_secondary": "#f5a623",
+    "color_primary": "#f5a623",
+    "color_secondary": "#1a2744",
     "color_background": "#ffffff",
     "color_text": "#1a1a1a",
     "color_border": "#e5e5e5",
@@ -13,20 +13,20 @@
     "type_base_size": 16,
     "page_width": 1400,
     "border_radius_sm": 4,
-    "border_radius_md": 8,
-    "border_radius_lg": 12,
-    "button_primary_bg": "#1a1a1a",
-    "button_primary_text": "#ffffff",
-    "button_secondary_bg": "#ffffff",
-    "button_secondary_text": "#1a1a1a",
+    "border_radius_md": 6,
+    "border_radius_lg": 8,
+    "button_primary_bg": "#f5a623",
+    "button_primary_text": "#1a2744",
+    "button_secondary_bg": "#1a2744",
+    "button_secondary_text": "#ffffff",
     "default_delivery_time": "1-4 Werktage",
     "show_vat_notice": true,
     "vat_notice_text": "Gemäß §12 Abs. 3 UstG unterliegen Photovoltaikanlagen und dessen Bestandteile 0% MwSt.",
     "shipping_info": "<p>Wir versenden unsere Produkte standardmäßig per Spedition inklusive telefonischer Avisierung. Das bedeutet, Sie erhalten vor der Anlieferung einen Anruf, um den genauen Liefertermin abzustimmen.</p><p>In manchen Fällen werden kleinere Bestellungen per DHL versendet, um eine schnelle und unkomplizierte Zustellung zu gewährleisten.</p><p>Alternativ können Sie Ihre Bestellung auch direkt in unseren Lagern abholen.</p>",
     "cart_type": "page",
     "show_cart_note": true,
-    "contact_phone": "+49 123 456789",
-    "contact_email": "info@example.com",
+    "contact_phone": "+49 4102 7787339",
+    "contact_email": "info@unterkonstruktion.de",
     "social_facebook": "",
     "social_instagram": "",
     "social_linkedin": "",
@@ -95,9 +95,11 @@
         "type": "announcement-bar",
         "settings": {
           "show_announcement": true,
-          "text": "Tagesaktuelle Bestpreise - Ganzjährige Top-Deals!",
-          "background_color": "#1a1a1a",
-          "text_color": "#ffffff"
+          "text": "Tagesaktuelle Bestpreise",
+          "text_2": "Ganzjährige Top-Deals!",
+          "background_color": "#1a2744",
+          "text_color": "#ffffff",
+          "accent_color": "#f5a623"
         }
       }
     },
@@ -105,8 +107,8 @@
   },
   "presets": {
     "Default": {
-      "color_primary": "#1a1a1a",
-      "color_secondary": "#f5a623",
+      "color_primary": "#f5a623",
+      "color_secondary": "#1a2744",
       "color_background": "#ffffff",
       "color_text": "#1a1a1a"
     }

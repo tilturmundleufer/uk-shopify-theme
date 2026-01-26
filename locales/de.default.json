@@ -101,8 +101,11 @@
     "header": {
       "menu": "Menü",
       "cart": "Warenkorb",
+      "cart_text": "Warenkorb",
       "search": "Suchen",
-      "account": "Konto"
+      "search_placeholder": "Alle Produkte durchsuchen...",
+      "account": "Konto",
+      "secondary_menu": "Sekundäre Navigation"
     },
     "footer": {
       "newsletter": "Newsletter",

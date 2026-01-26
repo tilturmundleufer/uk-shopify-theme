@@ -18,13 +18,15 @@
         "type": "color",
         "id": "color_primary",
         "label": "t:settings_schema.colors.primary",
-        "default": "#1a1a1a"
+        "default": "#f5a623",
+        "info": "Orange - Hauptfarbe für CTAs und Akzente"
       },
       {
         "type": "color",
         "id": "color_secondary",
         "label": "t:settings_schema.colors.secondary",
-        "default": "#f5a623"
+        "default": "#1a2744",
+        "info": "Navy-Blau - Für Header, Navigation, dunkle Elemente"
       },
       {
         "type": "header",
@@ -167,13 +169,13 @@
         "type": "color",
         "id": "button_primary_bg",
         "label": "t:settings_schema.buttons.background",
-        "default": "#1a1a1a"
+        "default": "#f5a623"
       },
       {
         "type": "color",
         "id": "button_primary_text",
         "label": "t:settings_schema.buttons.text",
-        "default": "#ffffff"
+        "default": "#1a2744"
       },
       {
         "type": "header",
@@ -183,13 +185,13 @@
         "type": "color",
         "id": "button_secondary_bg",
         "label": "t:settings_schema.buttons.background",
-        "default": "#ffffff"
+        "default": "#1a2744"
       },
       {
         "type": "color",
         "id": "button_secondary_text",
         "label": "t:settings_schema.buttons.text",
-        "default": "#1a1a1a"
+        "default": "#ffffff"
       }
     ]
   },
