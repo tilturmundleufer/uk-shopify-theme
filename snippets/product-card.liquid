@@ -1,5 +1,6 @@
 {%- comment -%}
   Product Card Component
+  Inspired by unterkonstruktion.de design
   
   Accepts:
   - product: {Object} Product Liquid object
@@ -35,77 +36,73 @@
 
 <div class="product-card{% if is_sold_out %} product-card--sold-out{% endif %}{% if card_class %} {{ card_class }}{% endif %}" data-product-card data-product-id="{{ product.id }}">
   {%- comment -%} Image {%- endcomment -%}
-  <div class="product-card__image-wrapper badge-container">
-    {%- if featured_image -%}
-      <img
-        src="{{ featured_image | image_url: width: 600 }}"
-        srcset="
-          {{ featured_image | image_url: width: 300 }} 300w,
-          {{ featured_image | image_url: width: 450 }} 450w,
-          {{ featured_image | image_url: width: 600 }} 600w
-        "
-        sizes="(min-width: 990px) 25vw, (min-width: 750px) 33vw, 50vw"
-        alt="{{ featured_image.alt | escape | default: product.title }}"
-        class="product-card__image"
-        width="{{ featured_image.width }}"
-        height="{{ featured_image.height }}"
-        {% if lazy_load %}loading="lazy"{% endif %}
-      >
-    {%- else -%}
-      <div class="product-card__image product-card__image--placeholder">
-        {{ 'product-1' | placeholder_svg_tag }}
-      </div>
-    {%- endif -%}
-    
-    {%- comment -%} Badges {%- endcomment -%}
-    <div class="product-card__badges">
-      {%- render 'stock-badge', product: product, variant: current_variant -%}
-      {%- if is_on_sale -%}
-        <span class="badge badge--sale">{{ 'products.product.on_sale' | t }}</span>
+  <a href="{{ product.url }}" class="product-card__image-link">
+    <div class="product-card__image-wrapper">
+      {%- if featured_image -%}
+        <img
+          src="{{ featured_image | image_url: width: 600 }}"
+          srcset="
+            {{ featured_image | image_url: width: 300 }} 300w,
+            {{ featured_image | image_url: width: 450 }} 450w,
+            {{ featured_image | image_url: width: 600 }} 600w
+          "
+          sizes="(min-width: 990px) 25vw, (min-width: 750px) 33vw, 50vw"
+          alt="{{ featured_image.alt | escape | default: product.title }}"
+          class="product-card__image"
+          width="{{ featured_image.width }}"
+          height="{{ featured_image.height }}"
+          {% if lazy_load %}loading="lazy"{% endif %}
+        >
+      {%- else -%}
+        <div class="product-card__image product-card__image--placeholder">
+          {{ 'product-1' | placeholder_svg_tag }}
+        </div>
       {%- endif -%}
     </div>
-  </div>
+  </a>
   
   {%- comment -%} Content {%- endcomment -%}
   <div class="product-card__content">
-    {%- if show_vendor and product.vendor -%}
-      <p class="product-card__vendor">{{ product.vendor }}</p>
-    {%- endif -%}
+    {%- comment -%} Stock Badge - Below image {%- endcomment -%}
+    <div class="product-card__stock">
+      {%- render 'stock-badge', product: product, variant: current_variant, style: 'minimal' -%}
+    </div>
     
-    <h3 class="product-card__title">
-      <a href="{{ product.url }}">{{ product.title }}</a>
-    </h3>
-    
-    {%- if show_description -%}
-      {%- assign short_description = product.metafields.custom.short_subtitle | default: product.description | strip_html | truncate: 80 -%}
-      {%- if short_description != blank -%}
-        <p class="product-card__description">{{ short_description }}</p>
-      {%- endif -%}
-    {%- endif -%}
-    
-    {%- comment -%} Price {%- endcomment -%}
+    {%- comment -%} Price - Strike through above, current below {%- endcomment -%}
     <div class="product-card__price-wrapper">
       {%- if is_on_sale -%}
         <span class="product-card__price product-card__price--compare">
           {{ current_variant.compare_at_price | money }}
         </span>
       {%- endif -%}
-      <span class="product-card__price{% if is_on_sale %} product-card__price--sale{% endif %}">
-        {{ current_variant.price | money }}
-      </span>
-      {%- if unit_price != blank or unit_label != blank -%}
+      <div class="product-card__price-row">
+        <span class="product-card__price{% if is_on_sale %} product-card__price--sale{% endif %}">
+          {{ current_variant.price | money }}
+        </span>
         <span class="product-card__price-unit">
           ({% if unit_price != blank %}{{ unit_price }}{% else %}{{ current_variant.price | money }}{% endif %}{{ unit_label }})
         </span>
-      {%- endif -%}
+      </div>
     </div>
+    
+    {%- comment -%} Title {%- endcomment -%}
+    <h3 class="product-card__title">
+      <a href="{{ product.url }}">{{ product.title }}</a>
+    </h3>
+    
+    {%- if show_description -%}
+      {%- assign short_description = product.metafields.custom.short_subtitle | default: product.description | strip_html | truncate: 100 -%}
+      {%- if short_description != blank -%}
+        <p class="product-card__description">{{ short_description }}</p>
+      {%- endif -%}
+    {%- endif -%}
     
     {%- comment -%} Actions {%- endcomment -%}
     <div class="product-card__actions">
       {%- if show_qty_stepper and current_variant.available -%}
-        <div class="product-card__qty-row">
-          <span class="product-card__qty-label">{{ 'products.product.quantity' | t }}</span>
-          {%- render 'qty-stepper', variant: current_variant, size: 'compact', form_id: product.id -%}
+        <div class="product-card__qty-wrapper">
+          <label class="product-card__qty-label" for="qty-card-{{ product.id }}">{{ 'products.product.quantity' | t | default: 'Menge' }}</label>
+          {%- render 'qty-stepper', variant: current_variant, size: 'card', form_id: product.id, input_id: 'qty-card-' | append: product.id -%}
         </div>
       {%- endif -%}
       
@@ -116,7 +113,7 @@
           
           <button 
             type="submit" 
-            class="btn btn--primary btn--full product-card__add-btn"
+            class="btn btn--cta btn--full product-card__add-btn"
             {% unless current_variant.available %}disabled{% endunless %}
             data-add-to-cart
           >

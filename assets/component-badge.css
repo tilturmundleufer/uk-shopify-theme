@@ -10,24 +10,10 @@
   font-size: var(--font-size-xs);
   font-weight: 600;
   line-height: 1.2;
-  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  border-radius: var(--radius-full);
   white-space: nowrap;
-}
-
-/* Stock Badges */
-.badge--in-stock {
-  background-color: rgba(34, 197, 94, 0.1);
-  color: var(--color-success);
-}
-
-.badge--out-of-stock {
-  background-color: rgba(239, 68, 68, 0.1);
-  color: var(--color-error);
-}
-
-.badge--low-stock {
-  background-color: rgba(245, 158, 11, 0.1);
-  color: #f59e0b;
 }
 
 /* Sale Badge */
@@ -38,59 +24,116 @@
 
 /* Discount Badge */
 .badge--discount {
-  background-color: rgba(var(--color-sale-rgb, 239, 68, 68), 0.1);
-  color: var(--color-sale);
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
 }
 
 /* New Badge */
 .badge--new {
-  background-color: var(--color-primary);
+  background-color: var(--color-secondary);
   color: #fff;
 }
 
-/* Generic Badges */
+/* Status Variants */
 .badge--primary {
   background-color: var(--color-primary);
-  color: #fff;
+  color: var(--color-secondary);
 }
 
 .badge--secondary {
   background-color: var(--color-secondary);
-  color: var(--color-primary);
+  color: #fff;
 }
 
 .badge--outline {
   background-color: transparent;
-  border: 1px solid var(--color-border);
-  color: var(--color-text);
+  border: 1px solid currentColor;
 }
 
-/* Badge with Icon */
-.badge svg {
-  width: 12px;
-  height: 12px;
+/* ============================================
+   STOCK BADGE COMPONENT
+   ============================================ */
+
+.stock-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+}
+
+/* Dot indicator */
+.stock-badge__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
   flex-shrink: 0;
 }
 
-/* Stock Badge with Dot */
+.stock-badge__text {
+  color: inherit;
+}
+
+/* In Stock - Green */
+.stock-badge--in-stock {
+  color: #16a34a;
+}
+
+.stock-badge--in-stock .stock-badge__dot {
+  background-color: #16a34a;
+}
+
+/* Low Stock - Orange/Yellow */
+.stock-badge--low-stock {
+  color: #ca8a04;
+}
+
+.stock-badge--low-stock .stock-badge__dot {
+  background-color: #ca8a04;
+}
+
+/* Out of Stock - Red */
+.stock-badge--out-of-stock {
+  color: var(--color-error);
+}
+
+.stock-badge--out-of-stock .stock-badge__dot {
+  background-color: var(--color-error);
+}
+
+/* Minimal Style (used in product cards) */
+.stock-badge--minimal {
+  font-size: var(--font-size-sm);
+  padding: 0;
+  background: transparent;
+}
+
+/* ============================================
+   LEGACY BADGE STYLES (for backwards compatibility)
+   ============================================ */
+
+.badge--in-stock {
+  background-color: rgba(22, 163, 74, 0.1);
+  color: #16a34a;
+}
+
+.badge--out-of-stock {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: var(--color-error);
+}
+
+.badge--low-stock {
+  background-color: rgba(202, 138, 4, 0.1);
+  color: #ca8a04;
+}
+
+/* Dot Variant */
 .badge--dot::before {
   content: '';
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.badge--in-stock.badge--dot::before {
-  background-color: var(--color-success);
-}
-
-.badge--out-of-stock.badge--dot::before {
-  background-color: var(--color-error);
-}
-
-.badge--low-stock.badge--dot::before {
-  background-color: #f59e0b;
+  background-color: currentColor;
 }
 
 /* Size Variants */
@@ -104,14 +147,13 @@
   font-size: var(--font-size-sm);
 }
 
-/* Position Utilities for Card Badges */
+/* Positioning Utilities */
 .badge-container {
   position: relative;
 }
 
 .badge--absolute {
   position: absolute;
-  z-index: 1;
 }
 
 .badge--top-left {

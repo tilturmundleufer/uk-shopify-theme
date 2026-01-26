@@ -1,12 +1,13 @@
 {%- comment -%}
   Quantity Stepper Component
+  Inspired by unterkonstruktion.de design
   
   Accepts:
   - variant: {Object} Variant Liquid object (optional)
   - value: {Number} Initial value (default: 1)
   - min: {Number} Minimum value (default: 1)
   - max: {Number} Maximum value (default: inventory or 99)
-  - size: {String} Size variant: 'sm', 'compact', 'lg' (optional)
+  - size: {String} Size variant: 'sm', 'card', 'lg' (optional)
   - form_id: {String} Associated form ID (optional)
   - name: {String} Input name attribute (default: 'quantity')
   - input_id: {String} Input ID (optional)
@@ -40,16 +41,6 @@
   data-qty-stepper
   {% if form_id %}data-form-id="{{ form_id }}"{% endif %}
 >
-  <button
-    type="button"
-    class="qty-stepper__btn"
-    data-qty-decrease
-    aria-label="{{ 'accessibility.decrease_quantity' | t }}"
-    {% if value <= min %}disabled{% endif %}
-  >
-    {%- render 'icon-minus' -%}
-  </button>
-  
   <input
     type="number"
     class="qty-stepper__input"
@@ -66,13 +57,25 @@
     {% if disabled %}disabled{% endif %}
   >
   
-  <button
-    type="button"
-    class="qty-stepper__btn"
-    data-qty-increase
-    aria-label="{{ 'accessibility.increase_quantity' | t }}"
-    {% if value >= max %}disabled{% endif %}
-  >
-    {%- render 'icon-plus' -%}
-  </button>
+  <div class="qty-stepper__buttons">
+    <button
+      type="button"
+      class="qty-stepper__btn qty-stepper__btn--increase"
+      data-qty-increase
+      aria-label="{{ 'accessibility.increase_quantity' | t }}"
+      {% if value >= max %}disabled{% endif %}
+    >
+      {%- render 'icon-plus' -%}
+    </button>
+    
+    <button
+      type="button"
+      class="qty-stepper__btn qty-stepper__btn--decrease"
+      data-qty-decrease
+      aria-label="{{ 'accessibility.decrease_quantity' | t }}"
+      {% if value <= min %}disabled{% endif %}
+    >
+      {%- render 'icon-minus' -%}
+    </button>
+  </div>
 </qty-stepper>
