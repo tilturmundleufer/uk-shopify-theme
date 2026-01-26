@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -11,129 +20,144 @@
         "secondary_cta_url": "shopify://collections/all",
         "show_cta_box": true,
         "cta_box_heading": "Jetzt Unterkonstruktion selbst konfigurieren!",
-        "cta_box_text": "Solarmodul"
+        "cta_box_text": "Solarmodul",
+        "cta_box_url": ""
       }
-    },
-    "featured-collection-with-tabs": {
-      "type": "featured-collection",
-      "settings": {
-        "show_tabs": true,
-        "products_to_show": 4,
-        "show_qty_stepper": true,
-        "show_view_all": true,
-        "alternate_bg": false
-      },
-      "blocks": {
-        "tab-1": {
-          "type": "category_tab",
-          "settings": {
-            "label": "Unterkonstruktion"
-          }
-        },
-        "tab-2": {
-          "type": "category_tab",
-          "settings": {
-            "label": "Solarmodule"
-          }
-        },
-        "tab-3": {
-          "type": "category_tab",
-          "settings": {
-            "label": "Wechselrichter"
-          }
-        },
-        "tab-4": {
-          "type": "category_tab",
-          "settings": {
-            "label": "Batteriespeicher"
-          }
-        },
-        "tab-5": {
-          "type": "category_tab",
-          "settings": {
-            "label": "Zubehör"
-          }
-        }
-      },
-      "block_order": ["tab-1", "tab-2", "tab-3", "tab-4", "tab-5"]
     },
     "category-overview": {
       "type": "category-overview",
-      "settings": {
-        "subheading": "Alle Kategorien",
-        "heading": "Qualität, auf die Sie bauen können",
-        "columns": 5
-      },
       "blocks": {
         "category-1": {
           "type": "category",
           "settings": {
-            "title": "Unterkonstruktion"
+            "title": "Unterkonstruktion",
+            "description": "",
+            "icon": "",
+            "link": ""
           }
         },
         "category-2": {
           "type": "category",
           "settings": {
-            "title": "Solarmodule"
+            "title": "Solarmodule",
+            "description": "",
+            "icon": "",
+            "link": ""
           }
         },
         "category-3": {
           "type": "category",
           "settings": {
-            "title": "Wechselrichter"
+            "title": "Wechselrichter",
+            "description": "",
+            "icon": "",
+            "link": ""
           }
         },
         "category-4": {
           "type": "category",
           "settings": {
-            "title": "Batteriespeicher"
+            "title": "Batteriespeicher",
+            "description": "",
+            "icon": "",
+            "link": ""
           }
         },
         "category-5": {
           "type": "category",
           "settings": {
-            "title": "Zubehör"
+            "title": "Zubehör",
+            "description": "",
+            "icon": "",
+            "link": ""
           }
         }
       },
-      "block_order": ["category-1", "category-2", "category-3", "category-4", "category-5"]
+      "block_order": [
+        "category-1",
+        "category-2",
+        "category-3",
+        "category-4",
+        "category-5"
+      ],
+      "settings": {
+        "subheading": "Alle Kategorien",
+        "heading": "Qualität, auf die Sie bauen können",
+        "columns": 5
+      }
+    },
+    "featured-collection-1": {
+      "type": "featured-collection",
+      "settings": {
+        "show_tabs": true,
+        "subheading": "Unterkonstruktion",
+        "heading": "Alles für's Dach",
+        "collection": "frontpage",
+        "products_to_show": 4,
+        "show_qty_stepper": true,
+        "show_view_all": true,
+        "alternate_bg": false
+      }
+    },
+    "featured-collection-2": {
+      "type": "featured-collection",
+      "settings": {
+        "show_tabs": true,
+        "subheading": "Solarmodule",
+        "heading": "Unsere PV-Module",
+        "collection": "frontpage",
+        "products_to_show": 4,
+        "show_qty_stepper": true,
+        "show_view_all": true,
+        "alternate_bg": true
+      }
     },
     "usp-service": {
       "type": "usp-service",
-      "settings": {
-        "subheading": "Service",
-        "heading": "Gute Gründe für uns",
-        "columns": 3
-      },
       "blocks": {
         "usp-1": {
           "type": "usp",
           "settings": {
             "title": "Hochwertige Produkte",
-            "description": "Wir setzen auf geprüfte Markenqualität."
+            "description": "Wir setzen auf geprüfte Markenqualität.",
+            "icon": ""
           }
         },
         "usp-2": {
           "type": "usp",
           "settings": {
             "title": "Schneller Versand",
-            "description": "Schnelle und zuverlässige Lieferung."
+            "description": "Schnelle und zuverlässige Lieferung.",
+            "icon": ""
           }
         },
         "usp-3": {
           "type": "usp",
           "settings": {
             "title": "24/7 für Sie da",
-            "description": "Unser Team hilft Ihnen gerne weiter."
+            "description": "Unser Team hilft Ihnen gerne weiter.",
+            "icon": ""
           }
         }
       },
-      "block_order": ["usp-1", "usp-2", "usp-3"]
+      "block_order": [
+        "usp-1",
+        "usp-2",
+        "usp-3"
+      ],
+      "settings": {
+        "subheading": "Service",
+        "heading": "Gute Gründe für uns",
+        "description": "",
+        "columns": 3,
+        "show_image": false
+      }
     },
     "partner-logos": {
       "type": "partner-logos",
       "settings": {
         "subheading": "Unsere Partner",
+        "heading": "",
         "enable_scroll": true
       }
     },
@@ -144,14 +168,16 @@
         "heading": "Sie haben Fragen? Unser Team hilft gerne weiter!",
         "description": "Rufen Sie uns an oder schreiben Sie uns per Mail!",
         "button_text": "Jetzt kontaktieren",
-        "background_color": "#1a2744"
+        "button_url": "",
+        "background_color": "#1a1a1a"
       }
     }
   },
   "order": [
     "hero",
-    "featured-collection-with-tabs",
     "category-overview",
+    "featured-collection-1",
+    "featured-collection-2",
     "usp-service",
     "partner-logos",
     "contact-cta"
