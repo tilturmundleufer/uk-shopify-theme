@@ -14,6 +14,9 @@
     {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <title>
       {{ page_title }}
@@ -62,12 +65,17 @@
         --color-success: {{ settings.color_success }};
         --color-error: {{ settings.color_error }};
         --color-sale: {{ settings.color_sale }};
+        --color-surface: #f7f7f7;
+        --color-surface-strong: #ffffff;
+        --color-ink-soft: rgba(var(--color-text-rgb), 0.68);
+        --color-accent-soft: rgba(var(--color-primary-rgb), 0.14);
+        --color-secondary-soft: rgba(7, 37, 68, 0.08);
 
         /* Typography */
-        --font-body-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+        --font-body-family: "Geist", {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
         --font-body-style: {{ settings.type_body_font.style }};
         --font-body-weight: {{ settings.type_body_font.weight }};
-        --font-heading-family: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }};
+        --font-heading-family: "Outfit", "Geist", {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }};
         --font-heading-style: {{ settings.type_header_font.style }};
         --font-heading-weight: {{ settings.type_header_font.weight }};
 
@@ -100,6 +108,7 @@
         --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
         --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --shadow-panel: 0 18px 50px rgba(1, 11, 21, 0.14);
 
         /* Transitions */
         --transition-fast: 150ms ease;
@@ -108,7 +117,8 @@
 
         /* Layout */
         --page-width: {{ settings.page_width }}px;
-        --header-height: 70px;
+        --header-height: 82px;
+        --section-gap: clamp(3.5rem, 7vw, 6rem);
       }
     {% endstyle %}
 
@@ -134,6 +144,17 @@
     </main>
 
     {% sections 'footer-group' %}
+
+    <div class="cart-toast" data-cart-toast hidden>
+      <div class="cart-toast__icon" aria-hidden="true">
+        {% render 'icon-check' %}
+      </div>
+      <div class="cart-toast__content">
+        <strong class="cart-toast__title">{{ 'cart.added_to_cart' | t }}</strong>
+        <p class="cart-toast__text">Das Produkt wurde erfolgreich hinzugefügt</p>
+      </div>
+      <a href="{{ routes.cart_url }}" class="cart-toast__link">Zum Warenkorb</a>
+    </div>
 
     <script>
       window.shopUrl = '{{ request.origin }}';

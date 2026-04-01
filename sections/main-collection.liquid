@@ -13,6 +13,7 @@
     {%- comment -%} Collection Header {%- endcomment -%}
     <div class="collection-header">
       <div class="collection-header__inner">
+        <span class="eyebrow">Kategorie</span>
         <h1 class="collection-header__title">{{ collection.title }}</h1>
         {%- if collection.description != blank -%}
           <div class="collection-header__description rte">
@@ -64,7 +65,18 @@
                   {{ settings.contact_phone }}
                 </a>
               {%- endif -%}
+              {%- if settings.contact_email != blank -%}
+                <a href="mailto:{{ settings.contact_email }}" class="collection-sidebar__link">
+                  {%- render 'icon-mail' -%}
+                  {{ settings.contact_email }}
+                </a>
+              {%- endif -%}
             </div>
+            {%- if section.settings.sidebar_button_text != blank -%}
+              <a href="{{ section.settings.sidebar_button_link | default: 'mailto:' | append: settings.contact_email }}" class="btn btn--primary btn--full btn--sm collection-sidebar__button">
+                {{ section.settings.sidebar_button_text }}
+              </a>
+            {%- endif -%}
           </div>
         </aside>
       {%- endif -%}
@@ -133,9 +145,9 @@
   .collection-header {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-lg);
-    margin-bottom: var(--spacing-xl);
-    padding-bottom: var(--spacing-lg);
+    gap: 18px;
+    margin-bottom: 32px;
+    padding-bottom: 22px;
     border-bottom: 1px solid var(--color-border);
   }
   
@@ -148,21 +160,21 @@
   }
   
   .collection-header__title {
-    font-size: var(--font-size-3xl);
-    margin-bottom: var(--spacing-sm);
+    font-size: clamp(2rem, 4vw, 3.6rem);
+    margin: 10px 0 8px;
   }
   
   .collection-header__description {
     font-size: var(--font-size-md);
-    color: var(--color-text-light);
-    max-width: 600px;
+    color: var(--color-ink-soft);
+    max-width: 62ch;
   }
   
   .collection-sort__select {
-    padding: var(--spacing-sm) var(--spacing-md);
+    padding: 12px 16px;
     font-size: var(--font-size-sm);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
+    border-radius: 999px;
     background-color: #fff;
     min-width: 200px;
   }
@@ -173,7 +185,7 @@
   
   .collection-page__layout--with-sidebar {
     display: grid;
-    gap: var(--spacing-xl);
+    gap: 28px;
   }
   
   @media (min-width: 990px) {
@@ -196,20 +208,23 @@
   .collection-sidebar__inner {
     position: sticky;
     top: calc(var(--header-height) + var(--spacing-lg));
-    padding: var(--spacing-lg);
-    background-color: #f9fafb;
-    border-radius: var(--radius-md);
+    padding: 22px;
+    background:
+      linear-gradient(180deg, rgba(var(--color-primary-rgb), 0.08) 0%, rgba(var(--color-primary-rgb), 0.03) 100%);
+    border: 1px solid rgba(var(--color-primary-rgb), 0.18);
+    border-radius: 18px;
+    box-shadow: 0 16px 40px rgba(1, 11, 21, 0.07);
   }
   
   .collection-sidebar__title {
-    font-size: var(--font-size-md);
-    margin-bottom: var(--spacing-sm);
+    font-size: 1.15rem;
+    margin-bottom: 10px;
   }
   
   .collection-sidebar__text {
     font-size: var(--font-size-sm);
-    color: var(--color-text-light);
-    margin-bottom: var(--spacing-md);
+    color: var(--color-ink-soft);
+    margin-bottom: 16px;
   }
   
   .collection-sidebar__image {
@@ -217,21 +232,26 @@
     height: 80px;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: var(--spacing-md);
+    margin-bottom: 16px;
   }
   
   .collection-sidebar__link {
     display: flex;
     align-items: center;
-    gap: var(--spacing-xs);
+    gap: 8px;
     font-size: var(--font-size-sm);
-    font-weight: 600;
-    color: var(--color-primary);
+    font-weight: 700;
+    color: var(--color-secondary);
+    margin-bottom: 10px;
   }
   
   .collection-sidebar__link svg {
     width: 16px;
     height: 16px;
+  }
+
+  .collection-sidebar__button {
+    margin-top: 10px;
   }
   
   /* Grid Override */
@@ -257,7 +277,7 @@
   
   /* Pagination */
   .pagination {
-    margin-top: var(--spacing-2xl);
+    margin-top: 40px;
   }
   
   .pagination__list {
@@ -276,7 +296,7 @@
     padding: 0 var(--spacing-sm);
     font-size: var(--font-size-sm);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
+    border-radius: 999px;
     transition: all var(--transition-fast);
   }
   
@@ -373,6 +393,17 @@
       "id": "sidebar_text",
       "label": "Sidebar Text",
       "default": "Unsere Experten helfen Ihnen gerne weiter!"
+    },
+    {
+      "type": "text",
+      "id": "sidebar_button_text",
+      "label": "Sidebar Button-Text",
+      "default": "Jetzt kontaktieren"
+    },
+    {
+      "type": "url",
+      "id": "sidebar_button_link",
+      "label": "Sidebar Button-Link"
     },
     {
       "type": "image_picker",

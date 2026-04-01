@@ -22,8 +22,8 @@
     assign is_on_sale = true
   endif
   
-  assign unit_price = product.metafields.custom.unit_price
-  assign unit_label = product.metafields.custom.unit_label | default: '/ Stück'
+  assign unit_price = product.metafields.custom.unit_price.value | default: product.metafields.custom.unit_price
+  assign unit_label = product.metafields.custom.unit_label.value | default: product.metafields.custom.unit_label | default: '/ Stück'
 -%}
 
 <div class="price-display{% if size %} price-display--{{ size }}{% endif %}{% if class %} {{ class }}{% endif %}">
@@ -59,43 +59,50 @@
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    gap: var(--spacing-xs);
+    gap: 6px 10px;
   }
   
   .price-display__compare {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-light);
+    width: 100%;
+    font-size: 0.95rem;
+    color: var(--color-ink-soft);
     text-decoration: line-through;
+    margin-bottom: 2px;
   }
   
   .price-display__price {
-    font-size: var(--font-size-2xl);
-    font-weight: 700;
+    font-size: clamp(2rem, 3vw, 2.85rem);
+    font-weight: 800;
+    line-height: 1;
+    color: var(--color-secondary);
   }
   
   .price-display__price--sale {
-    color: var(--color-sale);
+    color: var(--color-secondary);
   }
   
   .price-display__unit {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-light);
+    font-size: 0.95rem;
+    color: var(--color-ink-soft);
   }
   
   .price-display__net {
-    font-size: var(--font-size-xs);
-    color: var(--color-text-light);
-    background-color: #f3f4f6;
-    padding: 2px 6px;
-    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-secondary);
+    background-color: var(--color-accent-soft);
+    padding: 4px 8px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
   }
   
   /* Size Variants */
   .price-display--sm .price-display__price {
-    font-size: var(--font-size-lg);
+    font-size: 1.4rem;
   }
   
   .price-display--lg .price-display__price {
-    font-size: var(--font-size-3xl);
+    font-size: clamp(2.25rem, 3.5vw, 3.25rem);
   }
 </style>

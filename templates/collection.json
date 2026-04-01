@@ -9,7 +9,8 @@
         "show_sorting": true,
         "show_sidebar": true,
         "sidebar_heading": "Sie haben Fragen?",
-        "sidebar_text": "Unsere Experten helfen Ihnen gerne weiter!"
+        "sidebar_text": "Unsere Experten helfen Ihnen gerne weiter!",
+        "sidebar_button_text": "Jetzt kontaktieren"
       }
     },
     "contact-cta": {

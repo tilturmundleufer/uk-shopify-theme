@@ -8,14 +8,14 @@
   align-items: center;
   justify-content: center;
   gap: var(--spacing-sm);
-  padding: 12px 24px;
+  padding: 13px 24px;
   font-size: var(--font-size-sm);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.2;
   text-align: center;
   text-decoration: none;
   border: 2px solid transparent;
-  border-radius: var(--radius-md);
+  border-radius: 999px;
   cursor: pointer;
   transition: background-color var(--transition-fast),
               color var(--transition-fast),
@@ -45,8 +45,9 @@
 }
 
 .btn--primary:hover {
-  filter: brightness(1.1);
+  filter: brightness(1.03);
   transform: translateY(-1px);
+  box-shadow: 0 14px 32px rgba(var(--color-primary-rgb), 0.28);
 }
 
 .btn--primary:active {
@@ -63,6 +64,7 @@
 .btn--secondary:hover {
   background-color: var(--color-secondary);
   color: #fff;
+  box-shadow: 0 14px 32px rgba(7, 37, 68, 0.16);
 }
 
 .btn--secondary:active {
@@ -77,8 +79,9 @@
 }
 
 .btn--dark:hover {
-  background-color: #0d1b2a;
-  border-color: #0d1b2a;
+  background-color: #04172b;
+  border-color: #04172b;
+  box-shadow: 0 14px 32px rgba(7, 37, 68, 0.22);
 }
 
 /* Ghost Button (minimal) */
@@ -101,9 +104,9 @@
 }
 
 .btn--cta:hover {
-  filter: brightness(1.1);
+  filter: brightness(1.02);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(245, 166, 35, 0.3);
+  box-shadow: 0 14px 32px rgba(var(--color-primary-rgb), 0.28);
 }
 
 /* White Button */
@@ -115,6 +118,7 @@
 
 .btn--white:hover {
   background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 14px 30px rgba(255, 255, 255, 0.18);
 }
 
 /* Outline White Button */
@@ -127,6 +131,7 @@
 .btn--outline-white:hover {
   background-color: #fff;
   color: var(--color-secondary);
+  box-shadow: 0 14px 30px rgba(255, 255, 255, 0.18);
 }
 
 /* Size Variants */
@@ -136,7 +141,7 @@
 }
 
 .btn--lg {
-  padding: 14px 28px;
+  padding: 15px 30px;
   font-size: var(--font-size-md);
 }
 

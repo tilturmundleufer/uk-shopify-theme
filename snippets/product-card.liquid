@@ -30,8 +30,8 @@
     assign is_sold_out = true
   endunless
   
-  assign unit_price = product.metafields.custom.unit_price
-  assign unit_label = product.metafields.custom.unit_label | default: '/ Stück'
+  assign unit_price = product.metafields.custom.unit_price.value | default: product.metafields.custom.unit_price
+  assign unit_label = product.metafields.custom.unit_label.value | default: product.metafields.custom.unit_label | default: '/ Stück'
 -%}
 
 <div class="product-card{% if is_sold_out %} product-card--sold-out{% endif %}{% if card_class %} {{ card_class }}{% endif %}" data-product-card data-product-id="{{ product.id }}">
@@ -91,7 +91,7 @@
     </h3>
     
     {%- if show_description -%}
-      {%- assign short_description = product.metafields.custom.short_subtitle | default: product.description | strip_html | truncate: 100 -%}
+      {%- assign short_description = product.metafields.custom.short_subtitle.value | default: product.metafields.custom.short_subtitle | default: product.description | strip_html | truncate: 100 -%}
       {%- if short_description != blank -%}
         <p class="product-card__description">{{ short_description }}</p>
       {%- endif -%}

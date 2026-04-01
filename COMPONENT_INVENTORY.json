@@ -1,0 +1,239 @@
+{
+  "site": "https://unterkonstruktion.de",
+  "audited_at": "2026-04-01",
+  "page_types": [
+    {
+      "type": "homepage",
+      "paths": ["/"],
+      "shopify_targets": ["templates/index.json"]
+    },
+    {
+      "type": "product_overview",
+      "paths": ["/produkte"],
+      "shopify_targets": ["collections/all", "templates/page.products.json"]
+    },
+    {
+      "type": "collection",
+      "paths": [
+        "/unterkonstruktion/schraegdach",
+        "/kategorie/solarmodule",
+        "/kategorie/wechselrichter",
+        "/kategorie/batteriespeicher",
+        "/kategorie/zubehoer"
+      ],
+      "shopify_targets": ["templates/collection.json"]
+    },
+    {
+      "type": "product",
+      "paths": ["/produkt/*"],
+      "shopify_targets": ["templates/product.json"]
+    },
+    {
+      "type": "contact",
+      "paths": ["/kontakt"],
+      "shopify_targets": ["templates/page.contact.json"]
+    },
+    {
+      "type": "faq",
+      "paths": ["/haufig-gestelte-fragen"],
+      "shopify_targets": ["templates/page.faq.json"]
+    },
+    {
+      "type": "about",
+      "paths": ["/uber-uns"],
+      "shopify_targets": ["templates/page.about.json"]
+    },
+    {
+      "type": "legal",
+      "paths": ["/agb", "/datenschutz", "/impressum", "/wiederrufsrecht"],
+      "shopify_targets": ["templates/page.legal.json", "templates/page.json"]
+    },
+    {
+      "type": "configurator",
+      "paths": ["/konfigurator"],
+      "shopify_targets": ["separate_workstream"]
+    },
+    {
+      "type": "customer_portal",
+      "paths": ["/sign-up"],
+      "shopify_targets": ["customer_accounts_workstream"]
+    }
+  ],
+  "global_components": [
+    {
+      "name": "trust_bar",
+      "source_patterns": [
+        "Tagesaktuelle Bestpreise",
+        "Ganzjaehrige Top-Deals"
+      ],
+      "shopify_target": "sections/announcement-bar.liquid"
+    },
+    {
+      "name": "contact_meta_bar",
+      "source_patterns": ["Telefon", "E-Mail"],
+      "shopify_target": "sections/header.liquid"
+    },
+    {
+      "name": "primary_navigation",
+      "source_patterns": ["Kategorie-Navigation"],
+      "shopify_target": "sections/header.liquid"
+    },
+    {
+      "name": "footer_navigation",
+      "source_patterns": ["Kategorien", "Navigation", "Bezahlung", "Recht"],
+      "shopify_target": "sections/footer.liquid"
+    }
+  ],
+  "reusable_sections": [
+    {
+      "name": "hero",
+      "source_usage": ["homepage"],
+      "shopify_target": "sections/hero.liquid"
+    },
+    {
+      "name": "category_overview",
+      "source_usage": ["homepage", "products_overview"],
+      "shopify_target": "sections/category-overview.liquid"
+    },
+    {
+      "name": "featured_collection_strip",
+      "source_usage": ["homepage", "products_overview"],
+      "shopify_target": "sections/featured-collection.liquid"
+    },
+    {
+      "name": "usp_service",
+      "source_usage": ["homepage", "listing", "about", "faq", "contact"],
+      "shopify_target": "sections/usp-service.liquid"
+    },
+    {
+      "name": "contact_cta",
+      "source_usage": ["global"],
+      "shopify_target": "sections/contact-cta.liquid"
+    },
+    {
+      "name": "faq",
+      "source_usage": ["faq"],
+      "shopify_target": "sections/faq.liquid"
+    },
+    {
+      "name": "contact_form",
+      "source_usage": ["contact"],
+      "shopify_target": "sections/contact-form.liquid"
+    },
+    {
+      "name": "main_page_content",
+      "source_usage": ["about", "legal"],
+      "shopify_target": "sections/main-page.liquid"
+    }
+  ],
+  "snippets": [
+    {
+      "name": "product_card",
+      "source_usage": ["homepage", "listing"],
+      "shopify_target": "snippets/product-card.liquid",
+      "required_data": [
+        "product.title",
+        "product.featured_image",
+        "variant.price",
+        "variant.compare_at_price",
+        "availability",
+        "short_subtitle",
+        "unit_price_display"
+      ]
+    },
+    {
+      "name": "price_display",
+      "source_usage": ["listing", "product"],
+      "shopify_target": "snippets/price-display.liquid"
+    },
+    {
+      "name": "stock_badge",
+      "source_usage": ["listing", "product"],
+      "shopify_target": "snippets/stock-badge.liquid"
+    },
+    {
+      "name": "tier_prices",
+      "source_usage": ["product"],
+      "shopify_target": "snippets/tier-prices.liquid"
+    },
+    {
+      "name": "product_tabs",
+      "source_usage": ["product"],
+      "shopify_target": "snippets/product-tabs.liquid"
+    },
+    {
+      "name": "qty_stepper",
+      "source_usage": ["listing", "product", "cart"],
+      "shopify_target": "snippets/qty-stepper.liquid"
+    }
+  ],
+  "design_tokens": {
+    "container_max_width": "1290px",
+    "colors": {
+      "primary_blue": "#072544",
+      "accent_yellow": "#ffb101",
+      "surface_light": "#f7f7f7",
+      "surface_offwhite": "#fffdfa",
+      "text_dark": "#010b15"
+    },
+    "typography": {
+      "primary": "Geist Variablefont Wght",
+      "secondary": "Outfit"
+    },
+    "radius": ".5rem",
+    "spacing_observations": ["10px", "15px", "20px", "40px", "60px"]
+  },
+  "integrations": [
+    {
+      "name": "webflow",
+      "type": "frontend_platform",
+      "status": "visible"
+    },
+    {
+      "name": "foxycart",
+      "type": "commerce",
+      "status": "visible"
+    },
+    {
+      "name": "cartgenie",
+      "type": "cart_overlay_or_custom_cart",
+      "status": "visible"
+    },
+    {
+      "name": "memberstack",
+      "type": "customer_accounts",
+      "status": "documented_reference"
+    },
+    {
+      "name": "stripe",
+      "type": "payments",
+      "status": "documented_reference"
+    },
+    {
+      "name": "gtm_ga",
+      "type": "analytics",
+      "status": "visible"
+    },
+    {
+      "name": "hotjar",
+      "type": "analytics",
+      "status": "visible"
+    },
+    {
+      "name": "facebook_pixel",
+      "type": "marketing",
+      "status": "visible"
+    },
+    {
+      "name": "cookie_solution",
+      "type": "consent",
+      "status": "visible"
+    }
+  ],
+  "migration_risks": [
+    "Konfigurator ist nicht als einfache Liquid-Section reproduzierbar.",
+    "Foxycart/Cartgenie muessen nativ auf Shopify Cart/Checkout abgebildet werden.",
+    "Customer-Portal/Auth benoetigt separate Produktentscheidung.",
+    "Tracking und Consent muessen Shopify-konform neu integriert werden."
+  ]
+}

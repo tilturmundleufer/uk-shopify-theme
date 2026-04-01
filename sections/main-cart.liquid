@@ -50,6 +50,7 @@
                 </div>
                 
                 <div class="cart-item__price">
+                  <span class="cart-item__meta-label">Preis</span>
                   {%- if item.original_price != item.final_price -%}
                     <span class="cart-item__price-compare">{{ item.original_price | money }}</span>
                   {%- endif -%}
@@ -59,6 +60,7 @@
                 </div>
                 
                 <div class="cart-item__qty">
+                  <span class="cart-item__meta-label">Menge</span>
                   {%- render 'qty-stepper', 
                     variant: item.variant, 
                     value: item.quantity,
@@ -68,6 +70,7 @@
                 </div>
                 
                 <div class="cart-item__total">
+                  <span class="cart-item__meta-label">Gesamt</span>
                   {{ item.final_line_price | money }}
                 </div>
               </div>
@@ -212,7 +215,10 @@
   .cart-item__price,
   .cart-item__qty,
   .cart-item__total {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    grid-column: 2;
   }
   
   @media (min-width: 750px) {
@@ -220,27 +226,45 @@
     .cart-item__qty,
     .cart-item__total {
       display: block;
+      grid-column: auto;
+    }
+  }
+
+  .cart-item__meta-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  @media (min-width: 750px) {
+    .cart-item__meta-label {
+      display: none;
     }
   }
   
   .cart-item__price-compare {
     display: block;
     font-size: var(--font-size-sm);
-    color: var(--color-text-light);
+    color: var(--color-ink-soft);
     text-decoration: line-through;
   }
   
   .cart-item__total {
     font-weight: 600;
+    color: var(--color-secondary);
   }
   
   /* Cart Summary */
   .cart-summary__inner {
     position: sticky;
     top: calc(var(--header-height) + var(--spacing-lg));
-    padding: var(--spacing-lg);
-    background-color: #f9fafb;
-    border-radius: var(--radius-md);
+    padding: 22px;
+    background:
+      linear-gradient(180deg, rgba(var(--color-primary-rgb), 0.08) 0%, rgba(var(--color-primary-rgb), 0.03) 100%);
+    border: 1px solid rgba(var(--color-primary-rgb), 0.16);
+    border-radius: 18px;
   }
   
   .cart-summary__note {
@@ -260,7 +284,7 @@
     padding: var(--spacing-sm);
     font-size: var(--font-size-sm);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
+    border-radius: 14px;
     resize: vertical;
   }
   
@@ -275,7 +299,7 @@
     display: flex;
     justify-content: space-between;
     font-size: var(--font-size-lg);
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: var(--spacing-xs);
   }
   

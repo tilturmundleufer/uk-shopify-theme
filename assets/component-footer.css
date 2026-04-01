@@ -3,9 +3,10 @@
    ============================================ */
 
 .footer {
-  background-color: var(--color-primary);
+  background:
+    linear-gradient(180deg, rgba(7, 37, 68, 0.98) 0%, rgba(1, 11, 21, 1) 100%);
   color: #fff;
-  padding: var(--spacing-2xl) 0 var(--spacing-lg);
+  padding: calc(var(--section-gap) * 0.78) 0 28px;
 }
 
 .footer a {
@@ -20,8 +21,8 @@
 /* Footer Top Section */
 .footer__top {
   display: grid;
-  gap: var(--spacing-xl);
-  margin-bottom: var(--spacing-2xl);
+  gap: 28px;
+  margin-bottom: 34px;
 }
 
 @media (min-width: 750px) {
@@ -38,36 +39,37 @@
 
 /* Footer Logo & Contact */
 .footer__brand {
-  max-width: 300px;
+  max-width: 360px;
 }
 
 .footer__logo {
-  margin-bottom: var(--spacing-md);
+  margin-bottom: 16px;
 }
 
 .footer__logo-img {
-  max-height: 40px;
+  max-height: 54px;
   width: auto;
   filter: brightness(0) invert(1);
 }
 
 .footer__logo-text {
-  font-size: var(--font-size-xl);
-  font-weight: 700;
+  font-size: 1.4rem;
+  font-weight: 800;
 }
 
 .footer__contact {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
-  margin-bottom: var(--spacing-md);
+  gap: 10px;
+  margin-bottom: 18px;
 }
 
 .footer__contact-link {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: 10px;
   font-size: var(--font-size-sm);
+  font-weight: 600;
 }
 
 .footer__contact-link svg {
@@ -78,7 +80,7 @@
 
 .footer__tagline {
   font-size: var(--font-size-sm);
-  opacity: 0.8;
+  opacity: 0.78;
   line-height: 1.6;
 }
 
@@ -90,24 +92,25 @@
 
 .footer__nav-title {
   font-size: var(--font-size-sm);
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: var(--spacing-md);
+  letter-spacing: 0.1em;
+  color: #ffe18b;
+  margin-bottom: 16px;
 }
 
 .footer__nav-list {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: 10px;
 }
 
 .footer__nav-link {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: 10px;
   font-size: var(--font-size-sm);
-  opacity: 0.8;
+  opacity: 0.84;
 }
 
 .footer__nav-link:hover {
@@ -122,35 +125,37 @@
 
 /* Footer CTA */
 .footer__cta {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: var(--radius-md);
-  padding: var(--spacing-lg);
+  background: linear-gradient(180deg, rgba(255, 177, 1, 0.14) 0%, rgba(255, 177, 1, 0.08) 100%);
+  border: 1px solid rgba(255, 177, 1, 0.22);
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
 }
 
 .footer__cta-title {
-  font-size: var(--font-size-md);
-  font-weight: 600;
-  margin-bottom: var(--spacing-sm);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 10px;
 }
 
 .footer__cta-text {
   font-size: var(--font-size-sm);
-  opacity: 0.8;
-  margin-bottom: var(--spacing-md);
+  opacity: 0.84;
+  margin-bottom: 16px;
   line-height: 1.5;
 }
 
 /* Footer Payment Methods */
 .footer__payment {
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: 22px;
 }
 
 .footer__payment-title {
   font-size: var(--font-size-xs);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  opacity: 0.6;
-  margin-bottom: var(--spacing-sm);
+  letter-spacing: 0.1em;
+  opacity: 0.72;
+  margin-bottom: 10px;
 }
 
 .footer__payment-icons {
@@ -163,7 +168,7 @@
   height: 24px;
   width: auto;
   background-color: #fff;
-  border-radius: var(--radius-sm);
+  border-radius: 999px;
   padding: 2px 4px;
 }
 
@@ -176,8 +181,8 @@
 .footer__bottom {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
-  padding-top: var(--spacing-lg);
+  gap: 12px;
+  padding-top: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -191,18 +196,18 @@
 
 .footer__copyright {
   font-size: var(--font-size-xs);
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 .footer__legal {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-md);
+  gap: 14px;
 }
 
 .footer__legal-link {
   font-size: var(--font-size-xs);
-  opacity: 0.6;
+  opacity: 0.72;
 }
 
 .footer__legal-link:hover {
@@ -221,8 +226,8 @@
   justify-content: center;
   width: 36px;
   height: 36px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: var(--radius-sm);
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
   transition: background-color var(--transition-fast);
 }
 

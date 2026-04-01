@@ -9,24 +9,24 @@
  */
 {
   "current": {
-    "color_primary": "#f5a623",
-    "color_secondary": "#1a2744",
-    "color_background": "#ffffff",
-    "color_text": "#1a1a1a",
-    "color_border": "#e5e5e5",
+    "color_primary": "#ffb101",
+    "color_secondary": "#072544",
+    "color_background": "#fffdfa",
+    "color_text": "#010b15",
+    "color_border": "#d8e0e7",
     "color_success": "#22c55e",
     "color_error": "#ef4444",
     "color_sale": "#ef4444",
     "type_header_font": "assistant_n6",
     "type_body_font": "assistant_n4",
     "type_base_size": 16,
-    "page_width": 1400,
-    "border_radius_sm": 4,
-    "border_radius_md": 6,
-    "border_radius_lg": 8,
-    "button_primary_bg": "#f5a623",
-    "button_primary_text": "#1a2744",
-    "button_secondary_bg": "#1a2744",
+    "page_width": 1300,
+    "border_radius_sm": 6,
+    "border_radius_md": 8,
+    "border_radius_lg": 12,
+    "button_primary_bg": "#ffb101",
+    "button_primary_text": "#072544",
+    "button_secondary_bg": "#072544",
     "button_secondary_text": "#ffffff",
     "default_delivery_time": "1-4 Werktage",
     "show_vat_notice": true,
@@ -112,8 +112,10 @@
         "settings": {
           "show_announcement": true,
           "text": "Tagesaktuelle Bestpreise",
-          "background_color": "#1a2744",
-          "text_color": "#ffffff"
+          "text_2": "Ganzjährige Top-Deals!",
+          "background_color": "#072544",
+          "text_color": "#ffffff",
+          "accent_color": "#ffb101"
         }
       }
     },
@@ -121,10 +123,10 @@
   },
   "presets": {
     "Default": {
-      "color_primary": "#f5a623",
-      "color_secondary": "#1a2744",
-      "color_background": "#ffffff",
-      "color_text": "#1a1a1a"
+      "color_primary": "#ffb101",
+      "color_secondary": "#072544",
+      "color_background": "#fffdfa",
+      "color_text": "#010b15"
     }
   }
 }

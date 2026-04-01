@@ -18,15 +18,15 @@
         "type": "color",
         "id": "color_primary",
         "label": "t:settings_schema.colors.primary",
-        "default": "#f5a623",
-        "info": "Orange - Hauptfarbe für CTAs und Akzente"
+        "default": "#ffb101",
+        "info": "Signalgelb - Hauptfarbe für CTAs und Akzente"
       },
       {
         "type": "color",
         "id": "color_secondary",
         "label": "t:settings_schema.colors.secondary",
-        "default": "#1a2744",
-        "info": "Navy-Blau - Für Header, Navigation, dunkle Elemente"
+        "default": "#072544",
+        "info": "Dunkelblau - Für Header, Navigation und dunkle Flächen"
       },
       {
         "type": "header",
@@ -36,19 +36,19 @@
         "type": "color",
         "id": "color_background",
         "label": "t:settings_schema.colors.background",
-        "default": "#ffffff"
+        "default": "#fffdfa"
       },
       {
         "type": "color",
         "id": "color_text",
         "label": "t:settings_schema.colors.text",
-        "default": "#1a1a1a"
+        "default": "#010b15"
       },
       {
         "type": "color",
         "id": "color_border",
         "label": "t:settings_schema.colors.border",
-        "default": "#e5e5e5"
+        "default": "#d8e0e7"
       },
       {
         "type": "header",
@@ -119,7 +119,7 @@
         "min": 1000,
         "max": 1600,
         "step": 50,
-        "default": 1400,
+        "default": 1300,
         "unit": "px"
       },
       {
@@ -133,7 +133,7 @@
         "min": 0,
         "max": 16,
         "step": 1,
-        "default": 4,
+        "default": 6,
         "unit": "px"
       },
       {
@@ -169,13 +169,13 @@
         "type": "color",
         "id": "button_primary_bg",
         "label": "t:settings_schema.buttons.background",
-        "default": "#f5a623"
+        "default": "#ffb101"
       },
       {
         "type": "color",
         "id": "button_primary_text",
         "label": "t:settings_schema.buttons.text",
-        "default": "#1a2744"
+        "default": "#072544"
       },
       {
         "type": "header",
@@ -185,7 +185,7 @@
         "type": "color",
         "id": "button_secondary_bg",
         "label": "t:settings_schema.buttons.background",
-        "default": "#1a2744"
+        "default": "#072544"
       },
       {
         "type": "color",

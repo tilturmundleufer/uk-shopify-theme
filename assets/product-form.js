@@ -58,6 +58,7 @@ class ProductForm extends HTMLElement {
   onSuccess(data) {
     this.showMessage(window.cartStrings.addedToCart, 'success');
     this.updateCartCount();
+    window.themeCartToast?.show();
     
     // Dispatch custom event for other components to listen
     document.dispatchEvent(new CustomEvent('cart:item-added', {
@@ -145,3 +146,26 @@ document.addEventListener('click', async function(event) {
     console.error('Failed to remove item:', error);
   }
 });
+
+window.themeCartToast = (() => {
+  const toast = document.querySelector('[data-cart-toast]');
+  let timeoutId;
+
+  function show() {
+    if (!toast) return;
+    toast.hidden = false;
+    toast.classList.add('is-visible');
+    window.clearTimeout(timeoutId);
+    timeoutId = window.setTimeout(hide, 3200);
+  }
+
+  function hide() {
+    if (!toast) return;
+    toast.classList.remove('is-visible');
+    window.setTimeout(() => {
+      toast.hidden = true;
+    }, 250);
+  }
+
+  return { show, hide };
+})();

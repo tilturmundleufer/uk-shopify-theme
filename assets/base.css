@@ -17,6 +17,7 @@
 html {
   font-size: var(--font-size-base, 16px);
   scroll-behavior: smooth;
+  background-color: var(--color-background);
 }
 
 body {
@@ -25,9 +26,10 @@ body {
   font-weight: var(--font-body-weight);
   color: var(--color-text);
   background-color: var(--color-background);
-  line-height: 1.6;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.01em;
 }
 
 img,
@@ -79,26 +81,37 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading-family);
   font-style: var(--font-heading-style);
   font-weight: var(--font-heading-weight);
-  line-height: 1.2;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
 }
 
-h1 { font-size: var(--font-size-4xl); }
-h2 { font-size: var(--font-size-3xl); }
-h3 { font-size: var(--font-size-2xl); }
+h1 { font-size: clamp(2.6rem, 6vw, 4.8rem); }
+h2 { font-size: clamp(2rem, 4vw, 3.35rem); }
+h3 { font-size: clamp(1.35rem, 2vw, 2rem); }
 h4 { font-size: var(--font-size-xl); }
 h5 { font-size: var(--font-size-lg); }
 h6 { font-size: var(--font-size-md); }
+
+p {
+  color: var(--color-ink-soft);
+}
 
 /* Layout Utilities */
 .page-width {
   max-width: var(--page-width);
   margin: 0 auto;
-  padding: 0 var(--spacing-md);
+  padding: 0 20px;
 }
 
 @media (min-width: 750px) {
   .page-width {
-    padding: 0 var(--spacing-xl);
+    padding: 0 28px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .page-width {
+    padding: 0 32px;
   }
 }
 
@@ -258,7 +271,7 @@ h6 { font-size: var(--font-size-md); }
 .bg-primary { background-color: var(--color-primary); }
 .bg-secondary { background-color: var(--color-secondary); }
 .bg-white { background-color: #fff; }
-.bg-light { background-color: #f9fafb; }
+.bg-light { background-color: var(--color-surface); }
 
 /* Border Utilities */
 .border { border: 1px solid var(--color-border); }
@@ -440,36 +453,129 @@ h6 { font-size: var(--font-size-md); }
 
 /* Section Spacing */
 .section {
-  padding: var(--spacing-2xl) 0;
+  padding: calc(var(--section-gap) * 0.88) 0;
 }
 
 @media (min-width: 750px) {
   .section {
-    padding: var(--spacing-3xl) 0;
+    padding: var(--section-gap) 0;
   }
 }
 
 .section-header {
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: 20px;
 }
 
 @media (min-width: 750px) {
   .section-header {
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: 28px;
   }
 }
 
 .section-title {
-  font-size: var(--font-size-2xl);
-}
-
-@media (min-width: 750px) {
-  .section-title {
-    font-size: var(--font-size-3xl);
-  }
+  max-width: 16ch;
 }
 
 .section-subtitle {
-  color: var(--color-text-light);
-  margin-top: var(--spacing-sm);
+  color: var(--color-ink-soft);
+  margin-top: 10px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 36px;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+.surface-card {
+  background-color: var(--color-surface-strong);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-panel);
+}
+
+.cart-toast {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 250;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: min(420px, calc(100vw - 32px));
+  padding: 16px 18px;
+  background: rgba(1, 11, 21, 0.96);
+  color: #fff;
+  border-radius: 18px;
+  box-shadow: 0 28px 60px rgba(1, 11, 21, 0.28);
+  transform: translateY(18px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-base), transform var(--transition-base);
+}
+
+.cart-toast.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.cart-toast__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: rgba(var(--color-primary-rgb), 0.18);
+  color: #ffe18b;
+}
+
+.cart-toast__icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.cart-toast__content {
+  min-width: 0;
+  flex: 1;
+}
+
+.cart-toast__title {
+  display: block;
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+
+.cart-toast__text {
+  margin-top: 4px;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.85rem;
+}
+
+.cart-toast__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: var(--color-secondary);
+  font-size: 0.82rem;
+  font-weight: 800;
 }

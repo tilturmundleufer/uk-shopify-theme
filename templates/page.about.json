@@ -1,0 +1,22 @@
+{
+  "sections": {
+    "main-page": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "contact-cta": {
+      "type": "contact-cta",
+      "settings": {
+        "subheading": "Hilfe & Kontakt",
+        "heading": "Sie haben Fragen? Unser Team hilft Ihnen gerne weiter!",
+        "description": "Rufen Sie uns an oder schreiben Sie uns per Mail!",
+        "button_text": "Jetzt kontaktieren",
+        "background_color": "#072544"
+      }
+    }
+  },
+  "order": [
+    "main-page",
+    "contact-cta"
+  ]
+}

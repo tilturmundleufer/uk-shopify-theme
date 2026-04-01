@@ -6,6 +6,7 @@
 {{ 'section-hero.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
+  assign eyebrow = section.settings.eyebrow
   assign heading = section.settings.heading
   assign subheading = section.settings.subheading
   assign primary_cta_text = section.settings.primary_cta_text
@@ -25,6 +26,10 @@
   <div class="page-width">
     <div class="hero__inner">
       <div class="hero__content">
+        {%- if eyebrow != blank -%}
+          <span class="eyebrow hero__eyebrow">{{ eyebrow }}</span>
+        {%- endif -%}
+
         {%- if heading != blank -%}
           <h1 class="hero__title">
             {%- assign words = heading | split: ' ' -%}
@@ -98,6 +103,12 @@
     {
       "type": "header",
       "content": "Inhalt"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Unterkonstruktion"
     },
     {
       "type": "text",

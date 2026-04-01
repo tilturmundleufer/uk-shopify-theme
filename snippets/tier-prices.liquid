@@ -41,16 +41,21 @@
 
 <style>
   .tier-prices {
-    margin: var(--spacing-md) 0;
-    padding: var(--spacing-md);
-    background-color: #f9fafb;
-    border-radius: var(--radius-md);
+    margin: 18px 0 20px;
+    padding: 16px 18px;
+    background:
+      linear-gradient(180deg, rgba(var(--color-primary-rgb), 0.08) 0%, rgba(var(--color-primary-rgb), 0.03) 100%);
+    border: 1px solid rgba(var(--color-primary-rgb), 0.2);
+    border-radius: 16px;
   }
   
   .tier-prices__title {
-    font-size: var(--font-size-sm);
-    font-weight: 600;
-    margin-bottom: var(--spacing-sm);
+    font-size: 0.84rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-secondary);
+    margin-bottom: 10px;
   }
   
   .tier-prices__table {
@@ -68,16 +73,17 @@
   
   .tier-prices__qty,
   .tier-prices__price {
-    padding: var(--spacing-xs) 0;
+    padding: 8px 0;
     font-size: var(--font-size-sm);
   }
   
   .tier-prices__qty {
-    color: var(--color-text-light);
+    color: var(--color-ink-soft);
   }
   
   .tier-prices__price {
-    font-weight: 600;
+    font-weight: 700;
+    color: var(--color-secondary);
     text-align: right;
   }
 </style>

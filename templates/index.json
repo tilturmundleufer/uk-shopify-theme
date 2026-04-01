@@ -12,6 +12,7 @@
     "hero": {
       "type": "hero",
       "settings": {
+        "eyebrow": "Unterkonstruktion",
         "heading": "Wir haben alles für Ihr nächstes Solarprojekt",
         "subheading": "Ihr zuverlässiger Partner für PV-Unterkonstruktion und mehr. Von Eigenheim bis Großprojekt - wir haben es auf Lager!",
         "primary_cta_text": "Zum Konfigurator",
