@@ -23,6 +23,7 @@
     </div>
   {% endif %}
 
+  {% if section.settings.display_mode == 'iframe' %}
     {%- comment -%} ── VARIANTE A: iframe (empfohlen, volle Integration) ── {%- endcomment -%}
     <div class="solar-konfigurator-iframe-wrapper" style="position: relative; width: 100%; min-height: {{ section.settings.iframe_height }}px; border: none;">
       <iframe
@@ -34,6 +35,32 @@
         referrerpolicy="origin"
       ></iframe>
     </div>
+
+  {% else %}
+    {%- comment -%} ── VARIANTE B: CTA-Button (einfacher Link) ── {%- endcomment -%}
+    <div class="solar-konfigurator-cta" style="text-align: {{ section.settings.heading_align }};">
+      <a
+        href="{{ section.settings.konfigurator_url }}"
+        class="button button--primary solar-konfigurator-btn"
+        {% if section.settings.open_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
+        style="
+          display: inline-block;
+          padding: 14px 32px;
+          font-size: 1.1rem;
+          font-weight: 600;
+          text-decoration: none;
+          border-radius: {{ section.settings.border_radius }}px;
+          background-color: {{ section.settings.button_color }};
+          color: {{ section.settings.button_text_color }};
+        "
+      >
+        {{ section.settings.button_label }}
+      </a>
+      {% if section.settings.button_note != blank %}
+        <p style="margin-top: 0.75rem; font-size: 0.9rem; opacity: 0.7;">{{ section.settings.button_note }}</p>
+      {% endif %}
+    </div>
+  {% endif %}
 </section>
 
 <style>
@@ -60,7 +87,7 @@
       "type": "url",
       "id": "konfigurator_url",
       "label": "URL des Solar-Konfigurators",
-      "info": "https://solar-tool-shopify.vercel.app/"
+      "info": "z.B. https://dein-projekt.vercel.app"
     },
     {
       "type": "select",

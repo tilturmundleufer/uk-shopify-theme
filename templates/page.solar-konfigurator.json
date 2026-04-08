@@ -11,10 +11,32 @@
   "sections": {
     "main-page": {
       "type": "main-page",
+      "disabled": true,
       "settings": {}
+    },
+    "solar_konfigurator_qheWT8": {
+      "type": "solar-konfigurator",
+      "name": "Solar-Konfigurator",
+      "settings": {
+        "konfigurator_url": "https://solar-tool-shopify.vercel.app/",
+        "display_mode": "iframe",
+        "show_heading": true,
+        "heading": "Solaranlage konfigurieren",
+        "subheading": "Stellen Sie Ihre Solaranlage zusammen – Komponenten werden direkt in den Warenkorb gelegt.",
+        "heading_align": "center",
+        "button_label": "Zum Solar-Konfigurator →",
+        "button_note": "Kostenlos & ohne Anmeldung",
+        "open_new_tab": false,
+        "button_color": "#1a6b3c",
+        "button_text_color": "#ffffff",
+        "iframe_height": 850,
+        "vertical_padding": 40,
+        "border_radius": 8
+      }
     }
   },
   "order": [
-    "main-page"
+    "main-page",
+    "solar_konfigurator_qheWT8"
   ]
 }
