@@ -25,13 +25,12 @@
     "header": {
       "type": "header",
       "settings": {
-        "logo": "shopify://shop_images/schneider_Logo.svg",
         "logo_width": 120,
         "menu": "main-menu",
         "show_topbar": true,
         "sticky_header": true,
         "cta_text": "Zum Konfigurator",
-        "cta_url": ""
+        "cta_url": "shopify://pages/solar-konfigurator"
       }
     }
   },
