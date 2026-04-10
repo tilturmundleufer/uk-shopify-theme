@@ -14,11 +14,13 @@
   assign secondary_cta_text = section.settings.secondary_cta_text
   assign secondary_cta_url = section.settings.secondary_cta_url
   assign background_image = section.settings.background_image
-  
+  assign emphasis_word = section.settings.heading_emphasis_word | strip
+
   assign cta_box_heading = section.settings.cta_box_heading
   assign cta_box_image = section.settings.cta_box_image
   assign cta_box_text = section.settings.cta_box_text
   assign cta_box_url = section.settings.cta_box_url
+  assign cta_box_button_text = section.settings.cta_box_button_text
 -%}
 
 <section class="hero" id="hero-{{ section.id }}"{% if background_image != blank %} style="background-image: url('{{ background_image | image_url: width: 1920 }}');"{% endif %}>
@@ -32,12 +34,12 @@
 
         {%- if heading != blank -%}
           <h1 class="hero__title">
-            {%- assign words = heading | split: ' ' -%}
-            {%- for word in words -%}
-              {%- if forloop.index == 3 -%}<strong>{% endif -%}
-              {{ word }}{% unless forloop.last %} {% endunless %}
-              {%- if forloop.index == 3 -%}</strong>{% endif -%}
-            {%- endfor -%}
+            {%- if emphasis_word != blank and heading contains emphasis_word -%}
+              {%- assign h_parts = heading | split: emphasis_word -%}
+              {{ h_parts[0] }}<strong>{{ emphasis_word }}</strong>{{ h_parts[1] }}
+            {%- else -%}
+              {{ heading }}
+            {%- endif -%}
           </h1>
         {%- endif -%}
         
@@ -81,10 +83,19 @@
                   <span class="hero__cta-box-label">{{ cta_box_text }}</span>
                 {%- endif -%}
               </div>
+            {%- else -%}
+              <div class="hero__cta-box-icon" aria-hidden="true">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35">
+                  <rect x="3" y="3" width="7" height="7" rx="1"/>
+                  <rect x="14" y="3" width="7" height="7" rx="1"/>
+                  <rect x="3" y="14" width="7" height="7" rx="1"/>
+                  <rect x="14" y="14" width="7" height="7" rx="1"/>
+                </svg>
+              </div>
             {%- endif -%}
             
             <a href="{{ cta_box_url | default: '#' }}" class="btn btn--cta btn--lg btn--full btn--arrow">
-              {{ primary_cta_text | default: 'Zum Konfigurator' }}
+              {{ cta_box_button_text | default: 'Jetzt planen' }}
               {%- render 'icon-arrow' -%}
             </a>
           </div>
@@ -115,6 +126,13 @@
       "id": "heading",
       "label": "Überschrift",
       "default": "Wir haben alles für Ihr nächstes Solarprojekt"
+    },
+    {
+      "type": "text",
+      "id": "heading_emphasis_word",
+      "label": "Hervorgehobenes Wort in der Überschrift",
+      "default": "alles",
+      "info": "Wird fett/gelb dargestellt, wenn es exakt in der Überschrift vorkommt."
     },
     {
       "type": "textarea",
@@ -175,7 +193,7 @@
       "type": "text",
       "id": "cta_box_heading",
       "label": "Überschrift",
-      "default": "Jetzt Unterkonstruktion selbst konfigurieren!"
+      "default": "Module planen leicht gemacht!"
     },
     {
       "type": "image_picker",
@@ -191,7 +209,13 @@
     {
       "type": "url",
       "id": "cta_box_url",
-      "label": "Link"
+      "label": "Link (CTA-Box Button)"
+    },
+    {
+      "type": "text",
+      "id": "cta_box_button_text",
+      "label": "Button-Text (CTA-Box)",
+      "default": "Jetzt planen"
     }
   ],
   "presets": [

@@ -14,18 +14,29 @@
       "settings": {
         "eyebrow": "Unterkonstruktion",
         "heading": "Wir haben alles für Ihr nächstes Solarprojekt",
-        "subheading": "Ihr zuverlässiger Partner für PV-Unterkonstruktion und mehr. Von Eigenheim bis Großprojekt - wir haben es auf Lager!",
+        "heading_emphasis_word": "alles",
+        "subheading": "Ihr zuverlässiger Partner für PV-Unterkonstruktion und mehr. Von Eigenheim bis Großprojekt – wir haben es auf Lager!",
         "primary_cta_text": "Zum Konfigurator",
         "primary_cta_url": "shopify://pages/solar-konfigurator",
         "secondary_cta_text": "Alle Produkte",
         "secondary_cta_url": "shopify://collections/all",
         "show_cta_box": true,
-        "cta_box_heading": "Jetzt Unterkonstruktion selbst konfigurieren!",
-        "cta_box_text": "Solarmodul",
-        "cta_box_url": ""
+        "cta_box_heading": "Module planen leicht gemacht!",
+        "cta_box_text": "",
+        "cta_box_url": "",
+        "cta_box_button_text": "Jetzt planen"
       }
     },
-    "category-overview": {
+    "video_intro": {
+      "type": "video-intro",
+      "settings": {
+        "heading": "",
+        "text": "",
+        "youtube_url": "",
+        "placeholder_hint": "YouTube-Link oder Video unter „Video aus Medien“ im Theme-Editor hinterlegen."
+      }
+    },
+    "category_overview": {
       "type": "category-overview",
       "blocks": {
         "category-1": {
@@ -33,7 +44,6 @@
           "settings": {
             "title": "Unterkonstruktion",
             "description": "",
-            "icon": "",
             "link": ""
           }
         },
@@ -42,7 +52,6 @@
           "settings": {
             "title": "Solarmodule",
             "description": "",
-            "icon": "",
             "link": ""
           }
         },
@@ -51,7 +60,6 @@
           "settings": {
             "title": "Wechselrichter",
             "description": "",
-            "icon": "",
             "link": ""
           }
         },
@@ -60,7 +68,6 @@
           "settings": {
             "title": "Batteriespeicher",
             "description": "",
-            "icon": "",
             "link": ""
           }
         },
@@ -69,7 +76,6 @@
           "settings": {
             "title": "Zubehör",
             "description": "",
-            "icon": "",
             "link": ""
           }
         }
@@ -83,78 +89,78 @@
       ],
       "settings": {
         "subheading": "Alle Kategorien",
-        "heading": "Qualität, auf die Sie bauen können",
+        "heading": "",
         "columns": 5
       }
     },
-    "featured-collection-1": {
+    "featured_main": {
       "type": "featured-collection",
+      "blocks": {
+        "tab-alle": {
+          "type": "category_tab",
+          "settings": {
+            "label": "Alle",
+            "collection": "all"
+          }
+        },
+        "tab-uk": {
+          "type": "category_tab",
+          "settings": {
+            "label": "Unterkonstruktion",
+            "collection": ""
+          }
+        },
+        "tab-sm": {
+          "type": "category_tab",
+          "settings": {
+            "label": "Solarmodule",
+            "collection": ""
+          }
+        },
+        "tab-wr": {
+          "type": "category_tab",
+          "settings": {
+            "label": "Wechselrichter",
+            "collection": ""
+          }
+        },
+        "tab-zu": {
+          "type": "category_tab",
+          "settings": {
+            "label": "Zubehör",
+            "collection": ""
+          }
+        }
+      },
+      "block_order": ["tab-alle", "tab-uk", "tab-sm", "tab-wr", "tab-zu"],
       "settings": {
+        "show_section_heading": true,
+        "subheading": "Unsere Produkte",
+        "heading": "Qualität, auf die Sie bauen können – unsere Produkte im Überblick",
+        "header_link_label": "",
+        "header_link_url": "",
         "show_tabs": true,
-        "subheading": "Unterkonstruktion",
-        "heading": "Alles für's Dach",
-        "collection": "alle-produkte",
+        "collection": "all",
         "products_to_show": 4,
         "show_qty_stepper": true,
         "show_view_all": true,
         "alternate_bg": false
       }
     },
-    "featured-collection-2": {
-      "type": "featured-collection",
-      "settings": {
-        "show_tabs": true,
-        "subheading": "Solarmodule",
-        "heading": "Unsere PV-Module",
-        "collection": "alle-produkte",
-        "products_to_show": 4,
-        "show_qty_stepper": true,
-        "show_view_all": true,
-        "alternate_bg": true
-      }
-    },
-    "usp-service": {
-      "type": "usp-service",
+    "trust_split": {
+      "type": "trust-split",
       "blocks": {
-        "usp-1": {
-          "type": "usp",
-          "settings": {
-            "title": "Hochwertige Produkte",
-            "description": "Wir setzen auf geprüfte Markenqualität.",
-            "icon": ""
-          }
-        },
-        "usp-2": {
-          "type": "usp",
-          "settings": {
-            "title": "Schneller Versand",
-            "description": "Schnelle und zuverlässige Lieferung.",
-            "icon": ""
-          }
-        },
-        "usp-3": {
-          "type": "usp",
-          "settings": {
-            "title": "24/7 für Sie da",
-            "description": "Unser Team hilft Ihnen gerne weiter.",
-            "icon": ""
-          }
-        }
+        "badge-1": { "type": "badge", "settings": { "title": "Zertifikat 1" } },
+        "badge-2": { "type": "badge", "settings": { "title": "Zertifikat 2" } }
       },
-      "block_order": [
-        "usp-1",
-        "usp-2",
-        "usp-3"
-      ],
+      "block_order": ["badge-1", "badge-2"],
       "settings": {
-        "subheading": "Service",
-        "heading": "Gute Gründe für uns",
-        "description": "",
-        "columns": 3,
-        "show_image": false
+        "kicker": "Von Profis. Für Sie",
+        "heading": "Höchste Produktqualität für Ihr nächstes Projekt.",
+        "text": "<p>Unser Sortiment umfasst alles, was Sie für eine effiziente Photovoltaikanlage benötigen: robuste Unterkonstruktionen für alle Dachtypen, leistungsstarke Solarmodule, zuverlässige Wechselrichter sowie moderne Stromspeicher. Alle Produkte sind sorgfältig ausgewählt, zertifiziert und optimal aufeinander abgestimmt – für maximale Sicherheit und Erträge.</p>"
       }
     },
-    "partner-logos": {
+    "partner_logos": {
       "type": "partner-logos",
       "settings": {
         "subheading": "Unsere Partner",
@@ -162,25 +168,111 @@
         "enable_scroll": true
       }
     },
-    "contact-cta": {
-      "type": "contact-cta",
+    "testimonial_split": {
+      "type": "testimonial-split",
       "settings": {
-        "subheading": "Hilfe & Kontakt",
-        "heading": "Sie haben Fragen? Unser Team hilft gerne weiter!",
-        "description": "Rufen Sie uns an oder schreiben Sie uns per Mail!",
-        "button_text": "Jetzt kontaktieren",
-        "button_url": "",
-        "background_color": "#1a1a1a"
+        "quote": "„Wir sind für Sie da – mit persönlicher Beratung und schneller Lieferung für Ihr Solarprojekt.“",
+        "author": "Ihr Team",
+        "placeholder_hint": "Motiv-Bild (z. B. Team auf dem Dach) im Editor hinterlegen.",
+        "image_alt": "Montage-Team bei der Installation einer PV-Anlage"
+      }
+    },
+    "featured_roof": {
+      "type": "featured-collection",
+      "settings": {
+        "show_section_heading": true,
+        "subheading": "Unterkonstruktion",
+        "heading": "Alles für Ihr Dach",
+        "header_link_label": "Zum Shop",
+        "header_link_url": "shopify://collections/all",
+        "show_tabs": false,
+        "collection": "all",
+        "products_to_show": 4,
+        "show_qty_stepper": true,
+        "show_view_all": true,
+        "alternate_bg": true
+      }
+    },
+    "featured_modules": {
+      "type": "featured-collection",
+      "settings": {
+        "show_section_heading": true,
+        "subheading": "Solarmodule",
+        "heading": "Unsere PV-Module",
+        "header_link_label": "Zum Shop",
+        "header_link_url": "shopify://collections/all",
+        "show_tabs": false,
+        "collection": "all",
+        "products_to_show": 4,
+        "show_qty_stepper": true,
+        "show_view_all": true,
+        "alternate_bg": false
+      }
+    },
+    "home_cta_banner": {
+      "type": "home-cta-banner",
+      "settings": {
+        "heading": "Sie haben Fragen? Unser Team hilft Ihnen gerne weiter!",
+        "text": "",
+        "primary_label": "Kontakt aufnehmen",
+        "primary_url": "",
+        "overlay_opacity": 75,
+        "phone_display": ""
+      }
+    },
+    "usp_bar": {
+      "type": "usp-service",
+      "blocks": {
+        "u1": {
+          "type": "usp",
+          "settings": {
+            "title": "Schneller Versand",
+            "description": "Schnelle und transparente Lieferung."
+          }
+        },
+        "u2": {
+          "type": "usp",
+          "settings": {
+            "title": "Top Qualität",
+            "description": "Geprüfte Markenprodukte für Ihr Projekt."
+          }
+        },
+        "u3": {
+          "type": "usp",
+          "settings": {
+            "title": "Sicher bezahlen",
+            "description": "Zahlungsarten mit Käuferschutz."
+          }
+        },
+        "u4": {
+          "type": "usp",
+          "settings": {
+            "title": "Kostenlose Beratung",
+            "description": "Unsere Experten helfen bei der Planung."
+          }
+        }
+      },
+      "block_order": ["u1", "u2", "u3", "u4"],
+      "settings": {
+        "subheading": "",
+        "heading": "",
+        "description": "",
+        "columns": 4,
+        "show_image": false
       }
     }
   },
   "order": [
     "hero",
-    "category-overview",
-    "featured-collection-1",
-    "featured-collection-2",
-    "usp-service",
-    "partner-logos",
-    "contact-cta"
+    "video_intro",
+    "category_overview",
+    "featured_main",
+    "trust_split",
+    "partner_logos",
+    "testimonial_split",
+    "featured_roof",
+    "featured_modules",
+    "home_cta_banner",
+    "usp_bar"
   ]
 }

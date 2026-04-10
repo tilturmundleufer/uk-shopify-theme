@@ -187,13 +187,25 @@
   margin-top: var(--spacing-sm);
 }
 
+.hero__cta-box-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 18px;
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  color: var(--color-secondary);
+  background: rgba(var(--color-secondary-rgb), 0.06);
+  border: 1px solid rgba(var(--color-secondary-rgb), 0.12);
+}
+
 .hero__cta-box .btn--cta {
-  background-color: var(--color-secondary);
-  border-color: var(--color-secondary);
-  color: #fff;
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-secondary);
 }
 
 .hero__cta-box .btn--cta:hover {
-  background-color: #04172b;
-  filter: none;
+  filter: brightness(1.02);
 }

@@ -12,6 +12,12 @@
   assign cta_text = section.settings.cta_text
   assign cta_url = section.settings.cta_url
   assign sticky_header = section.settings.sticky_header
+  assign show_account = section.settings.show_account_link
+  assign account_label = section.settings.account_label
+  assign account_url = section.settings.account_url
+  if account_url == blank
+    assign account_url = routes.account_login_url
+  endif
 -%}
 
 <header class="header{% if sticky_header %} header--sticky{% endif %}" data-header>
@@ -73,6 +79,12 @@
         
         {%- comment -%} Actions {%- endcomment -%}
         <div class="header__actions">
+          {%- if show_account and account_label != blank -%}
+            <a href="{{ account_url }}" class="header__account-link">
+              {%- render 'icon-user', class: 'header__account-icon' -%}
+              <span class="header__account-text">{{ account_label }}</span>
+            </a>
+          {%- endif -%}
           {%- if cta_text != blank -%}
             <a href="{{ cta_url | default: '#' }}" class="btn btn--cta header__cta">
               {{ cta_text }}
@@ -208,6 +220,13 @@
           aria-label="{{ 'sections.header.search' | t }}"
         >
       </form>
+
+      {%- if show_account and account_label != blank -%}
+        <a href="{{ account_url }}" class="mobile-menu__account">
+          {%- render 'icon-user', class: 'mobile-menu__account-icon' -%}
+          {{ account_label }}
+        </a>
+      {%- endif -%}
       
       <nav class="mobile-menu__nav" aria-label="{{ 'sections.header.menu' | t }}">
         {%- for link in linklists[menu].links -%}
@@ -300,6 +319,28 @@
       "id": "sticky_header",
       "label": "Sticky Header",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "Kundenkonto"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account_link",
+      "label": "Link „Mein Konto“ anzeigen",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "account_label",
+      "label": "Konto-Text",
+      "default": "Mein Konto"
+    },
+    {
+      "type": "url",
+      "id": "account_url",
+      "label": "Konto-Link",
+      "info": "Leer lassen für Shopify Login (/account/login)"
     },
     {
       "type": "header",

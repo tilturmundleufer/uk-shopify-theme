@@ -1,0 +1,150 @@
+{%- comment -%}
+  Dunkler CTA-Streifen mit Hintergrundbild (Fragen + Telefon + Kontakt)
+{%- endcomment -%}
+
+<section
+  class="home-cta-banner section"
+  id="home-cta-{{ section.id }}"
+  {% if section.settings.background_image != blank %}
+    style="--cta-banner-bg: url('{{ section.settings.background_image | image_url: width: 2000 }}');"
+  {% endif %}
+>
+  <div class="home-cta-banner__overlay" style="opacity: {{ section.settings.overlay_opacity | times: 0.01 }};"></div>
+  <div class="page-width home-cta-banner__inner">
+    <div class="home-cta-banner__content">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="home-cta-banner__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}
+        <p class="home-cta-banner__text">{{ section.settings.text }}</p>
+      {%- endif -%}
+    </div>
+    <div class="home-cta-banner__actions">
+      {%- if section.settings.primary_label != blank and section.settings.primary_url != blank -%}
+        <a href="{{ section.settings.primary_url }}" class="btn btn--cta btn--lg home-cta-banner__btn">
+          {{ section.settings.primary_label }}
+        </a>
+      {%- endif -%}
+      {%- assign phone = section.settings.phone_display | default: settings.contact_phone -%}
+      {%- if phone != blank -%}
+        <a href="tel:{{ phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' }}" class="btn btn--cta btn--lg home-cta-banner__btn">
+          {%- render 'icon-phone' -%}
+          <span>{{ phone }}</span>
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .home-cta-banner {
+    position: relative;
+    padding: var(--spacing-3xl) 0;
+    background-color: #041a33;
+    background-image: var(--cta-banner-bg);
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+  }
+  .home-cta-banner__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, rgba(0, 31, 63, 0.92) 0%, rgba(0, 31, 63, 0.72) 55%, rgba(0, 31, 63, 0.45) 100%);
+    pointer-events: none;
+  }
+  .home-cta-banner__inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    align-items: flex-start;
+  }
+  @media (min-width: 750px) {
+    .home-cta-banner__inner {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--spacing-xl);
+    }
+  }
+  .home-cta-banner__heading {
+    color: #fff;
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    margin-bottom: var(--spacing-sm);
+    max-width: 28ch;
+  }
+  .home-cta-banner__text {
+    color: rgba(255, 255, 255, 0.88);
+    max-width: 48ch;
+    margin: 0;
+    line-height: 1.55;
+  }
+  .home-cta-banner__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    flex-shrink: 0;
+  }
+  .home-cta-banner__btn {
+    border-radius: var(--radius-md, 8px);
+    min-height: 48px;
+  }
+  .home-cta-banner__btn svg {
+    width: 20px;
+    height: 20px;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "CTA Banner (Startseite)",
+  "tag": "section",
+  "class": "section-home-cta-banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Hintergrundbild"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Abdunklung (%)",
+      "min": 40,
+      "max": 95,
+      "step": 5,
+      "default": 75
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "Sie haben Fragen? Unser Team hilft Ihnen gerne weiter!"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text (optional)"
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Button Kontakt",
+      "default": "Kontakt aufnehmen"
+    },
+    {
+      "type": "url",
+      "id": "primary_url",
+      "label": "URL Kontakt-Button"
+    },
+    {
+      "type": "text",
+      "id": "phone_display",
+      "label": "Telefonnummer (Anzeige)",
+      "info": "Leer = aus Theme-Einstellungen (Kontakt)"
+    }
+  ],
+  "presets": [{ "name": "CTA Banner (Startseite)" }]
+}
+{% endschema %}

@@ -1,0 +1,133 @@
+{%- comment -%}
+  Zitat links, Bild rechts (Referenz: Montage-Team)
+{%- endcomment -%}
+
+<section class="testimonial-split section" id="testimonial-{{ section.id }}">
+  <div class="page-width testimonial-split__grid">
+    <figure class="testimonial-split__quote">
+      <blockquote class="testimonial-split__text">
+        <p>{{ section.settings.quote }}</p>
+      </blockquote>
+      {%- if section.settings.author != blank -%}
+        <figcaption class="testimonial-split__author">{{ section.settings.author }}</figcaption>
+      {%- endif -%}
+    </figure>
+
+    <div class="testimonial-split__media">
+      {%- if section.settings.image != blank -%}
+        <img
+          src="{{ section.settings.image | image_url: width: 1000 }}"
+          alt="{{ section.settings.image_alt | escape }}"
+          loading="lazy"
+          width="{{ section.settings.image.width }}"
+          height="{{ section.settings.image.height }}"
+        >
+      {%- else -%}
+        <div class="testimonial-split__placeholder">
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+          <p class="testimonial-split__hint">{{ section.settings.placeholder_hint }}</p>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonial-split {
+    padding: var(--spacing-2xl) 0;
+    background: linear-gradient(180deg, #f9fafb 0%, #fff 100%);
+  }
+  .testimonial-split__grid {
+    display: grid;
+    gap: var(--spacing-xl);
+    align-items: center;
+  }
+  @media (min-width: 990px) {
+    .testimonial-split__grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+      gap: var(--spacing-3xl);
+    }
+  }
+  .testimonial-split__text {
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--color-secondary);
+    margin: 0;
+  }
+  .testimonial-split__text p {
+    margin: 0;
+  }
+  .testimonial-split__author {
+    margin-top: var(--spacing-lg);
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    color: var(--color-ink-soft);
+  }
+  .testimonial-split__media img {
+    width: 100%;
+    border-radius: var(--radius-md);
+    object-fit: cover;
+    max-height: 420px;
+  }
+  .testimonial-split__placeholder {
+    border-radius: var(--radius-md);
+    background: #eef2f7;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-lg);
+  }
+  .testimonial-split__placeholder .placeholder-svg {
+    width: 100px;
+    opacity: 0.35;
+  }
+  .testimonial-split__hint {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    text-align: center;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Kundenstimme (Split)",
+  "tag": "section",
+  "class": "section-testimonial-split",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Zitat",
+      "default": "„Wir sind für Sie da – von der Planung bis zur Lieferung.“"
+    },
+    {
+      "type": "text",
+      "id": "author",
+      "label": "Quelle / Autor",
+      "default": "Ihr Team von Unterkonstruktion"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Bild rechts"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Alt-Text Bild",
+      "default": "Montage-Team bei der Installation einer PV-Anlage"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_hint",
+      "label": "Hinweis Platzhalter",
+      "default": "Motiv-Bild (z. B. Team auf dem Dach) im Editor hinterlegen."
+    }
+  ],
+  "presets": [{ "name": "Kundenstimme (Split)" }]
+}
+{% endschema %}

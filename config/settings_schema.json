@@ -18,14 +18,14 @@
         "type": "color",
         "id": "color_primary",
         "label": "t:settings_schema.colors.primary",
-        "default": "#ffb101",
+        "default": "#ffb800",
         "info": "Signalgelb - Hauptfarbe für CTAs und Akzente"
       },
       {
         "type": "color",
         "id": "color_secondary",
         "label": "t:settings_schema.colors.secondary",
-        "default": "#072544",
+        "default": "#001f3f",
         "info": "Dunkelblau - Für Header, Navigation und dunkle Flächen"
       },
       {

@@ -80,6 +80,20 @@
   margin-bottom: var(--spacing-xl);
 }
 
+.featured-products__header--with-tabs {
+  margin-bottom: var(--spacing-lg);
+}
+
+button.category-tabs__tab {
+  font: inherit;
+  cursor: pointer;
+  border: 1px solid var(--color-border);
+}
+
+.featured-products__panel[hidden] {
+  display: none !important;
+}
+
 .featured-products__title-wrapper {
   flex: 1;
   min-width: 200px;
