@@ -218,10 +218,10 @@
 
 .header__search-input {
   width: 100%;
-  padding: 14px 18px 14px 48px;
+  padding: 14px 18px;
   font-size: var(--font-size-sm);
   border: 1px solid var(--color-border);
-  border-radius: 999px;
+  border-radius: var(--radius-md);
   background-color: var(--color-surface);
   transition: border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
 }
@@ -263,7 +263,7 @@
   font-size: var(--font-size-sm);
   font-weight: 700;
   color: var(--color-secondary);
-  border-radius: 999px;
+  border-radius: var(--radius-md);
   transition: background-color var(--transition-fast), color var(--transition-fast);
   cursor: pointer;
 }
@@ -292,7 +292,7 @@
   width: 44px;
   height: 44px;
   color: var(--color-text);
-  border-radius: 999px;
+  border-radius: var(--radius-md);
   transition: color var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast);
 }
 
@@ -317,7 +317,7 @@
   color: #fff;
   font-size: var(--font-size-sm);
   font-weight: 700;
-  border-radius: 999px;
+  border-radius: var(--radius-md);
   transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
@@ -356,7 +356,7 @@
   text-align: center;
   color: var(--color-secondary);
   background-color: var(--color-primary);
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-md);
 }
 
 .header__cart-count:empty {

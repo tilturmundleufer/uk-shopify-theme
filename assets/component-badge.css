@@ -12,7 +12,7 @@
   line-height: 1.2;
   text-transform: uppercase;
   letter-spacing: 0.02em;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-md);
   white-space: nowrap;
 }
 

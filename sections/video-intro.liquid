@@ -24,7 +24,11 @@
     {%- endif -%}
 
     <div class="video-intro__media">
-      {%- if section.settings.video_file != blank -%}
+      {%- if section.settings.custom_embed_liquid != blank -%}
+        <div class="video-intro__custom">
+          {{ section.settings.custom_embed_liquid }}
+        </div>
+      {%- elsif section.settings.video_file != blank -%}
         {{ section.settings.video_file | video_tag: image_size: '1400x', controls: true, class: 'video-intro__video', playsinline: true }}
       {%- elsif vid != blank -%}
         <div class="video-intro__embed">
@@ -95,6 +99,18 @@
     background: #000;
     display: block;
   }
+  .video-intro__custom {
+    width: 100%;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: #0f172a;
+  }
+  .video-intro__custom :is(video, iframe) {
+    display: block;
+    width: 100%;
+    min-height: 360px;
+    border: 0;
+  }
   .video-intro__poster img {
     width: 100%;
     border-radius: var(--radius-md);
@@ -148,6 +164,12 @@
       "type": "richtext",
       "id": "text",
       "label": "Einleitungstext (optional)"
+    },
+    {
+      "type": "liquid",
+      "id": "custom_embed_liquid",
+      "label": "Custom Liquid (Player / Embed)",
+      "info": "z. B. Script von jsDelivr oder eigener Player. Hat Vorrang vor allen anderen Video-Optionen."
     },
     {
       "type": "video",

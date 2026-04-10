@@ -18,6 +18,10 @@
   if account_url == blank
     assign account_url = routes.account_login_url
   endif
+  assign category_menu = section.settings.category_menu
+  if category_menu == blank
+    assign category_menu = section.settings.menu
+  endif
 -%}
 
 <header class="header{% if sticky_header %} header--sticky{% endif %}" data-header>
@@ -66,7 +70,6 @@
         <div class="header__search">
           <form action="{{ routes.search_url }}" method="get" class="header__search-form" role="search">
             <input type="hidden" name="type" value="product">
-            {%- render 'icon-search', class: 'header__search-icon' -%}
             <input
               type="search"
               name="q"
@@ -121,8 +124,8 @@
   {%- comment -%} Main Navigation Bar (Desktop) {%- endcomment -%}
   <div class="header__nav-bar">
     <div class="page-width">
-      <nav class="header__nav" aria-label="{{ 'sections.header.menu' | t }}">
-        {%- for link in linklists[menu].links -%}
+      <nav class="header__nav" aria-label="Produktkategorien">
+        {%- for link in linklists[category_menu].links -%}
           <div class="header__nav-item">
             {%- if link.links != blank -%}
               <button 
@@ -305,8 +308,15 @@
     {
       "type": "link_list",
       "id": "menu",
-      "label": "Hauptmenü",
-      "default": "main-menu"
+      "label": "Hauptmenü (Mobil & Suche)",
+      "default": "main-menu",
+      "info": "Wird im mobilen Menü und für die Suche genutzt."
+    },
+    {
+      "type": "link_list",
+      "id": "category_menu",
+      "label": "Kategorien (gelbe Leiste)",
+      "info": "Leer lassen = gleiches Menü wie Hauptmenü. Hier die Collection-/Kategorie-Links einbinden."
     },
     {
       "type": "checkbox",

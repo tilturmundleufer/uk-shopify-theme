@@ -540,7 +540,7 @@ p {
   width: 40px;
   height: 40px;
   flex-shrink: 0;
-  border-radius: 999px;
+  border-radius: var(--radius-md);
   background: rgba(var(--color-primary-rgb), 0.18);
   color: #ffe18b;
 }
@@ -573,7 +573,7 @@ p {
   justify-content: center;
   flex-shrink: 0;
   padding: 10px 14px;
-  border-radius: 999px;
+  border-radius: var(--radius-md);
   background: var(--color-primary);
   color: var(--color-secondary);
   font-size: 0.82rem;

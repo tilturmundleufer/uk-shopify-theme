@@ -1,6 +1,5 @@
 {%- comment -%}
-  Hero Section
-  Inspired by unterkonstruktion.de with full-width background image
+  Hero: Hintergrund Video (Shopify / URL / Custom Liquid) oder Bild
 {%- endcomment -%}
 
 {{ 'section-hero.css' | asset_url | stylesheet_tag }}
@@ -15,6 +14,8 @@
   assign secondary_cta_url = section.settings.secondary_cta_url
   assign background_image = section.settings.background_image
   assign emphasis_word = section.settings.heading_emphasis_word | strip
+  assign bg_video = section.settings.background_video
+  assign bg_video_url = section.settings.background_video_url | strip
 
   assign cta_box_heading = section.settings.cta_box_heading
   assign cta_box_image = section.settings.cta_box_image
@@ -23,7 +24,41 @@
   assign cta_box_button_text = section.settings.cta_box_button_text
 -%}
 
-<section class="hero" id="hero-{{ section.id }}"{% if background_image != blank %} style="background-image: url('{{ background_image | image_url: width: 1920 }}');"{% endif %}>
+<section class="hero" id="hero-{{ section.id }}">
+  <div class="hero__media" aria-hidden="true">
+    {%- if section.settings.background_video_liquid != blank -%}
+      <div class="hero__media-custom">
+        {{ section.settings.background_video_liquid }}
+      </div>
+    {%- elsif bg_video != blank -%}
+      {{
+        bg_video
+        | video_tag:
+          autoplay: true,
+          loop: true,
+          muted: true,
+          controls: false,
+          class: 'hero__video',
+          image_size: '1920x'
+      }}
+    {%- elsif bg_video_url != blank -%}
+      <video
+        class="hero__video"
+        autoplay
+        muted
+        loop
+        playsinline
+        {% if background_image != blank %}poster="{{ background_image | image_url: width: 1920 }}"{% endif %}
+      >
+        <source src="{{ bg_video_url }}" type="video/mp4">
+      </video>
+    {%- elsif background_image != blank -%}
+      <div
+        class="hero__image"
+        style="background-image: url('{{ background_image | image_url: width: 1920 }}');"
+      ></div>
+    {%- endif -%}
+  </div>
   <div class="hero__overlay"></div>
   <div class="page-width">
     <div class="hero__inner">
@@ -42,18 +77,18 @@
             {%- endif -%}
           </h1>
         {%- endif -%}
-        
+
         {%- if subheading != blank -%}
           <p class="hero__subtitle">{{ subheading }}</p>
         {%- endif -%}
-        
+
         <div class="hero__actions">
           {%- if primary_cta_text != blank -%}
             <a href="{{ primary_cta_url | default: '#' }}" class="btn btn--white btn--lg">
               {{ primary_cta_text }}
             </a>
           {%- endif -%}
-          
+
           {%- if secondary_cta_text != blank -%}
             <a href="{{ secondary_cta_url | default: '#' }}" class="btn btn--outline-white btn--lg btn--arrow">
               {{ secondary_cta_text }}
@@ -62,21 +97,26 @@
           {%- endif -%}
         </div>
       </div>
-      
+
       {%- if section.settings.show_cta_box -%}
         <div class="hero__cta-box">
           <div class="hero__cta-box-inner">
             {%- if cta_box_heading != blank -%}
               <h2 class="hero__cta-box-title">{{ cta_box_heading }}</h2>
             {%- endif -%}
-            
+
             {%- if cta_box_image != blank -%}
               <div class="hero__cta-box-image">
                 <img
-                  src="{{ cta_box_image | image_url: width: 300 }}"
-                  alt="{{ cta_box_heading }}"
-                  width="200"
-                  height="200"
+                  src="{{ cta_box_image | image_url: width: 800 }}"
+                  srcset="
+                    {{ cta_box_image | image_url: width: 400 }} 400w,
+                    {{ cta_box_image | image_url: width: 800 }} 800w
+                  "
+                  sizes="(min-width: 990px) 360px, 90vw"
+                  alt="{{ cta_box_heading | escape }}"
+                  width="{{ cta_box_image.width }}"
+                  height="{{ cta_box_image.height }}"
                   loading="eager"
                 >
                 {%- if cta_box_text != blank -%}
@@ -93,7 +133,7 @@
                 </svg>
               </div>
             {%- endif -%}
-            
+
             <a href="{{ cta_box_url | default: '#' }}" class="btn btn--cta btn--lg btn--full btn--arrow">
               {{ cta_box_button_text | default: 'Jetzt planen' }}
               {%- render 'icon-arrow' -%}
@@ -172,12 +212,30 @@
     },
     {
       "type": "header",
-      "content": "Hintergrundbild"
+      "content": "Hintergrund (Video hat Vorrang vor Bild)"
+    },
+    {
+      "type": "liquid",
+      "id": "background_video_liquid",
+      "label": "Custom Liquid (Video / Embed)",
+      "info": "z. B. eigenes Script oder Player von jsDelivr. Leer lassen, wenn Shopify-Video oder MP4-URL genutzt wird."
+    },
+    {
+      "type": "video",
+      "id": "background_video",
+      "label": "Video aus Medien (Shopify)"
+    },
+    {
+      "type": "text",
+      "id": "background_video_url",
+      "label": "Externe MP4-URL",
+      "info": "Direkter Link zur MP4-Datei (z. B. CDN)."
     },
     {
       "type": "image_picker",
       "id": "background_image",
-      "label": "Hintergrundbild"
+      "label": "Poster / Fallback-Bild",
+      "info": "Wird als Hintergrund angezeigt, wenn kein Video gesetzt ist; bei Video als Poster genutzt."
     },
     {
       "type": "header",

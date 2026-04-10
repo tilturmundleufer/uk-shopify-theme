@@ -67,12 +67,10 @@
               "heading": "Navigation"
             }
           },
-          "cta": {
-            "type": "cta_box",
+          "payment-1": {
+            "type": "payment_column",
             "settings": {
-              "heading": "Sie haben Fragen?",
-              "text": "Unser Team hilft Ihnen gerne weiter!",
-              "button_text": "Jetzt kontaktieren"
+              "heading": "Bezahlung"
             }
           },
           "legal-1": {
@@ -97,14 +95,18 @@
         "block_order": [
           "menu-1",
           "menu-2",
-          "cta",
+          "payment-1",
           "legal-1",
           "legal-2",
           "legal-3"
         ],
         "settings": {
-          "tagline": "Ihr zuverlässiger Partner für hochwertige PV-Komponenten.",
-          "show_payment_icons": true
+          "show_payment_icons": true,
+          "cta_heading": "Sie haben Fragen? Unser Team hilft Ihnen gerne weiter!",
+          "cta_button_text": "Jetzt kontaktieren",
+          "cta_button_url": "",
+          "credit_text": "Website by Turm & Leufer",
+          "credit_url": ""
         }
       },
       "announcement-bar": {

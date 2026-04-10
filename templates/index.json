@@ -139,7 +139,9 @@
       ],
       "settings": {
         "show_tabs": true,
-        "subheading": "Unsere Produkte",
+        "show_section_heading": true,
+        "show_subheading": false,
+        "subheading": "",
         "heading": "Qualität, auf die Sie bauen können – unsere Produkte im Überblick",
         "collection": "all",
         "products_to_show": 4,
@@ -154,13 +156,15 @@
         "badge-1": {
           "type": "badge",
           "settings": {
-            "title": "Zertifikat 1"
+            "title": "Zertifikat 1",
+            "caption": "Zertifizierte Qualität und geprüfte Sicherheit für Ihre Anlage."
           }
         },
         "badge-2": {
           "type": "badge",
           "settings": {
-            "title": "Zertifikat 2"
+            "title": "Zertifikat 2",
+            "caption": "Verlässliche Partnerschaften mit namhaften Herstellern."
           }
         }
       },
@@ -184,6 +188,21 @@
     },
     "testimonial_split": {
       "type": "testimonial-split",
+      "blocks": {
+        "fact-1": {
+          "type": "fact",
+          "settings": { "icon": "medal", "title": "Hochwertige Produkte" }
+        },
+        "fact-2": {
+          "type": "fact",
+          "settings": { "icon": "shipping", "title": "Schneller Versand" }
+        },
+        "fact-3": {
+          "type": "fact",
+          "settings": { "icon": "calendar", "title": "24/7 für Sie da" }
+        }
+      },
+      "block_order": ["fact-1", "fact-2", "fact-3"],
       "settings": {
         "quote": "„Wir sind für Sie da – mit persönlicher Beratung und schneller Lieferung für Ihr Solarprojekt.“",
         "author": "Ihr Team",
@@ -195,6 +214,8 @@
       "type": "featured-collection",
       "settings": {
         "show_tabs": false,
+        "show_section_heading": true,
+        "show_subheading": true,
         "subheading": "Unterkonstruktion",
         "heading": "Alles für Ihr Dach",
         "collection": "all",
@@ -208,6 +229,8 @@
       "type": "featured-collection",
       "settings": {
         "show_tabs": false,
+        "show_section_heading": true,
+        "show_subheading": true,
         "subheading": "Solarmodule",
         "heading": "Unsere PV-Module",
         "collection": "all",
@@ -220,12 +243,17 @@
     "home_cta_banner": {
       "type": "home-cta-banner",
       "settings": {
-        "overlay_opacity": 75,
-        "heading": "Sie haben Fragen? Unser Team hilft Ihnen gerne weiter!",
-        "text": "",
-        "primary_label": "Kontakt aufnehmen",
+        "badge_text": "Hilfe & Kontakt",
+        "heading_line1": "Sie haben Fragen?",
+        "heading_line2": "Unser Team hilft gerne weiter!",
+        "text": "Rufen Sie uns an oder schreiben Sie uns per Mail!",
+        "primary_label": "Jetzt kontaktieren",
         "primary_url": "",
-        "phone_display": ""
+        "overlay_opacity": 75,
+        "box1_title": "Deutschlandweit",
+        "box1_text": "Schnelle und transparente Lieferung",
+        "box2_title": "Service",
+        "box2_text": "Erhalten Sie erstklassigen Service"
       }
     },
     "usp_bar": {

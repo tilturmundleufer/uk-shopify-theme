@@ -1,5 +1,5 @@
 {%- comment -%}
-  Vertrauen: Bild links, Text rechts, optionale Zertifikats-/Partner-Badges
+  Vertrauen: Bild links, Text + Zertifikate rechts (Bild + Legende je Zertifikat)
 {%- endcomment -%}
 
 <section class="trust-split section" id="trust-{{ section.id }}">
@@ -7,12 +7,12 @@
     <div class="trust-split__media">
       {%- if section.settings.image != blank -%}
         <img
-          src="{{ section.settings.image | image_url: width: 900 }}"
+          src="{{ section.settings.image | image_url: width: 1100 }}"
           srcset="
-            {{ section.settings.image | image_url: width: 450 }} 450w,
-            {{ section.settings.image | image_url: width: 900 }} 900w
+            {{ section.settings.image | image_url: width: 550 }} 550w,
+            {{ section.settings.image | image_url: width: 1100 }} 1100w
           "
-          sizes="(min-width: 990px) 44vw, 100vw"
+          sizes="(min-width: 990px) 46vw, 100vw"
           alt="{{ section.settings.image_alt | default: section.settings.heading | escape }}"
           loading="lazy"
           width="{{ section.settings.image.width }}"
@@ -38,20 +38,31 @@
       {%- endif -%}
 
       {%- if section.blocks.size > 0 -%}
-        <ul class="trust-split__badges" role="list">
+        <ul class="trust-split__certs" role="list">
           {%- for block in section.blocks -%}
             {%- if block.type == 'badge' -%}
-              <li class="trust-split__badge" {{ block.shopify_attributes }}>
-                {%- if block.settings.image != blank -%}
-                  <img
-                    src="{{ block.settings.image | image_url: width: 220 }}"
-                    alt="{{ block.settings.title | default: 'Zertifikat' | escape }}"
-                    loading="lazy"
-                    width="{{ block.settings.image.width }}"
-                    height="{{ block.settings.image.height }}"
-                  >
-                {%- else -%}
-                  <span class="trust-split__badge-fallback">{{ block.settings.title | default: 'Badge' }}</span>
+              <li class="trust-split__cert" {{ block.shopify_attributes }}>
+                <div class="trust-split__cert-visual">
+                  {%- if block.settings.image != blank -%}
+                    <img
+                      src="{{ block.settings.image | image_url: width: 560 }}"
+                      srcset="
+                        {{ block.settings.image | image_url: width: 280 }} 280w,
+                        {{ block.settings.image | image_url: width: 560 }} 560w
+                      "
+                      sizes="(min-width: 990px) 22vw, 45vw"
+                      alt="{{ block.settings.title | default: 'Zertifikat' | escape }}"
+                      loading="lazy"
+                      width="{{ block.settings.image.width }}"
+                      height="{{ block.settings.image.height }}"
+                      class="trust-split__cert-img"
+                    >
+                  {%- else -%}
+                    <span class="trust-split__badge-fallback">{{ block.settings.title | default: 'Badge' }}</span>
+                  {%- endif -%}
+                </div>
+                {%- if block.settings.caption != blank -%}
+                  <p class="trust-split__cert-caption">{{ block.settings.caption }}</p>
                 {%- endif -%}
               </li>
             {%- endif -%}
@@ -69,19 +80,21 @@
   .trust-split__grid {
     display: grid;
     gap: var(--spacing-xl);
-    align-items: center;
+    align-items: start;
   }
   @media (min-width: 990px) {
     .trust-split__grid {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       gap: var(--spacing-3xl);
+      align-items: stretch;
     }
   }
   .trust-split__img {
     width: 100%;
     border-radius: var(--radius-md);
     object-fit: cover;
-    max-height: 520px;
+    min-height: 360px;
+    max-height: none;
   }
   .trust-split__placeholder {
     border-radius: var(--radius-md);
@@ -109,18 +122,52 @@
   .trust-split__text {
     color: var(--color-ink-soft);
     line-height: 1.65;
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
   }
-  .trust-split__badges {
+  .trust-split__certs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--spacing-lg);
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  @media (max-width: 749px) {
+    .trust-split__certs {
+      grid-template-columns: 1fr;
+    }
+  }
+  .trust-split__cert {
+    list-style: none;
+    margin: 0;
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-md);
-    align-items: center;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    min-width: 0;
   }
-  .trust-split__badge img {
-    max-height: 52px;
-    width: auto;
+  .trust-split__cert-visual {
+    width: 100%;
+    border-radius: var(--radius-md);
+    background: #f3f4f6;
+    padding: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+  }
+  .trust-split__cert-img {
+    width: 100%;
+    height: auto;
+    max-height: 140px;
     object-fit: contain;
+    object-position: center;
+  }
+  .trust-split__cert-caption {
+    font-size: var(--font-size-sm);
+    color: var(--color-ink-soft);
+    line-height: 1.5;
+    margin: 0;
+    text-align: center;
   }
   .trust-split__badge-fallback {
     font-size: var(--font-size-xs);
@@ -179,6 +226,12 @@
           "type": "text",
           "id": "title",
           "label": "Bezeichnung (Alt-Text)"
+        },
+        {
+          "type": "textarea",
+          "id": "caption",
+          "label": "Text unter dem Bild",
+          "info": "Kurze Erläuterung oder Zertifikatsdetails."
         }
       ]
     }

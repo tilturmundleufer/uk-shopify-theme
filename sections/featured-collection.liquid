@@ -9,6 +9,7 @@
   assign products_to_show = section.settings.products_to_show
   assign show_view_all = section.settings.show_view_all
   assign show_tabs = section.settings.show_tabs
+  assign show_subheading = section.settings.show_subheading | default: true
   assign collection = collections[section.settings.collection]
   assign tab_blocks_count = 0
   for block in section.blocks
@@ -32,7 +33,7 @@
     {%- if section.settings.show_section_heading -%}
       <div class="featured-products__header featured-products__header--with-tabs">
         <div class="featured-products__title-wrapper">
-          {%- if section.settings.subheading != blank -%}
+          {%- if show_subheading and section.settings.subheading != blank -%}
             <p class="featured-products__subtitle">{{ section.settings.subheading }}</p>
           {%- endif -%}
           {%- if section.settings.heading != blank -%}
@@ -169,7 +170,7 @@
       {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
         <div class="featured-products__header">
           <div class="featured-products__title-wrapper">
-            {%- if section.settings.subheading != blank -%}
+            {%- if show_subheading and section.settings.subheading != blank -%}
               <p class="featured-products__subtitle">{{ section.settings.subheading }}</p>
             {%- endif -%}
             {%- if section.settings.heading != blank -%}
@@ -228,6 +229,13 @@
       "label": "Abschnitts-Überschrift anzeigen",
       "default": true,
       "info": "Empfohlen bei aktivierten Kategorie-Tabs (wie unterkonstruktion.de)."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_subheading",
+      "label": "Kicker / Untertitel anzeigen",
+      "default": true,
+      "info": "Bei doppelt wirkendem Text zur Hauptüberschrift deaktivieren."
     },
     {
       "type": "text",

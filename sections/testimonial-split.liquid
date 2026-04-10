@@ -1,22 +1,39 @@
 {%- comment -%}
-  Zitat links, Bild rechts (Referenz: Montage-Team)
+  Facts links (Icons), Zitat, Bild rechts
 {%- endcomment -%}
 
 <section class="testimonial-split section" id="testimonial-{{ section.id }}">
   <div class="page-width testimonial-split__grid">
-    <figure class="testimonial-split__quote">
-      <blockquote class="testimonial-split__text">
-        <p>{{ section.settings.quote }}</p>
-      </blockquote>
-      {%- if section.settings.author != blank -%}
-        <figcaption class="testimonial-split__author">{{ section.settings.author }}</figcaption>
+    <div class="testimonial-split__left">
+      {%- if section.blocks.size > 0 -%}
+        <ul class="testimonial-split__facts" role="list">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'fact' -%}
+              <li class="testimonial-split__fact" {{ block.shopify_attributes }}>
+                <span class="testimonial-split__fact-icon" aria-hidden="true">
+                  {%- render 'testimonial-fact-icon', icon: block.settings.icon -%}
+                </span>
+                <span class="testimonial-split__fact-label">{{ block.settings.title }}</span>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
       {%- endif -%}
-    </figure>
+
+      <figure class="testimonial-split__quote">
+        <blockquote class="testimonial-split__text">
+          <p>{{ section.settings.quote }}</p>
+        </blockquote>
+        {%- if section.settings.author != blank -%}
+          <figcaption class="testimonial-split__author">{{ section.settings.author }}</figcaption>
+        {%- endif -%}
+      </figure>
+    </div>
 
     <div class="testimonial-split__media">
       {%- if section.settings.image != blank -%}
         <img
-          src="{{ section.settings.image | image_url: width: 1000 }}"
+          src="{{ section.settings.image | image_url: width: 1200 }}"
           alt="{{ section.settings.image_alt | escape }}"
           loading="lazy"
           width="{{ section.settings.image.width }}"
@@ -40,13 +57,48 @@
   .testimonial-split__grid {
     display: grid;
     gap: var(--spacing-xl);
-    align-items: center;
+    align-items: stretch;
   }
   @media (min-width: 990px) {
     .testimonial-split__grid {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
       gap: var(--spacing-3xl);
     }
+  }
+  .testimonial-split__facts {
+    list-style: none;
+    margin: 0 0 var(--spacing-xl);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+  .testimonial-split__fact {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .testimonial-split__fact-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--color-secondary);
+    border-radius: 50%;
+    color: var(--color-secondary);
+    background: #fff;
+  }
+  .testimonial-split__fact-icon-svg {
+    width: 26px;
+    height: 26px;
+  }
+  .testimonial-split__fact-label {
+    font-size: var(--font-size-md);
+    font-weight: 600;
+    color: var(--color-secondary);
+    line-height: 1.3;
   }
   .testimonial-split__text {
     font-size: clamp(1.25rem, 2.5vw, 1.75rem);
@@ -64,16 +116,22 @@
     font-weight: 700;
     color: var(--color-ink-soft);
   }
+  .testimonial-split__media {
+    min-height: 280px;
+  }
   .testimonial-split__media img {
     width: 100%;
+    height: 100%;
+    min-height: 360px;
     border-radius: var(--radius-md);
     object-fit: cover;
-    max-height: 420px;
+    max-height: none;
   }
   .testimonial-split__placeholder {
     border-radius: var(--radius-md);
     background: #eef2f7;
-    min-height: 280px;
+    min-height: 360px;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -128,6 +186,41 @@
       "default": "Motiv-Bild (z. B. Team auf dem Dach) im Editor hinterlegen."
     }
   ],
-  "presets": [{ "name": "Kundenstimme (Split)" }]
+  "blocks": [
+    {
+      "type": "fact",
+      "name": "Fact / USP",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "medal", "label": "Qualität (Medaille)" },
+            { "value": "shipping", "label": "Versand (Paket)" },
+            { "value": "calendar", "label": "Erreichbarkeit (Kalender)" }
+          ],
+          "default": "medal"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Text",
+          "default": "Hochwertige Produkte"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Kundenstimme (Split)",
+      "blocks": [
+        { "type": "fact", "settings": { "icon": "medal", "title": "Hochwertige Produkte" } },
+        { "type": "fact", "settings": { "icon": "shipping", "title": "Schneller Versand" } },
+        { "type": "fact", "settings": { "icon": "calendar", "title": "24/7 für Sie da" } }
+      ]
+    }
+  ]
 }
 {% endschema %}

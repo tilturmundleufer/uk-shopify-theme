@@ -1,37 +1,80 @@
 {%- comment -%}
-  Dunkler CTA-Streifen mit Hintergrundbild (Fragen + Telefon + Kontakt)
+  CTA-Banner: Referenz Hilfe & Kontakt + Feature-Karten unten rechts
 {%- endcomment -%}
 
 <section
   class="home-cta-banner section"
   id="home-cta-{{ section.id }}"
   {% if section.settings.background_image != blank %}
-    style="--cta-banner-bg: url('{{ section.settings.background_image | image_url: width: 2000 }}');"
+    style="--cta-banner-bg: url('{{ section.settings.background_image | image_url: width: 2400 }}');"
   {% endif %}
 >
   <div class="home-cta-banner__overlay" style="opacity: {{ section.settings.overlay_opacity | times: 0.01 }};"></div>
-  <div class="page-width home-cta-banner__inner">
-    <div class="home-cta-banner__content">
-      {%- if section.settings.heading != blank -%}
-        <h2 class="home-cta-banner__heading">{{ section.settings.heading }}</h2>
+
+  <div class="page-width home-cta-banner__wrap">
+    <div class="home-cta-banner__main">
+      {%- if section.settings.badge_text != blank -%}
+        <p class="home-cta-banner__badge">{{ section.settings.badge_text }}</p>
       {%- endif -%}
+
+      <h2 class="home-cta-banner__heading">
+        {%- if section.settings.heading_line1 != blank -%}
+          <span class="home-cta-banner__heading-line">{{ section.settings.heading_line1 }}</span>
+        {%- endif -%}
+        {%- if section.settings.heading_line2 != blank -%}
+          <span class="home-cta-banner__heading-line">{{ section.settings.heading_line2 }}</span>
+        {%- endif -%}
+      </h2>
+
       {%- if section.settings.text != blank -%}
         <p class="home-cta-banner__text">{{ section.settings.text }}</p>
       {%- endif -%}
+
+      {%- if section.settings.primary_url != blank -%}
+        <div class="home-cta-banner__cta-row">
+          <a href="{{ section.settings.primary_url }}" class="home-cta-banner__square-btn" aria-label="{{ section.settings.primary_label | escape }}">
+            {%- render 'icon-arrow-up-right', class: 'home-cta-banner__square-ico' -%}
+          </a>
+          <span class="home-cta-banner__cta-label">{{ section.settings.primary_label }}</span>
+        </div>
+      {%- endif -%}
     </div>
-    <div class="home-cta-banner__actions">
-      {%- if section.settings.primary_label != blank and section.settings.primary_url != blank -%}
-        <a href="{{ section.settings.primary_url }}" class="btn btn--cta btn--lg home-cta-banner__btn">
-          {{ section.settings.primary_label }}
-        </a>
-      {%- endif -%}
-      {%- assign phone = section.settings.phone_display | default: settings.contact_phone -%}
-      {%- if phone != blank -%}
-        <a href="tel:{{ phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' }}" class="btn btn--cta btn--lg home-cta-banner__btn">
-          {%- render 'icon-phone' -%}
-          <span>{{ phone }}</span>
-        </a>
-      {%- endif -%}
+
+    <div class="home-cta-banner__feature-box" role="group" aria-label="Leistungen">
+      <div class="home-cta-banner__feature home-cta-banner__feature--navy">
+        <div class="home-cta-banner__feature-text">
+          {%- if section.settings.box1_title != blank -%}
+            <strong class="home-cta-banner__feature-title">{{ section.settings.box1_title }}</strong>
+          {%- endif -%}
+          {%- if section.settings.box1_text != blank -%}
+            <span class="home-cta-banner__feature-sub">{{ section.settings.box1_text }}</span>
+          {%- endif -%}
+        </div>
+        <span class="home-cta-banner__feature-ico" aria-hidden="true">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+            <line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+        </span>
+      </div>
+      <div class="home-cta-banner__feature home-cta-banner__feature--yellow">
+        <div class="home-cta-banner__feature-text">
+          {%- if section.settings.box2_title != blank -%}
+            <strong class="home-cta-banner__feature-title">{{ section.settings.box2_title }}</strong>
+          {%- endif -%}
+          {%- if section.settings.box2_text != blank -%}
+            <span class="home-cta-banner__feature-sub">{{ section.settings.box2_text }}</span>
+          {%- endif -%}
+        </div>
+        <span class="home-cta-banner__feature-ico home-cta-banner__feature-ico--dark" aria-hidden="true">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+        </span>
+      </div>
     </div>
   </div>
 </section>
@@ -39,7 +82,8 @@
 <style>
   .home-cta-banner {
     position: relative;
-    padding: var(--spacing-3xl) 0;
+    padding: clamp(3rem, 8vw, 5.5rem) 0;
+    min-height: 420px;
     background-color: #041a33;
     background-image: var(--cta-banner-bg);
     background-size: cover;
@@ -49,50 +93,147 @@
   .home-cta-banner__overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(105deg, rgba(0, 31, 63, 0.92) 0%, rgba(0, 31, 63, 0.72) 55%, rgba(0, 31, 63, 0.45) 100%);
+    background: linear-gradient(100deg, rgba(0, 31, 63, 0.88) 0%, rgba(0, 31, 63, 0.55) 45%, rgba(0, 31, 63, 0.35) 100%);
     pointer-events: none;
   }
-  .home-cta-banner__inner {
+  .home-cta-banner__wrap {
     position: relative;
     z-index: 1;
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-lg);
-    align-items: flex-start;
+    gap: var(--spacing-xl);
   }
-  @media (min-width: 750px) {
-    .home-cta-banner__inner {
+  @media (min-width: 990px) {
+    .home-cta-banner__wrap {
       flex-direction: row;
-      align-items: center;
+      align-items: flex-end;
       justify-content: space-between;
-      gap: var(--spacing-xl);
+      gap: var(--spacing-2xl);
+      min-height: 320px;
     }
   }
+  .home-cta-banner__main {
+    max-width: 36rem;
+  }
+  .home-cta-banner__badge {
+    display: inline-block;
+    margin: 0 0 var(--spacing-md);
+    padding: 8px 16px;
+    font-size: var(--font-size-xs);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-secondary);
+    background: var(--color-primary);
+    border-radius: 999px;
+  }
   .home-cta-banner__heading {
+    margin: 0 0 var(--spacing-md);
     color: #fff;
-    font-size: clamp(1.5rem, 3vw, 2.25rem);
-    margin-bottom: var(--spacing-sm);
-    max-width: 28ch;
+    font-size: clamp(1.65rem, 4vw, 2.75rem);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+  }
+  .home-cta-banner__heading-line {
+    display: block;
   }
   .home-cta-banner__text {
-    color: rgba(255, 255, 255, 0.88);
-    max-width: 48ch;
-    margin: 0;
+    margin: 0 0 var(--spacing-lg);
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 1.05rem;
     line-height: 1.55;
+    max-width: 42ch;
   }
-  .home-cta-banner__actions {
+  .home-cta-banner__cta-row {
     display: flex;
+    align-items: center;
+    gap: 14px;
     flex-wrap: wrap;
-    gap: var(--spacing-sm);
+  }
+  .home-cta-banner__square-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
     flex-shrink: 0;
+    background: var(--color-primary);
+    color: var(--color-secondary);
+    border-radius: 4px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
   }
-  .home-cta-banner__btn {
-    border-radius: var(--radius-md, 8px);
-    min-height: 48px;
+  .home-cta-banner__square-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
   }
-  .home-cta-banner__btn svg {
-    width: 20px;
-    height: 20px;
+  .home-cta-banner__square-ico {
+    width: 24px;
+    height: 24px;
+  }
+  .home-cta-banner__cta-label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  .home-cta-banner__feature-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    max-width: 520px;
+    margin-left: auto;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+  }
+  @media (max-width: 989px) {
+    .home-cta-banner__feature-box {
+      max-width: none;
+    }
+  }
+  .home-cta-banner__feature {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 20px 18px;
+    min-height: 120px;
+  }
+  .home-cta-banner__feature--navy {
+    background: var(--color-secondary);
+    color: #fff;
+  }
+  .home-cta-banner__feature--yellow {
+    background: var(--color-primary);
+    color: var(--color-secondary);
+  }
+  .home-cta-banner__feature-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+  }
+  .home-cta-banner__feature-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    display: block;
+  }
+  .home-cta-banner__feature-sub {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.35;
+    opacity: 0.95;
+  }
+  .home-cta-banner__feature--yellow .home-cta-banner__feature-sub {
+    color: #fff;
+  }
+  .home-cta-banner__feature-ico {
+    flex-shrink: 0;
+    opacity: 0.95;
+  }
+  .home-cta-banner__feature-ico--dark {
+    color: var(--color-secondary);
   }
 </style>
 
@@ -114,35 +255,74 @@
       "min": 40,
       "max": 95,
       "step": 5,
-      "default": 75
+      "default": 72
     },
     {
       "type": "text",
-      "id": "heading",
-      "label": "Überschrift",
-      "default": "Sie haben Fragen? Unser Team hilft Ihnen gerne weiter!"
+      "id": "badge_text",
+      "label": "Badge",
+      "default": "Hilfe & Kontakt"
+    },
+    {
+      "type": "text",
+      "id": "heading_line1",
+      "label": "Überschrift Zeile 1",
+      "default": "Sie haben Fragen?"
+    },
+    {
+      "type": "text",
+      "id": "heading_line2",
+      "label": "Überschrift Zeile 2",
+      "default": "Unser Team hilft gerne weiter!"
     },
     {
       "type": "textarea",
       "id": "text",
-      "label": "Text (optional)"
+      "label": "Untertext",
+      "default": "Rufen Sie uns an oder schreiben Sie uns per Mail!"
     },
     {
       "type": "text",
       "id": "primary_label",
-      "label": "Button Kontakt",
-      "default": "Kontakt aufnehmen"
+      "label": "Text neben Button",
+      "default": "Jetzt kontaktieren"
     },
     {
       "type": "url",
       "id": "primary_url",
-      "label": "URL Kontakt-Button"
+      "label": "Link (Button + Text)"
+    },
+    {
+      "type": "header",
+      "content": "Karte links (dunkel)"
     },
     {
       "type": "text",
-      "id": "phone_display",
-      "label": "Telefonnummer (Anzeige)",
-      "info": "Leer = aus Theme-Einstellungen (Kontakt)"
+      "id": "box1_title",
+      "label": "Titel",
+      "default": "Deutschlandweit"
+    },
+    {
+      "type": "text",
+      "id": "box1_text",
+      "label": "Unterzeile",
+      "default": "Schnelle und transparente Lieferung"
+    },
+    {
+      "type": "header",
+      "content": "Karte rechts (gelb)"
+    },
+    {
+      "type": "text",
+      "id": "box2_title",
+      "label": "Titel",
+      "default": "Service"
+    },
+    {
+      "type": "text",
+      "id": "box2_text",
+      "label": "Unterzeile",
+      "default": "Erhalten Sie erstklassigen Service"
     }
   ],
   "presets": [{ "name": "CTA Banner (Startseite)" }]
