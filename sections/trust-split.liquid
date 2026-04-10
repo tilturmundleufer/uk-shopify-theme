@@ -61,9 +61,14 @@
                     <span class="trust-split__badge-fallback">{{ block.settings.title | default: 'Badge' }}</span>
                   {%- endif -%}
                 </div>
-                {%- if block.settings.caption != blank -%}
-                  <p class="trust-split__cert-caption">{{ block.settings.caption }}</p>
-                {%- endif -%}
+                <div class="trust-split__cert-copy">
+                  {%- if block.settings.caption_title != blank -%}
+                    <p class="trust-split__cert-title">{{ block.settings.caption_title }}</p>
+                  {%- endif -%}
+                  {%- if block.settings.caption != blank -%}
+                    <p class="trust-split__cert-caption">{{ block.settings.caption }}</p>
+                  {%- endif -%}
+                </div>
               </li>
             {%- endif -%}
           {%- endfor -%}
@@ -119,6 +124,11 @@
   .trust-split__heading {
     margin-bottom: var(--spacing-md);
   }
+  .trust-split__content {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
   .trust-split__text {
     color: var(--color-ink-soft);
     line-height: 1.65;
@@ -131,10 +141,23 @@
     width: 100%;
     margin: 0;
     padding: 0;
+    align-items: stretch;
   }
   @media (max-width: 749px) {
     .trust-split__certs {
       grid-template-columns: 1fr;
+    }
+  }
+  @media (min-width: 990px) {
+    .trust-split__content {
+      min-height: 100%;
+    }
+    .trust-split__text {
+      margin-bottom: var(--spacing-lg);
+    }
+    .trust-split__certs {
+      margin-top: auto;
+      padding-top: var(--spacing-sm);
     }
   }
   .trust-split__cert {
@@ -142,10 +165,12 @@
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-sm);
     min-width: 0;
+    height: 100%;
+    min-height: 100%;
   }
   .trust-split__cert-visual {
+    flex: 1 1 auto;
     width: 100%;
     border-radius: var(--radius-md);
     background: #f3f4f6;
@@ -155,6 +180,23 @@
     justify-content: center;
     min-height: 120px;
   }
+  .trust-split__cert-copy {
+    flex-shrink: 0;
+    margin-top: var(--spacing-sm);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    align-items: flex-start;
+  }
+  .trust-split__cert-title {
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--color-secondary);
+    margin: 0;
+    text-align: left;
+  }
   .trust-split__cert-img {
     width: 100%;
     height: auto;
@@ -163,11 +205,11 @@
     object-position: center;
   }
   .trust-split__cert-caption {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-xs);
     color: var(--color-ink-soft);
-    line-height: 1.5;
+    line-height: 1.55;
     margin: 0;
-    text-align: center;
+    text-align: left;
   }
   .trust-split__badge-fallback {
     font-size: var(--font-size-xs);
@@ -228,10 +270,16 @@
           "label": "Bezeichnung (Alt-Text)"
         },
         {
+          "type": "text",
+          "id": "caption_title",
+          "label": "Überschrift unter dem Bild",
+          "info": "Größer gesetzt, linksbündig."
+        },
+        {
           "type": "textarea",
           "id": "caption",
-          "label": "Text unter dem Bild",
-          "info": "Kurze Erläuterung oder Zertifikatsdetails."
+          "label": "Zusatztext",
+          "info": "Kleiner als die Überschrift, linksbündig."
         }
       ]
     }

@@ -89,7 +89,7 @@
 .topbar__inner {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 12px 18px;
 }
@@ -127,13 +127,15 @@
 
 .topbar__nav {
   display: none;
-  margin-left: auto;
+  justify-content: center;
 }
 
 @media (min-width: 750px) {
   .topbar__nav {
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
     gap: var(--spacing-lg);
   }
 }
@@ -409,6 +411,8 @@
 .header__nav {
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .header__nav-item {

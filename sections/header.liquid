@@ -6,7 +6,8 @@
 
 {%- liquid
   assign logo = section.settings.logo
-  assign logo_width = section.settings.logo_width
+  assign logo_width = section.settings.logo_width | default: 120
+  assign logo_src_width = logo_width | times: 2
   assign menu = section.settings.menu
   assign show_topbar = section.settings.show_topbar
   assign cta_text = section.settings.cta_text
@@ -53,12 +54,13 @@
           <a href="{{ routes.root_url }}" class="header__logo-link">
             {%- if logo != blank -%}
               <img
-                src="{{ logo | image_url: width: logo_width | times: 2 }}"
-                alt="{{ shop.name }}"
+                src="{{ logo | image_url: width: logo_src_width }}"
+                alt="{{ logo.alt | default: shop.name | escape }}"
                 class="header__logo-img"
                 width="{{ logo_width }}"
                 height="{{ logo_width | divided_by: logo.aspect_ratio | round }}"
                 loading="eager"
+                decoding="async"
               >
             {%- else -%}
               <span class="header__logo-text">{{ shop.name }}</span>
@@ -190,11 +192,13 @@
         <a href="{{ routes.root_url }}" class="header__logo-link">
           {%- if logo != blank -%}
             <img
-              src="{{ logo | image_url: width: logo_width | times: 2 }}"
-              alt="{{ shop.name }}"
+              src="{{ logo | image_url: width: logo_src_width }}"
+              alt="{{ logo.alt | default: shop.name | escape }}"
               class="header__logo-img"
               width="{{ logo_width }}"
               height="{{ logo_width | divided_by: logo.aspect_ratio | round }}"
+              loading="lazy"
+              decoding="async"
             >
           {%- else -%}
             <span class="header__logo-text">{{ shop.name }}</span>
