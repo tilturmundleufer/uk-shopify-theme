@@ -14,6 +14,7 @@
       "settings": {
         "eyebrow": "Unterkonstruktion",
         "heading": "Wir haben alles für Ihr nächstes Solarprojekt",
+        "heading_emphasis_word": "alles",
         "subheading": "Ihr zuverlässiger Partner für PV-Unterkonstruktion und mehr. Von Eigenheim bis Großprojekt – wir haben es auf Lager!",
         "primary_cta_text": "Zum Konfigurator",
         "primary_cta_url": "shopify://pages/solar-konfigurator",
@@ -21,8 +22,10 @@
         "secondary_cta_url": "shopify://collections/all",
         "show_cta_box": true,
         "cta_box_heading": "Module planen leicht gemacht!",
+        "cta_box_image": "shopify://shop_images/Screenshot_2026-04-10_at_14.49.24.png",
         "cta_box_text": "",
-        "cta_box_url": ""
+        "cta_box_url": "",
+        "cta_box_button_text": "Jetzt planen"
       }
     },
     "video_intro": {
@@ -31,64 +34,8 @@
         "heading": "",
         "text": "",
         "youtube_url": "",
+        "poster_alt": "",
         "placeholder_hint": "YouTube-Link oder Video unter „Video aus Medien“ im Theme-Editor hinterlegen."
-      }
-    },
-    "category_overview": {
-      "type": "category-overview",
-      "blocks": {
-        "category-1": {
-          "type": "category",
-          "settings": {
-            "title": "Unterkonstruktion",
-            "description": "",
-            "link": ""
-          }
-        },
-        "category-2": {
-          "type": "category",
-          "settings": {
-            "title": "Solarmodule",
-            "description": "",
-            "link": ""
-          }
-        },
-        "category-3": {
-          "type": "category",
-          "settings": {
-            "title": "Wechselrichter",
-            "description": "",
-            "link": ""
-          }
-        },
-        "category-4": {
-          "type": "category",
-          "settings": {
-            "title": "Batteriespeicher",
-            "description": "",
-            "link": ""
-          }
-        },
-        "category-5": {
-          "type": "category",
-          "settings": {
-            "title": "Zubehör",
-            "description": "",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "category-1",
-        "category-2",
-        "category-3",
-        "category-4",
-        "category-5"
-      ],
-      "settings": {
-        "subheading": "Alle Kategorien",
-        "heading": "",
-        "columns": 5
       }
     },
     "featured_main": {
@@ -105,28 +52,28 @@
           "type": "category_tab",
           "settings": {
             "label": "Unterkonstruktion",
-            "collection": ""
+            "collection": "unterkonstruktion-schragdach"
           }
         },
         "tab-sm": {
           "type": "category_tab",
           "settings": {
             "label": "Solarmodule",
-            "collection": ""
+            "collection": "solarmodule"
           }
         },
         "tab-wr": {
           "type": "category_tab",
           "settings": {
             "label": "Wechselrichter",
-            "collection": ""
+            "collection": "wechselrichter"
           }
         },
         "tab-zu": {
           "type": "category_tab",
           "settings": {
             "label": "Zubehör",
-            "collection": ""
+            "collection": "zubehor"
           }
         }
       },
@@ -138,11 +85,12 @@
         "tab-zu"
       ],
       "settings": {
-        "show_tabs": true,
         "show_section_heading": true,
-        "show_subheading": false,
-        "subheading": "",
+        "subheading": "Unsere Produkte",
         "heading": "Qualität, auf die Sie bauen können – unsere Produkte im Überblick",
+        "header_link_label": "",
+        "header_link_url": "",
+        "show_tabs": true,
         "collection": "all",
         "products_to_show": 4,
         "show_qty_stepper": true,
@@ -156,15 +104,15 @@
         "badge-1": {
           "type": "badge",
           "settings": {
-            "title": "Zertifikat 1",
-            "caption": "Zertifizierte Qualität und geprüfte Sicherheit für Ihre Anlage."
+            "image": "shopify://shop_images/68b30cdf55767e4fa8cae973_Screenshot_2025-08-30_163645.png",
+            "title": "Zertifikat 1"
           }
         },
         "badge-2": {
           "type": "badge",
           "settings": {
-            "title": "Zertifikat 2",
-            "caption": "Verlässliche Partnerschaften mit namhaften Herstellern."
+            "image": "shopify://shop_images/68b30e974989f52413dd407a_Tuv_siegel_qr_code_logo.png",
+            "title": "Zertifikat 2"
           }
         }
       },
@@ -173,6 +121,8 @@
         "badge-2"
       ],
       "settings": {
+        "image": "shopify://shop_images/68b313c02762f3ffc1ca0905_Dach1.jpg",
+        "image_alt": "",
         "kicker": "Von Profis. Für Sie",
         "heading": "Höchste Produktqualität für Ihr nächstes Projekt.",
         "text": "<p>Unser Sortiment umfasst alles, was Sie für eine effiziente Photovoltaikanlage benötigen: robuste Unterkonstruktionen für alle Dachtypen, leistungsstarke Solarmodule, zuverlässige Wechselrichter sowie moderne Stromspeicher. Alle Produkte sind sorgfältig ausgewählt, zertifiziert und optimal aufeinander abgestimmt – für maximale Sicherheit und Erträge.</p>"
@@ -180,6 +130,74 @@
     },
     "partner_logos": {
       "type": "partner-logos",
+      "blocks": {
+        "logo_rHHNVa": {
+          "type": "logo",
+          "settings": {
+            "name": "",
+            "link": ""
+          }
+        },
+        "logo_ewGUjx": {
+          "type": "logo",
+          "settings": {
+            "name": "",
+            "link": ""
+          }
+        },
+        "logo_NWM7Wn": {
+          "type": "logo",
+          "settings": {
+            "name": "",
+            "link": ""
+          }
+        },
+        "logo_8WFUJx": {
+          "type": "logo",
+          "settings": {
+            "name": "",
+            "link": ""
+          }
+        },
+        "logo_6VkddL": {
+          "type": "logo",
+          "settings": {
+            "name": "",
+            "link": ""
+          }
+        },
+        "logo_cyX4Wi": {
+          "type": "logo",
+          "settings": {
+            "name": "",
+            "link": ""
+          }
+        },
+        "logo_yJm4HB": {
+          "type": "logo",
+          "settings": {
+            "name": "",
+            "link": ""
+          }
+        },
+        "logo_kTfagh": {
+          "type": "logo",
+          "settings": {
+            "name": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "logo_rHHNVa",
+        "logo_ewGUjx",
+        "logo_NWM7Wn",
+        "logo_8WFUJx",
+        "logo_6VkddL",
+        "logo_cyX4Wi",
+        "logo_yJm4HB",
+        "logo_kTfagh"
+      ],
       "settings": {
         "subheading": "Unsere Partner",
         "heading": "",
@@ -189,23 +207,37 @@
     "testimonial_split": {
       "type": "testimonial-split",
       "blocks": {
-        "fact-1": {
+        "fact_4jiTKK": {
           "type": "fact",
-          "settings": { "icon": "medal", "title": "Hochwertige Produkte" }
+          "settings": {
+            "icon": "medal",
+            "title": "Hochwertige Produkte"
+          }
         },
-        "fact-2": {
+        "fact_AwV6ef": {
           "type": "fact",
-          "settings": { "icon": "shipping", "title": "Schneller Versand" }
+          "settings": {
+            "icon": "medal",
+            "title": "Hochwertige Produkte"
+          }
         },
-        "fact-3": {
+        "fact_F8XNA3": {
           "type": "fact",
-          "settings": { "icon": "calendar", "title": "24/7 für Sie da" }
+          "settings": {
+            "icon": "medal",
+            "title": "Hochwertige Produkte"
+          }
         }
       },
-      "block_order": ["fact-1", "fact-2", "fact-3"],
+      "block_order": [
+        "fact_4jiTKK",
+        "fact_AwV6ef",
+        "fact_F8XNA3"
+      ],
       "settings": {
         "quote": "„Wir sind für Sie da – mit persönlicher Beratung und schneller Lieferung für Ihr Solarprojekt.“",
         "author": "Ihr Team",
+        "image": "shopify://shop_images/68b31055e86b0b10ea7f75ea_Jungs_auf_dem_Dach.png",
         "image_alt": "Montage-Team bei der Installation einer PV-Anlage",
         "placeholder_hint": "Motiv-Bild (z. B. Team auf dem Dach) im Editor hinterlegen."
       }
@@ -213,11 +245,12 @@
     "featured_roof": {
       "type": "featured-collection",
       "settings": {
-        "show_tabs": false,
         "show_section_heading": true,
-        "show_subheading": true,
         "subheading": "Unterkonstruktion",
         "heading": "Alles für Ihr Dach",
+        "header_link_label": "",
+        "header_link_url": "",
+        "show_tabs": false,
         "collection": "all",
         "products_to_show": 4,
         "show_qty_stepper": true,
@@ -228,11 +261,12 @@
     "featured_modules": {
       "type": "featured-collection",
       "settings": {
-        "show_tabs": false,
         "show_section_heading": true,
-        "show_subheading": true,
         "subheading": "Solarmodule",
         "heading": "Unsere PV-Module",
+        "header_link_label": "",
+        "header_link_url": "",
+        "show_tabs": false,
         "collection": "all",
         "products_to_show": 4,
         "show_qty_stepper": true,
@@ -243,17 +277,12 @@
     "home_cta_banner": {
       "type": "home-cta-banner",
       "settings": {
-        "badge_text": "Hilfe & Kontakt",
-        "heading_line1": "Sie haben Fragen?",
-        "heading_line2": "Unser Team hilft gerne weiter!",
-        "text": "Rufen Sie uns an oder schreiben Sie uns per Mail!",
-        "primary_label": "Jetzt kontaktieren",
-        "primary_url": "",
         "overlay_opacity": 75,
-        "box1_title": "Deutschlandweit",
-        "box1_text": "Schnelle und transparente Lieferung",
-        "box2_title": "Service",
-        "box2_text": "Erhalten Sie erstklassigen Service"
+        "heading": "Sie haben Fragen? Unser Team hilft Ihnen gerne weiter!",
+        "text": "",
+        "primary_label": "Kontakt aufnehmen",
+        "primary_url": "",
+        "phone_display": ""
       }
     },
     "usp_bar": {
@@ -263,28 +292,32 @@
           "type": "usp",
           "settings": {
             "title": "Schneller Versand",
-            "description": "Schnelle und transparente Lieferung."
+            "description": "Schnelle und transparente Lieferung.",
+            "icon": ""
           }
         },
         "u2": {
           "type": "usp",
           "settings": {
             "title": "Top Qualität",
-            "description": "Geprüfte Markenprodukte für Ihr Projekt."
+            "description": "Geprüfte Markenprodukte für Ihr Projekt.",
+            "icon": ""
           }
         },
         "u3": {
           "type": "usp",
           "settings": {
             "title": "Sicher bezahlen",
-            "description": "Zahlungsarten mit Käuferschutz."
+            "description": "Zahlungsarten mit Käuferschutz.",
+            "icon": ""
           }
         },
         "u4": {
           "type": "usp",
           "settings": {
             "title": "Kostenlose Beratung",
-            "description": "Unsere Experten helfen bei der Planung."
+            "description": "Unsere Experten helfen bei der Planung.",
+            "icon": ""
           }
         }
       },
@@ -306,7 +339,6 @@
   "order": [
     "hero",
     "video_intro",
-    "category_overview",
     "featured_main",
     "trust_split",
     "partner_logos",

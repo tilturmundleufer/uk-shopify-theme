@@ -1,10 +1,32 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "footer",
   "name": "t:sections.footer.name",
   "sections": {
     "footer": {
       "type": "footer",
-      "settings": {}
+      "blocks": {
+        "payment_column_BTB6gL": {
+          "type": "payment_column",
+          "settings": {
+            "heading": "Bezahlung"
+          }
+        }
+      },
+      "block_order": [
+        "payment_column_BTB6gL"
+      ],
+      "settings": {
+        "show_payment_icons": true
+      }
     }
   },
   "order": [
