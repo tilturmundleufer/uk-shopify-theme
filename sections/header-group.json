@@ -24,10 +24,39 @@
     },
     "header": {
       "type": "header",
+      "blocks": {
+        "topbar_link_3Ped8M": {
+          "type": "topbar_link",
+          "settings": {
+            "label": "Kontakt",
+            "link": ""
+          }
+        },
+        "topbar_link_R6ffjF": {
+          "type": "topbar_link",
+          "settings": {
+            "label": "Kontakt",
+            "link": ""
+          }
+        },
+        "topbar_link_c6LNUT": {
+          "type": "topbar_link",
+          "settings": {
+            "label": "Kontakt",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "topbar_link_3Ped8M",
+        "topbar_link_R6ffjF",
+        "topbar_link_c6LNUT"
+      ],
       "settings": {
         "logo": "shopify://shop_images/Element_1.webp",
         "logo_width": 120,
         "menu": "main-menu",
+        "category_menu": "",
         "show_topbar": true,
         "sticky_header": true,
         "show_account_link": true,

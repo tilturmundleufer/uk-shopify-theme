@@ -252,7 +252,7 @@
     "featured_roof": {
       "type": "featured-collection",
       "settings": {
-        "show_section_heading": true,
+        "show_section_heading": false,
         "show_subheading": true,
         "subheading": "Unterkonstruktion",
         "heading": "Alles für Ihr Dach",
@@ -269,7 +269,7 @@
     "featured_modules": {
       "type": "featured-collection",
       "settings": {
-        "show_section_heading": true,
+        "show_section_heading": false,
         "show_subheading": true,
         "subheading": "Solarmodule",
         "heading": "Unsere PV-Module",
@@ -286,9 +286,10 @@
     "home_cta_banner": {
       "type": "home-cta-banner",
       "settings": {
+        "background_image": "shopify://shop_images/687d4291899b1dafc0207b8d_getty-images-z3JcNfA7xbg-unsplash.jpg",
         "overlay_opacity": 75,
         "heading": "Sie haben Fragen? Unser Team hilft Ihnen gerne weiter!",
-        "text": "",
+        "text": "Rufen Sie uns an oder schreiben Sie uns per Mail!",
         "primary_label": "Kontakt aufnehmen",
         "primary_url": "",
         "phone_display": ""
@@ -302,7 +303,8 @@
           "settings": {
             "title": "Schneller Versand",
             "description": "Schnelle und transparente Lieferung.",
-            "icon": ""
+            "icon": "",
+            "image": "shopify://shop_images/684a89b2a16008e595687e51_36d0fda93c1c18a4f39acf1f81e9ac83_Vector_18.svg"
           }
         },
         "u2": {
@@ -310,7 +312,8 @@
           "settings": {
             "title": "Top Qualität",
             "description": "Geprüfte Markenprodukte für Ihr Projekt.",
-            "icon": ""
+            "icon": "",
+            "image": "shopify://shop_images/684a89b2a16008e595687e52_09aa158fb17a7800e57412f830f71215_Group_1009002143.svg"
           }
         },
         "u3": {
@@ -318,7 +321,8 @@
           "settings": {
             "title": "Sicher bezahlen",
             "description": "Zahlungsarten mit Käuferschutz.",
-            "icon": ""
+            "icon": "",
+            "image": "shopify://shop_images/684a89b2a16008e595687e4f_a6ca947963da8ef2f43cdcce895f3f5a_Implementation.svg"
           }
         },
         "u4": {
@@ -326,7 +330,8 @@
           "settings": {
             "title": "Kostenlose Beratung",
             "description": "Unsere Experten helfen bei der Planung.",
-            "icon": ""
+            "icon": "",
+            "image": "shopify://shop_images/684a89b2a16008e595687e50_7e8a6cce5ffb1d4d38902cb152ea3293_Vector_16.svg"
           }
         }
       },
