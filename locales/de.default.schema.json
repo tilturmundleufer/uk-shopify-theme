@@ -1,0 +1,71 @@
+{
+  "settings_schema": {
+    "colors": {
+      "name": "Farben",
+      "primary": "Primärfarben",
+      "secondary": "Sekundärfarbe",
+      "background": "Hintergrund",
+      "text": "Text",
+      "border": "Rahmen",
+      "status": "Statusfarben",
+      "success": "Erfolg",
+      "error": "Fehler",
+      "sale": "Sale / Angebot"
+    },
+    "typography": {
+      "name": "Typografie",
+      "headings": "Überschriften",
+      "heading_font": "Schrift für Überschriften",
+      "body": "Fließtext",
+      "body_font": "Schrift für Fließtext",
+      "base_size": "Basis-Schriftgröße"
+    },
+    "layout": {
+      "name": "Layout",
+      "page_width": "Seitenbreite",
+      "border_radius": "Eckenradius",
+      "radius_small": "Kleiner Radius",
+      "radius_medium": "Mittlerer Radius",
+      "radius_large": "Großer Radius"
+    },
+    "buttons": {
+      "name": "Buttons",
+      "primary": "Primär",
+      "secondary": "Sekundär",
+      "background": "Hintergrundfarbe",
+      "text": "Textfarbe"
+    },
+    "product": {
+      "name": "Produkt",
+      "delivery": "Lieferzeit",
+      "default_delivery_time": "Standard-Lieferzeit",
+      "vat": "Mehrwertsteuer",
+      "show_vat_notice": "MwSt.-Hinweis anzeigen",
+      "vat_notice_text": "Text des MwSt.-Hinweises",
+      "shipping": "Versand",
+      "shipping_info": "Versandinformationen"
+    },
+    "cart": {
+      "name": "Warenkorb",
+      "type": "Warenkorb-Typ",
+      "type_page": "Eigene Seite",
+      "type_drawer": "Seitenleiste (Drawer)",
+      "show_note": "Bestellnotiz zulassen"
+    },
+    "social": {
+      "name": "Kontakt & Social Media",
+      "contact": "Kontakt",
+      "phone": "Telefon",
+      "email": "E-Mail",
+      "links": "Social Links"
+    },
+    "favicon": {
+      "name": "Favicon",
+      "image": "Favicon-Bild"
+    },
+    "search": {
+      "name": "Suche",
+      "enable_predictive": "Suchvorschläge aktivieren"
+    }
+  }
+}

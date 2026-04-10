@@ -1,0 +1,71 @@
+{
+  "settings_schema": {
+    "colors": {
+      "name": "Colors",
+      "primary": "Primary",
+      "secondary": "Secondary",
+      "background": "Background",
+      "text": "Text",
+      "border": "Border",
+      "status": "Status",
+      "success": "Success",
+      "error": "Error",
+      "sale": "Sale"
+    },
+    "typography": {
+      "name": "Typography",
+      "headings": "Headings",
+      "heading_font": "Heading font",
+      "body": "Body",
+      "body_font": "Body font",
+      "base_size": "Base font size"
+    },
+    "layout": {
+      "name": "Layout",
+      "page_width": "Page width",
+      "border_radius": "Border radius",
+      "radius_small": "Small radius",
+      "radius_medium": "Medium radius",
+      "radius_large": "Large radius"
+    },
+    "buttons": {
+      "name": "Buttons",
+      "primary": "Primary",
+      "secondary": "Secondary",
+      "background": "Background",
+      "text": "Text"
+    },
+    "product": {
+      "name": "Product",
+      "delivery": "Delivery",
+      "default_delivery_time": "Default delivery time",
+      "vat": "VAT",
+      "show_vat_notice": "Show VAT notice",
+      "vat_notice_text": "VAT notice text",
+      "shipping": "Shipping",
+      "shipping_info": "Shipping information"
+    },
+    "cart": {
+      "name": "Cart",
+      "type": "Cart type",
+      "type_page": "Page",
+      "type_drawer": "Drawer",
+      "show_note": "Allow cart note"
+    },
+    "social": {
+      "name": "Contact & social",
+      "contact": "Contact",
+      "phone": "Phone",
+      "email": "Email",
+      "links": "Social links"
+    },
+    "favicon": {
+      "name": "Favicon",
+      "image": "Favicon image"
+    },
+    "search": {
+      "name": "Search",
+      "enable_predictive": "Enable predictive search"
+    }
+  }
+}
