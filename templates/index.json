@@ -111,7 +111,8 @@
           "settings": {
             "image": "shopify://shop_images/68b30cdf55767e4fa8cae973_Screenshot_2025-08-30_163645.png",
             "title": "Zertifikat 1",
-            "caption": "Von Profis. Für Sie\n\nWir sorgen für Top-Qualität in unserem Angebot - damit Sie sich auf Ihr Projekt konzentrieren können."
+            "caption_title": "Von Profis. Für Sie",
+            "caption": "Wir sorgen für Top-Qualität in unserem Angebot - damit Sie sich auf Ihr Projekt konzentrieren können."
           }
         },
         "badge-2": {
@@ -119,7 +120,8 @@
           "settings": {
             "image": "shopify://shop_images/68b30e974989f52413dd407a_Tuv_siegel_qr_code_logo.png",
             "title": "Zertifikat 2",
-            "caption": "Wir sind für sie da\n\nUnsere Experten beraten Sie gerne. Rufen Sie uns an oder schreiben Sie uns eine Mail!"
+            "caption_title": "Wir sind für sie da",
+            "caption": "Unsere Experten beraten Sie gerne. Rufen Sie uns an oder schreiben Sie uns eine Mail!"
           }
         }
       },

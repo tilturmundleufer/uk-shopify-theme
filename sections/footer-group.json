@@ -49,6 +49,7 @@
         "payment_column_BTB6gL"
       ],
       "settings": {
+        "logo": "shopify://shop_images/Element_1.webp",
         "cta_heading": "Sie haben Fragen? Unser Team hilft Ihnen gerne weiter!",
         "cta_button_text": "Jetzt kontaktieren",
         "cta_button_url": "",
