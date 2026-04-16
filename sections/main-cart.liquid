@@ -101,6 +101,15 @@
               </div>
               
               <div class="cart-summary__actions">
+                <button
+                  type="button"
+                  class="btn btn--secondary btn--full cart-summary__clear"
+                  data-cart-clear
+                  data-confirm="{{ 'cart.general.clear_confirm' | t | escape }}"
+                  aria-label="{{ 'cart.general.clear' | t }}"
+                >
+                  {{ 'cart.general.clear' | t }}
+                </button>
                 <button type="submit" name="update" class="btn btn--secondary btn--full">
                   {{ 'cart.general.update' | t }}
                 </button>
@@ -522,6 +531,17 @@
 
   .cart-summary__actions .btn {
     transition: transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .cart-summary__clear {
+    color: var(--color-text);
+    border-color: rgba(var(--color-text-rgb), 0.2);
+    background: rgba(var(--color-text-rgb), 0.04);
+  }
+
+  .cart-summary__clear:hover {
+    background: rgba(var(--color-text-rgb), 0.08);
+    border-color: rgba(var(--color-text-rgb), 0.28);
   }
 
   @media (prefers-reduced-motion: reduce) {

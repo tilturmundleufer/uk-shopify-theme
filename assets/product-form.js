@@ -148,6 +148,45 @@ document.addEventListener('click', async function(event) {
 });
 
 /**
+ * Cart Clear Handler
+ */
+document.addEventListener('click', async function(event) {
+  const clearButton = event.target.closest('[data-cart-clear]');
+  if (!clearButton) return;
+
+  event.preventDefault();
+
+  if (clearButton.dataset.loading === 'true') return;
+
+  const confirmMessage = clearButton.dataset.confirm;
+  if (confirmMessage && !window.confirm(confirmMessage)) return;
+
+  clearButton.dataset.loading = 'true';
+  clearButton.disabled = true;
+  clearButton.classList.add('is-loading');
+
+  try {
+    const response = await fetch(`${window.routes.cart_url}/clear.js`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error('Cart clear request failed');
+    }
+
+    window.location.reload();
+  } catch (error) {
+    console.error('Failed to clear cart:', error);
+    clearButton.dataset.loading = 'false';
+    clearButton.disabled = false;
+    clearButton.classList.remove('is-loading');
+  }
+});
+
+/**
  * Cart Quantity Change Handler
  * Sync qty-stepper changes directly with cart API
  */
