@@ -64,7 +64,7 @@
         "logo": "shopify://shop_images/Element_1.webp",
         "logo_width": 100,
         "menu": "main-menu",
-        "category_menu": "",
+        "category_menu": "main-menu",
         "show_topbar": true,
         "sticky_header": true,
         "show_account_link": true,

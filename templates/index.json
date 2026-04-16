@@ -226,14 +226,14 @@
         "fact_AwV6ef": {
           "type": "fact",
           "settings": {
-            "icon": "medal",
+            "icon": "shipping",
             "title": "Hochwertige Produkte"
           }
         },
         "fact_F8XNA3": {
           "type": "fact",
           "settings": {
-            "icon": "medal",
+            "icon": "calendar",
             "title": "Hochwertige Produkte"
           }
         }
