@@ -293,7 +293,7 @@
         "heading": "Sie haben Fragen? Unser Team hilft Ihnen gerne weiter!",
         "text": "Rufen Sie uns an oder schreiben Sie uns per Mail!",
         "primary_label": "Kontakt aufnehmen",
-        "primary_url": "",
+        "primary_url": "shopify://pages/contact",
         "phone_display": ""
       }
     },

@@ -14,6 +14,13 @@
     "footer": {
       "type": "footer",
       "blocks": {
+        "menu_M4NTzz": {
+          "type": "menu",
+          "settings": {
+            "heading": "Kategorien",
+            "menu": "main-menu"
+          }
+        },
         "legal_link_MJYfhB": {
           "type": "legal_link",
           "settings": {
@@ -31,8 +38,8 @@
         "menu_d8KHyQ": {
           "type": "menu",
           "settings": {
-            "heading": "Kategorien",
-            "menu": "footer"
+            "heading": "Navigation",
+            "menu": "navigation"
           }
         },
         "payment_column_BTB6gL": {
@@ -43,6 +50,7 @@
         }
       },
       "block_order": [
+        "menu_M4NTzz",
         "legal_link_MJYfhB",
         "legal_link_C3JKwk",
         "menu_d8KHyQ",
@@ -54,7 +62,7 @@
         "cta_button_text": "Jetzt kontaktieren",
         "cta_button_url": "",
         "show_payment_icons": true,
-        "credit_text": "Website by Turm & Leufer",
+        "credit_text": "Gebaut von Turm & Leufer",
         "credit_url": "https://turmundleufer.de"
       }
     }
