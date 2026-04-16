@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main-product": {
@@ -8,19 +17,64 @@
         "show_contact_cta": true
       }
     },
-    "contact-cta": {
-      "type": "contact-cta",
+    "usp_service_pm6bf6": {
+      "type": "usp-service",
+      "blocks": {
+        "usp_DXnyVQ": {
+          "type": "usp",
+          "settings": {
+            "title": "24/7 Kundenservice",
+            "description": "",
+            "icon": "",
+            "image": "shopify://shop_images/684a89b2a16008e595687e52_09aa158fb17a7800e57412f830f71215_Group_1009002143.svg"
+          }
+        },
+        "usp_WbFT4G": {
+          "type": "usp",
+          "settings": {
+            "title": "Schnelle Lieferung",
+            "description": "",
+            "icon": "",
+            "image": "shopify://shop_images/684a89b2a16008e595687e51_36d0fda93c1c18a4f39acf1f81e9ac83_Vector_18.svg"
+          }
+        },
+        "usp_ytMhj6": {
+          "type": "usp",
+          "settings": {
+            "title": "Höchst personalisiert",
+            "description": "",
+            "icon": "",
+            "image": "shopify://shop_images/684a89b2a16008e595687e4f_a6ca947963da8ef2f43cdcce895f3f5a_Implementation.svg"
+          }
+        },
+        "usp_BkR698": {
+          "type": "usp",
+          "settings": {
+            "title": "verschiedene Zahlungsmöglichkeiten",
+            "description": "",
+            "icon": "",
+            "image": "shopify://shop_images/684a89b2a16008e595687e50_7e8a6cce5ffb1d4d38902cb152ea3293_Vector_16.svg"
+          }
+        }
+      },
+      "block_order": [
+        "usp_DXnyVQ",
+        "usp_WbFT4G",
+        "usp_ytMhj6",
+        "usp_BkR698"
+      ],
+      "name": "USP / Service",
       "settings": {
-        "subheading": "Hilfe & Kontakt",
-        "heading": "Sie haben Fragen?",
-        "description": "Rufen Sie uns an oder schreiben Sie uns per Mail!",
-        "button_text": "Jetzt kontaktieren",
-        "background_color": "#1a1a1a"
+        "subheading": "",
+        "heading": "",
+        "description": "",
+        "columns": 4,
+        "show_image": false
       }
     }
   },
   "order": [
     "main-product",
-    "contact-cta"
+    "usp_service_pm6bf6"
   ]
 }

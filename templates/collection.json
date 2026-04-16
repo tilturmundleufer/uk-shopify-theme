@@ -23,51 +23,140 @@
         "sidebar_button_link": ""
       }
     },
+    "testimonial_split_Kqmzh3": {
+      "type": "testimonial-split",
+      "blocks": {
+        "fact_M8QPhJ": {
+          "type": "fact",
+          "settings": {
+            "icon": "medal",
+            "title": "Hochwertige Produkte"
+          }
+        },
+        "fact_n6kQgK": {
+          "type": "fact",
+          "settings": {
+            "icon": "shipping",
+            "title": "Schneller Versand"
+          }
+        },
+        "fact_aLEaRD": {
+          "type": "fact",
+          "settings": {
+            "icon": "calendar",
+            "title": "24/7 für Sie da"
+          }
+        }
+      },
+      "block_order": [
+        "fact_M8QPhJ",
+        "fact_n6kQgK",
+        "fact_aLEaRD"
+      ],
+      "name": "Kundenstimme (Split)",
+      "settings": {
+        "quote": "Gute Gründe für Schneider",
+        "author": "Bei uns finden Sie alles rund um Photovoltaik aus einer Hand – von Unterkonstruktionen über Module bis hin zu Wechselrichtern und Speichern. Wir setzen auf geprüfte Markenqualität, faire Preise und schnelle Lieferzeiten. Dank unserer langjährigen Erfahrung und persönlichen Fachberatung bekommen Sie genau die Lösung, die zu Ihrem Projekt passt.",
+        "image": "shopify://shop_images/68b31055e86b0b10ea7f75ea_Jungs_auf_dem_Dach.png",
+        "image_alt": "Montage-Team bei der Installation einer PV-Anlage",
+        "placeholder_hint": "Motiv-Bild (z. B. Team auf dem Dach) im Editor hinterlegen."
+      }
+    },
+    "trust_split_pjPzAY": {
+      "type": "trust-split",
+      "blocks": {
+        "badge_nErab4": {
+          "type": "badge",
+          "settings": {
+            "image": "shopify://shop_images/68b30cdf55767e4fa8cae973_Screenshot_2025-08-30_163645.png",
+            "title": "Von Profis. Für Sie",
+            "caption_title": "Von Profis. Für Sie",
+            "caption": "Wir sorgen für Top-Qualität in unserem Angebot - damit Sie sich auf Ihr Projekt konzentrieren können."
+          }
+        },
+        "badge_xREx4H": {
+          "type": "badge",
+          "settings": {
+            "image": "shopify://shop_images/68b30e974989f52413dd407a_Tuv_siegel_qr_code_logo.png",
+            "title": "Wir sind für sie da",
+            "caption_title": "Wir sind für sie da",
+            "caption": "Unsere Experten beraten Sie gerne. Rufen Sie uns an oder schreiben Sie uns eine Mail!"
+          }
+        }
+      },
+      "block_order": [
+        "badge_nErab4",
+        "badge_xREx4H"
+      ],
+      "name": "Vertrauen (Split)",
+      "settings": {
+        "image": "shopify://shop_images/68b313c02762f3ffc1ca0905_Dach1.jpg",
+        "image_alt": "",
+        "kicker": "Produkte",
+        "heading": "Höchste Produktqualität für Ihr nächstes Projekt.",
+        "text": "<p>Unser Sortiment umfasst alles, was Sie für eine effiziente Photovoltaikanlage benötigen: robuste Unterkonstruktionen für alle Dachtypen, leistungsstarke Solarmodule, zuverlässige Wechselrichter sowie moderne Stromspeicher. Alle Produkte sind sorgfältig ausgewählt, zertifiziert und optimal aufeinander abgestimmt – für maximale Sicherheit und Erträge.</p>"
+      }
+    },
     "usp_service_AMBBqe": {
       "type": "usp-service",
       "blocks": {
+        "usp_jWgxhK": {
+          "type": "usp",
+          "settings": {
+            "title": "24/7 Kundenservice",
+            "description": "",
+            "icon": "",
+            "image": "shopify://shop_images/684a89b2a16008e595687e52_09aa158fb17a7800e57412f830f71215_Group_1009002143.svg"
+          }
+        },
         "usp_fYNBzz": {
           "type": "usp",
           "settings": {
-            "title": "Hochwertige Produkte",
-            "description": "Wir setzen auf geprüfte Markenqualität.",
-            "icon": ""
+            "title": "Schnelle Lieferungen",
+            "description": "",
+            "icon": "",
+            "image": "shopify://shop_images/684a89b2a16008e595687e51_36d0fda93c1c18a4f39acf1f81e9ac83_Vector_18.svg"
           }
         },
         "usp_6fJXzp": {
           "type": "usp",
           "settings": {
-            "title": "Schneller Versand",
-            "description": "Wir setzen auf geprüfte Markenqualität.",
-            "icon": ""
+            "title": "Höchst personalisiert",
+            "description": "",
+            "icon": "",
+            "image": "shopify://shop_images/684a89b2a16008e595687e4f_a6ca947963da8ef2f43cdcce895f3f5a_Implementation.svg"
           }
         },
         "usp_xxfXVD": {
           "type": "usp",
           "settings": {
-            "title": "24/7 für Sie da",
-            "description": "Wir setzen auf geprüfte Markenqualität.",
-            "icon": ""
+            "title": "verschiedene Zahlungsmöglichkeiten",
+            "description": "",
+            "icon": "",
+            "image": "shopify://shop_images/684a89b2a16008e595687e50_7e8a6cce5ffb1d4d38902cb152ea3293_Vector_16.svg"
           }
         }
       },
       "block_order": [
+        "usp_jWgxhK",
         "usp_fYNBzz",
         "usp_6fJXzp",
         "usp_xxfXVD"
       ],
       "name": "USP / Service",
       "settings": {
-        "subheading": "Service",
-        "heading": "Gute Gründe für uns",
+        "subheading": "",
+        "heading": "",
         "description": "",
-        "columns": 3,
-        "show_image": false
+        "columns": 4,
+        "show_image": true
       }
     }
   },
   "order": [
     "main-collection",
+    "testimonial_split_Kqmzh3",
+    "trust_split_pjPzAY",
     "usp_service_AMBBqe"
   ]
 }

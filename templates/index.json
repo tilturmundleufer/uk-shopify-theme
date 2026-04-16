@@ -244,10 +244,6 @@
         "fact_F8XNA3"
       ],
       "settings": {
-        "show_vertical_rail": true,
-        "vertical_label": "SERVICE",
-        "heading": "Gute Gründe für Schneider",
-        "body": "<p>Bei uns finden Sie alles rund um Photovoltaik aus einer Hand – von Unterkonstruktionen über Module bis hin zu Wechselrichtern und Speichern. Wir setzen auf geprüfte Markenqualität, faire Preise und schnelle Lieferzeiten. Dank unserer langjährigen Erfahrung und persönlichen Fachberatung bekommen Sie genau die Lösung, die zu Ihrem Projekt passt.</p>",
         "quote": "",
         "author": "",
         "image": "shopify://shop_images/68b31055e86b0b10ea7f75ea_Jungs_auf_dem_Dach.png",
@@ -294,25 +290,9 @@
       "settings": {
         "background_image": "shopify://shop_images/687d4291899b1dafc0207b8d_getty-images-z3JcNfA7xbg-unsplash.jpg",
         "overlay_opacity": 75,
-        "show_badge": true,
-        "badge_text": "Hilfe & Kontakt",
-        "heading_line1": "Sie haben Fragen?",
-        "heading_line2": "Unser Team hilft gerne weiter!",
         "text": "Rufen Sie uns an oder schreiben Sie uns per Mail!",
         "primary_label": "Kontakt aufnehmen",
-        "primary_url": "shopify://pages/contact",
-        "show_feature_cards": true,
-        "feature_group_label": "Leistungen",
-        "show_box1": true,
-        "box1_title": "Deutschlandweit",
-        "box1_text": "Schnelle und transparente Lieferung",
-        "box1_url": "",
-        "box1_icon": "cube",
-        "show_box2": true,
-        "box2_title": "Service",
-        "box2_text": "Erhalten Sie erstklassigen Service",
-        "box2_url": "",
-        "box2_icon": "diamond"
+        "primary_url": "shopify://pages/contact"
       }
     },
     "usp_bar": {
