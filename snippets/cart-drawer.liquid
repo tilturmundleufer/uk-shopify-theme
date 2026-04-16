@@ -1,0 +1,49 @@
+{%- comment -%}
+  Global Cart Drawer
+  Opened via header cart triggers and add-to-cart events.
+{%- endcomment -%}
+
+<div
+  class="cart-drawer"
+  data-cart-drawer
+  aria-hidden="true"
+  data-drawer-title="{{ 'cart.general.title' | t | escape }}"
+  data-drawer-empty="{{ 'cart.general.empty' | t | escape }}"
+  data-drawer-remove="{{ 'cart.general.remove' | t | escape }}"
+  data-drawer-subtotal="{{ 'cart.general.subtotal' | t | escape }}"
+  data-drawer-taxes="{{ 'cart.general.taxes_and_shipping' | t | escape }}"
+  data-drawer-checkout="{{ 'cart.general.checkout' | t | escape }}"
+  data-drawer-view-cart="{{ 'cart.general.view_cart' | t | escape }}"
+  data-drawer-clear="{{ 'cart.general.clear' | t | escape }}"
+  data-drawer-clear-confirm="{{ 'cart.general.clear_confirm' | t | escape }}"
+  data-drawer-quantity="{{ 'cart.general.column_quantity' | t | escape }}"
+  data-drawer-total="{{ 'cart.general.column_total' | t | escape }}"
+>
+  <div class="cart-drawer__overlay" data-cart-drawer-close></div>
+
+  <aside
+    class="cart-drawer__panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="CartDrawerTitle"
+    tabindex="-1"
+  >
+    <header class="cart-drawer__header">
+      <h2 id="CartDrawerTitle" class="cart-drawer__title">{{ 'cart.general.title' | t }}</h2>
+      <button
+        type="button"
+        class="cart-drawer__close"
+        data-cart-drawer-close
+        aria-label="{{ 'accessibility.close' | t }}"
+      >
+        {%- render 'icon-close' -%}
+      </button>
+    </header>
+
+    <div class="cart-drawer__body" data-cart-drawer-content>
+      <div class="cart-drawer__loading" data-cart-drawer-loading>
+        <span class="spinner"></span>
+      </div>
+    </div>
+  </aside>
+</div>

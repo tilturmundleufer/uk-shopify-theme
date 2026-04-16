@@ -101,6 +101,7 @@
       "taxes_and_shipping": "Steuern und Versand werden beim Checkout berechnet",
       "checkout": "Zur Kasse",
       "update": "Warenkorb aktualisieren",
+      "view_cart": "Warenkorb ansehen",
       "clear": "Warenkorb leeren",
       "clear_confirm": "Möchten Sie wirklich alle Artikel aus dem Warenkorb entfernen?",
       "column_product": "Produkt",

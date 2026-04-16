@@ -34,6 +34,7 @@
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'qty-stepper.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
 
     {{ content_for_header }}
 
@@ -130,6 +131,7 @@
     {{ 'component-tabs.css' | asset_url | stylesheet_tag }}
     {{ 'component-header.css' | asset_url | stylesheet_tag }}
     {{ 'component-footer.css' | asset_url | stylesheet_tag }}
+    {{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
   </head>
 
   <body class="template-{{ template.name | handle }}{% if template.suffix %} template-{{ template.name }}-{{ template.suffix | handle }}{% endif %}">
@@ -142,6 +144,8 @@
     <main id="MainContent" class="main-content" role="main" tabindex="-1">
       {{ content_for_layout }}
     </main>
+
+    {% render 'cart-drawer' %}
 
     {% sections 'footer-group' %}
 

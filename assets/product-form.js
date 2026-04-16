@@ -114,6 +114,49 @@ if (!customElements.get('product-form')) {
   customElements.define('product-form', ProductForm);
 }
 
+function isCartPage() {
+  return Boolean(document.querySelector('[data-cart-form]'));
+}
+
+function emitCartUpdated(cart) {
+  if (!cart) return;
+
+  document.dispatchEvent(new CustomEvent('cart:updated', {
+    detail: { cart }
+  }));
+}
+
+async function requestCartChange(payload) {
+  const response = await fetch(window.routes.cart_change_url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
+
+  if (!response.ok) {
+    throw new Error('Cart change request failed');
+  }
+
+  return response.json();
+}
+
+async function requestCartClear() {
+  const response = await fetch(`${window.routes.cart_url}/clear.js`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+
+  if (!response.ok) {
+    throw new Error('Cart clear request failed');
+  }
+
+  return response.json();
+}
+
 /**
  * Cart Item Remove Handler
  */
@@ -124,22 +167,17 @@ document.addEventListener('click', async function(event) {
   event.preventDefault();
   
   const key = removeButton.dataset.cartRemove;
-  const cartItem = removeButton.closest('[data-cart-item]');
+  const isDrawerAction = Boolean(removeButton.closest('[data-cart-drawer]'));
   
   try {
-    const response = await fetch(window.routes.cart_change_url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        id: key,
-        quantity: 0
-      })
+    const cart = await requestCartChange({
+      id: key,
+      quantity: 0
     });
-    
-    if (response.ok) {
-      // Reload page to reflect changes
+
+    emitCartUpdated(cart);
+
+    if (isCartPage() && !isDrawerAction) {
       window.location.reload();
     }
   } catch (error) {
@@ -166,18 +204,14 @@ document.addEventListener('click', async function(event) {
   clearButton.classList.add('is-loading');
 
   try {
-    const response = await fetch(`${window.routes.cart_url}/clear.js`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+    const cart = await requestCartClear();
+    const isDrawerAction = Boolean(clearButton.closest('[data-cart-drawer]'));
 
-    if (!response.ok) {
-      throw new Error('Cart clear request failed');
+    emitCartUpdated(cart);
+
+    if (isCartPage() && !isDrawerAction) {
+      window.location.reload();
     }
-
-    window.location.reload();
   } catch (error) {
     console.error('Failed to clear cart:', error);
     clearButton.dataset.loading = 'false';
@@ -199,6 +233,7 @@ document.addEventListener('qty-change', async function(event) {
 
   const key = cartItem.dataset.key;
   const quantity = Number(event.detail?.value);
+  const isDrawerAction = Boolean(cartItem.closest('[data-cart-drawer]'));
 
   if (!key || !Number.isFinite(quantity) || quantity < 0) return;
   if (stepper.dataset.cartUpdating === 'true') return;
@@ -207,28 +242,39 @@ document.addEventListener('qty-change', async function(event) {
   stepper.classList.add('is-loading');
 
   try {
-    const response = await fetch(window.routes.cart_change_url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        id: key,
-        quantity
-      })
+    const cart = await requestCartChange({
+      id: key,
+      quantity
     });
 
-    if (!response.ok) {
-      throw new Error('Cart change request failed');
+    emitCartUpdated(cart);
+
+    if (isCartPage() && !isDrawerAction) {
+      // Keep totals and count in sync on full cart page.
+      window.location.reload();
+      return;
     }
 
-    // Keep totals and count in sync after quantity change.
-    window.location.reload();
+    stepper.classList.remove('is-loading');
+    stepper.dataset.cartUpdating = 'false';
   } catch (error) {
     console.error('Failed to update item quantity:', error);
     stepper.classList.remove('is-loading');
     stepper.dataset.cartUpdating = 'false';
   }
+});
+
+/**
+ * Keep cart badges in sync after drawer/cart mutations.
+ */
+document.addEventListener('cart:updated', function(event) {
+  const cart = event.detail?.cart;
+  if (!cart) return;
+
+  const cartCountElements = document.querySelectorAll('[data-cart-count]');
+  cartCountElements.forEach((el) => {
+    el.textContent = cart.item_count;
+  });
 });
 
 window.themeCartToast = (() => {
