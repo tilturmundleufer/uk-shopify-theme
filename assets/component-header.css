@@ -455,6 +455,12 @@
   margin-right: var(--spacing-xs);
 }
 
+.header__nav-icon--custom {
+  object-fit: contain;
+  flex-shrink: 0;
+  display: block;
+}
+
 /* Dropdown */
 .header__dropdown {
   position: absolute;
