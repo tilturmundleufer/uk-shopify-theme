@@ -19,10 +19,13 @@
   if account_url == blank
     assign account_url = routes.account_login_url
   endif
-  assign category_menu = section.settings.category_menu
-  if category_menu == blank
-    assign category_menu = section.settings.menu
-  endif
+  assign has_category_bar = false
+  for block in section.blocks
+    if block.type == 'category_bar_item'
+      assign has_category_bar = true
+      break
+    endif
+  endfor
 -%}
 
 <header class="header{% if sticky_header %} header--sticky{% endif %}" data-header>
@@ -123,40 +126,41 @@
     </div>
   </div>
   
-  {%- comment -%} Main Navigation Bar (Desktop) {%- endcomment -%}
-  <div class="header__nav-bar">
-    <div class="page-width">
-      <nav class="header__nav" aria-label="Produktkategorien">
-        {%- for link in linklists[category_menu].links -%}
-          <div class="header__nav-item">
-            {%- if link.links != blank -%}
-              <button 
-                class="header__nav-link" 
-                aria-expanded="false"
-                aria-controls="dropdown-{{ forloop.index }}"
-              >
-                {%- render 'header-category-nav-icon', link: link, section: section -%}
-                {{ link.title }}
-                {%- render 'icon-chevron', class: 'chevron-icon' -%}
-              </button>
-              <div class="header__dropdown" id="dropdown-{{ forloop.index }}">
-                {%- for child_link in link.links -%}
-                  <a href="{{ child_link.url }}" class="header__dropdown-link">
-                    {{ child_link.title }}
-                  </a>
-                {%- endfor -%}
+  {%- comment -%} Gelbe Kategorien-Leiste (Blöcke wie Topbar, kein Navigationsmenü) {%- endcomment -%}
+  {%- if has_category_bar -%}
+    <div class="header__nav-bar">
+      <div class="page-width">
+        <nav class="header__nav" aria-label="{{ section.settings.category_bar_aria_label | escape }}">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'category_bar_item' -%}
+              <div class="header__nav-item" {{ block.shopify_attributes }}>
+                <a href="{% if block.settings.link != blank %}{{ block.settings.link }}{% else %}#{% endif %}" class="header__nav-link">
+                  {%- if block.settings.icon != blank -%}
+                    <span class="header__nav-icon-wrap" aria-hidden="true">{{ block.settings.icon }}</span>
+                  {%- elsif block.settings.image != blank -%}
+                    <img
+                      src="{{ block.settings.image | image_url: width: 48 }}"
+                      alt=""
+                      class="header__nav-icon header__nav-icon--custom"
+                      width="24"
+                      height="24"
+                      loading="eager"
+                      decoding="async"
+                    >
+                  {%- else -%}
+                    <svg class="header__nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/></svg>
+                  {%- endif -%}
+                  {%- if block.settings.label != blank -%}
+                    <span>{{ block.settings.label }}</span>
+                  {%- endif -%}
+                </a>
               </div>
-            {%- else -%}
-              <a href="{{ link.url }}" class="header__nav-link{% if link.active %} header__nav-link--active{% endif %}">
-                {%- render 'header-category-nav-icon', link: link, section: section -%}
-                {{ link.title }}
-              </a>
             {%- endif -%}
-          </div>
-        {%- endfor -%}
-      </nav>
+          {%- endfor -%}
+        </nav>
+      </div>
     </div>
-  </div>
+  {%- endif -%}
   
   {%- comment -%} Mobile Menu Drawer {%- endcomment -%}
   <div class="mobile-menu" id="mobile-menu" data-mobile-menu aria-hidden="true">
@@ -290,10 +294,11 @@
       "info": "Wird im mobilen Menü und für die Suche genutzt."
     },
     {
-      "type": "link_list",
-      "id": "category_menu",
-      "label": "Kategorien (gelbe Leiste)",
-      "info": "Leer lassen = gleiches Menü wie Hauptmenü. Hier die Collection-/Kategorie-Links einbinden."
+      "type": "text",
+      "id": "category_bar_aria_label",
+      "label": "Gelbe Leiste (Barrierefreiheit)",
+      "default": "Produktkategorien",
+      "info": "Kurze Beschreibung für Screenreader (verstecktes nav-Label)."
     },
     {
       "type": "checkbox",
@@ -364,29 +369,36 @@
       ]
     },
     {
-      "type": "nav_icon",
-      "name": "Kategorie-Icon (gelbe Leiste)",
+      "type": "category_bar_item",
+      "name": "Gelbe Leiste – Punkt",
       "settings": [
         {
           "type": "paragraph",
-          "content": "Für Wechselrichter, Batteriespeicher, Zubehör usw.: eigenes Icon (sichtbar ca. 24×24 px, schwarze Grafik auf transparentem Hintergrund empfohlen). Unterkonstruktion und Solarmodule sind fest eingebaut. Entweder Menü-Link-Handle oder Titel ausfüllen."
+          "content": "Reihenfolge wie bei Topbar-Links: Blöcke im Theme-Editor sortieren. Zuerst SVG-Code, sonst Bild; ohne beides erscheint ein Platzhalter-Kreis."
         },
         {
           "type": "text",
-          "id": "menu_handle",
-          "label": "Menü-Link-Handle",
-          "info": "In Shopify unter Onlineshop → Navigation den Link bearbeiten – der letzte Teil der URL des Links ist oft das Handle (z. B. „meine-kategorie“). Wird zuerst geprüft."
+          "id": "label",
+          "label": "Titel",
+          "default": "Kategorie"
         },
         {
-          "type": "text",
-          "id": "menu_title",
-          "label": "Menü-Titel",
-          "info": "Exakt wie der sichtbare Linktext in der Navigation (Groß-/Kleinschreibung egal)."
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Zielseite oder Collection. Leer = #."
+        },
+        {
+          "type": "html",
+          "id": "icon",
+          "label": "Icon (SVG-Code)",
+          "info": "Vollständiges <svg>…</svg> (z. B. viewBox 0 0 24 24). Wird vor „Icon (Bild)“ verwendet."
         },
         {
           "type": "image_picker",
-          "id": "icon",
-          "label": "Icon-Bild"
+          "id": "image",
+          "label": "Icon (Bild)",
+          "info": "PNG oder hochgeladene SVG-Datei, wenn kein SVG-Code eingetragen ist."
         }
       ]
     }
@@ -397,7 +409,12 @@
       "blocks": [
         { "type": "topbar_link", "settings": { "label": "Kontakt" } },
         { "type": "topbar_link", "settings": { "label": "Über Uns" } },
-        { "type": "topbar_link", "settings": { "label": "FAQ" } }
+        { "type": "topbar_link", "settings": { "label": "FAQ" } },
+        { "type": "category_bar_item", "settings": { "label": "Unterkonstruktion" } },
+        { "type": "category_bar_item", "settings": { "label": "Solarmodule" } },
+        { "type": "category_bar_item", "settings": { "label": "Wechselrichter" } },
+        { "type": "category_bar_item", "settings": { "label": "Batteriespeicher" } },
+        { "type": "category_bar_item", "settings": { "label": "Zubehör" } }
       ]
     }
   ]

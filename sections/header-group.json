@@ -52,19 +52,59 @@
             "label": "FAQ",
             "link": ""
           }
+        },
+        "category_bar_unterkonstruktion": {
+          "type": "category_bar_item",
+          "settings": {
+            "label": "Unterkonstruktion",
+            "link": ""
+          }
+        },
+        "category_bar_solarmodule": {
+          "type": "category_bar_item",
+          "settings": {
+            "label": "Solarmodule",
+            "link": ""
+          }
+        },
+        "category_bar_wechselrichter": {
+          "type": "category_bar_item",
+          "settings": {
+            "label": "Wechselrichter",
+            "link": ""
+          }
+        },
+        "category_bar_batteriespeicher": {
+          "type": "category_bar_item",
+          "settings": {
+            "label": "Batteriespeicher",
+            "link": ""
+          }
+        },
+        "category_bar_zubehoer": {
+          "type": "category_bar_item",
+          "settings": {
+            "label": "Zubehör",
+            "link": ""
+          }
         }
       },
       "block_order": [
         "topbar_link_H98cBz",
         "topbar_link_3Ped8M",
         "topbar_link_R6ffjF",
-        "topbar_link_c6LNUT"
+        "topbar_link_c6LNUT",
+        "category_bar_unterkonstruktion",
+        "category_bar_solarmodule",
+        "category_bar_wechselrichter",
+        "category_bar_batteriespeicher",
+        "category_bar_zubehoer"
       ],
       "settings": {
         "logo": "shopify://shop_images/Element_1.webp",
         "logo_width": 100,
         "menu": "main-menu",
-        "category_menu": "main-menu",
+        "category_bar_aria_label": "Produktkategorien",
         "show_topbar": true,
         "sticky_header": true,
         "show_account_link": true,
