@@ -147,6 +147,51 @@ document.addEventListener('click', async function(event) {
   }
 });
 
+/**
+ * Cart Quantity Change Handler
+ * Sync qty-stepper changes directly with cart API
+ */
+document.addEventListener('qty-change', async function(event) {
+  const stepper = event.target.closest('qty-stepper');
+  if (!stepper) return;
+
+  const cartItem = stepper.closest('[data-cart-item]');
+  if (!cartItem) return;
+
+  const key = cartItem.dataset.key;
+  const quantity = Number(event.detail?.value);
+
+  if (!key || !Number.isFinite(quantity) || quantity < 0) return;
+  if (stepper.dataset.cartUpdating === 'true') return;
+
+  stepper.dataset.cartUpdating = 'true';
+  stepper.classList.add('is-loading');
+
+  try {
+    const response = await fetch(window.routes.cart_change_url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: key,
+        quantity
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error('Cart change request failed');
+    }
+
+    // Keep totals and count in sync after quantity change.
+    window.location.reload();
+  } catch (error) {
+    console.error('Failed to update item quantity:', error);
+    stepper.classList.remove('is-loading');
+    stepper.dataset.cartUpdating = 'false';
+  }
+});
+
 window.themeCartToast = (() => {
   const toast = document.querySelector('[data-cart-toast]');
   let timeoutId;
