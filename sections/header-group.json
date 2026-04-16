@@ -25,6 +25,13 @@
     "header": {
       "type": "header",
       "blocks": {
+        "topbar_link_H98cBz": {
+          "type": "topbar_link",
+          "settings": {
+            "label": "Zubehör",
+            "link": "shopify://collections/zubehor"
+          }
+        },
         "topbar_link_3Ped8M": {
           "type": "topbar_link",
           "settings": {
@@ -48,6 +55,7 @@
         }
       },
       "block_order": [
+        "topbar_link_H98cBz",
         "topbar_link_3Ped8M",
         "topbar_link_R6ffjF",
         "topbar_link_c6LNUT"
