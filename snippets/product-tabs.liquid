@@ -28,7 +28,7 @@
         id="tab-btn-description"
         data-tab-btn
       >
-        {{ 'products.product.description' | t }}
+        {{ 'products.product.description_specs_tab' | t }}
       </button>
     {%- endunless -%}
     <button 
@@ -63,8 +63,9 @@
       aria-labelledby="tab-btn-description"
       data-tab-panel
     >
-      <div class="tabs__panel-content rte">
+      <div class="tabs__panel-content rte product-tabs__description">
         {%- if product.description != blank -%}
+          <h2 class="product-tabs__description-heading">{{ 'products.product.article_info_heading' | t }}</h2>
           {{ product.description }}
         {%- else -%}
           <p>{{ 'products.product.no_description' | t | default: 'Keine Beschreibung verfügbar.' }}</p>
@@ -124,20 +125,21 @@
         aria-controls="accordion-description"
         data-accordion-header
       >
-        {{ 'products.product.description' | t }}
-        <span class="accordion__icon">{%- render 'icon-chevron' -%}</span>
-      </button>
-      <div class="accordion__content" id="accordion-description" aria-hidden="false" data-accordion-content>
-        <div class="accordion__inner">
-          <div class="accordion__body rte">
-            {%- if product.description != blank -%}
-              {{ product.description }}
-            {%- else -%}
-              <p>Keine Beschreibung verfügbar.</p>
-            {%- endif -%}
-          </div>
+      {{ 'products.product.description_specs_tab' | t }}
+      <span class="accordion__icon">{%- render 'icon-chevron' -%}</span>
+    </button>
+    <div class="accordion__content" id="accordion-description" aria-hidden="false" data-accordion-content>
+      <div class="accordion__inner">
+        <div class="accordion__body rte product-tabs__description">
+          {%- if product.description != blank -%}
+            <h2 class="product-tabs__description-heading">{{ 'products.product.article_info_heading' | t }}</h2>
+            {{ product.description }}
+          {%- else -%}
+            <p>Keine Beschreibung verfügbar.</p>
+          {%- endif -%}
         </div>
       </div>
+    </div>
     </div>
   {%- endunless -%}
   
@@ -209,5 +211,16 @@
     width: 16px;
     height: 16px;
     margin-right: var(--spacing-xs);
+  }
+
+  .product-tabs__description-heading {
+    font-size: var(--font-size-md);
+    font-weight: 800;
+    margin: 0 0 12px;
+    color: var(--color-text);
+  }
+
+  .product-tabs__description.rte > p:first-of-type {
+    margin-top: 0;
   }
 </style>

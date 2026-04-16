@@ -49,6 +49,7 @@
       "out_of_stock": "Nicht auf Lager",
       "low_stock": "Nur noch {{ count }} verfügbar",
       "description": "Beschreibung",
+      "description_specs_tab": "Langbeschreibung & technische Daten",
       "shipping": "Lieferung & Versand",
       "downloads": "Downloads",
       "delivery_time": "Lieferzeit",

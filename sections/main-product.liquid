@@ -88,7 +88,7 @@
         </div>
       </div>
 
-      {%- comment -%} Center column: title, price, short line, staffel, long description {%- endcomment -%}
+      {%- comment -%} Center column: title, price, short line, staffel (Langbeschreibung siehe Tabs) {%- endcomment -%}
       <div class="product-page__details">
         <div class="product-info product-info--details">
           <h1 class="product-info__title">{{ product.title }}</h1>
@@ -102,13 +102,6 @@
           {%- endif -%}
 
           {%- render 'tier-prices', product: product, class: 'tier-prices--minimal' -%}
-
-          {%- if product.description != blank -%}
-            <div class="product-info__article rte">
-              <h2 class="product-info__article-heading">{{ 'products.product.article_info_heading' | t }}</h2>
-              {{ product.description }}
-            </div>
-          {%- endif -%}
         </div>
       </div>
 
@@ -237,7 +230,7 @@
     
     {%- comment -%} Product Tabs {%- endcomment -%}
     <div class="product-tabs-wrapper">
-      {%- render 'product-tabs', product: product, skip_description_tab: true -%}
+      {%- render 'product-tabs', product: product -%}
     </div>
   </div>
 </section>
@@ -384,23 +377,6 @@
     font-size: var(--font-size-md);
     color: var(--color-ink-soft);
     line-height: 1.5;
-  }
-
-  .product-info__article-heading {
-    font-size: var(--font-size-md);
-    font-weight: 800;
-    margin: 28px 0 12px;
-    color: var(--color-text);
-  }
-
-  .product-info__article {
-    font-size: var(--font-size-md);
-    color: var(--color-text);
-    line-height: 1.6;
-  }
-
-  .product-info__article.rte > p:first-child {
-    margin-top: 0;
   }
 
   /* Buy box */
