@@ -100,7 +100,11 @@
       "subtotal": "Zwischensumme",
       "taxes_and_shipping": "Steuern und Versand werden beim Checkout berechnet",
       "checkout": "Zur Kasse",
-      "update": "Warenkorb aktualisieren"
+      "update": "Warenkorb aktualisieren",
+      "column_product": "Produkt",
+      "column_price": "Preis",
+      "column_quantity": "Menge",
+      "column_total": "Gesamt"
     },
     "added_to_cart": "Zum Warenkorb hinzugefügt",
     "error": "Es gab einen Fehler beim Hinzufügen zum Warenkorb",
