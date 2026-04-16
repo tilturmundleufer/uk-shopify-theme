@@ -5,7 +5,7 @@
 .cart-drawer {
   position: fixed;
   inset: 0;
-  z-index: 50;
+  z-index: 1000;
   pointer-events: none;
 }
 
@@ -89,6 +89,8 @@
 .cart-drawer__body {
   flex: 1;
   min-height: 0;
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
   padding: var(--spacing-lg);
   background: var(--color-surface);
@@ -198,6 +200,7 @@
   border: 1px solid rgba(var(--color-primary-rgb), 0.2);
   border-radius: var(--radius-lg);
   padding: var(--spacing-lg);
+  margin-top: auto;
   background: linear-gradient(180deg, rgba(var(--color-primary-rgb), 0.08) 0%, rgba(var(--color-primary-rgb), 0.03) 100%);
 }
 
