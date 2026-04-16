@@ -14,6 +14,14 @@
   
   assign short_subtitle = product.metafields.custom.short_subtitle.value | default: product.metafields.custom.short_subtitle
   assign delivery_time = product.metafields.custom.delivery_time.value | default: product.metafields.custom.delivery_time | default: settings.default_delivery_time
+
+  if product.featured_image != blank
+    assign gallery_main_media = product.featured_image
+  elsif product.images.size > 0
+    assign gallery_main_media = product.images.first
+  else
+    assign gallery_main_media = nil
+  endif
 -%}
 
 <section class="product-page section" data-section-id="{{ section.id }}">
@@ -40,21 +48,21 @@
       <div class="product-page__gallery">
         <div class="product-gallery">
           <div class="product-gallery__main">
-            {%- if featured_image -%}
+            {%- if gallery_main_media -%}
               <img
-                src="{{ featured_image | image_url: width: 800 }}"
+                src="{{ gallery_main_media | image_url: width: 800 }}"
                 srcset="
-                  {{ featured_image | image_url: width: 400 }} 400w,
-                  {{ featured_image | image_url: width: 600 }} 600w,
-                  {{ featured_image | image_url: width: 800 }} 800w,
-                  {{ featured_image | image_url: width: 1000 }} 1000w
+                  {{ gallery_main_media | image_url: width: 400 }} 400w,
+                  {{ gallery_main_media | image_url: width: 600 }} 600w,
+                  {{ gallery_main_media | image_url: width: 800 }} 800w,
+                  {{ gallery_main_media | image_url: width: 1000 }} 1000w
                 "
                 sizes="(min-width: 990px) 34vw, 100vw"
-                alt="{{ featured_image.alt | escape | default: product.title }}"
+                alt="{{ gallery_main_media.alt | default: product.title | escape }}"
                 class="product-gallery__image"
                 id="product-main-image"
-                width="{{ featured_image.width }}"
-                height="{{ featured_image.height }}"
+                width="{{ gallery_main_media.width }}"
+                height="{{ gallery_main_media.height }}"
                 loading="eager"
               >
             {%- else -%}
@@ -69,9 +77,13 @@
               {%- for image in product.images -%}
                 <button 
                   type="button" 
-                  class="product-gallery__thumb{% if forloop.first %} is-active{% endif %}"
-                  data-image-url="{{ image | image_url: width: 800 }}"
+                  class="product-gallery__thumb{% if image == gallery_main_media %} is-active{% endif %}"
                   data-gallery-thumb
+                  data-image-src="{{ image | image_url: width: 800 }}"
+                  data-image-srcset="{{ image | image_url: width: 400 }} 400w, {{ image | image_url: width: 600 }} 600w, {{ image | image_url: width: 800 }} 800w, {{ image | image_url: width: 1000 }} 1000w"
+                  data-image-width="{{ image.width }}"
+                  data-image-height="{{ image.height }}"
+                  data-image-alt="{{ image.alt | default: product.title | escape }}"
                   aria-label="{{ 'products.product.media' | t }} {{ forloop.index }}"
                 >
                   <img
@@ -88,7 +100,7 @@
         </div>
       </div>
 
-      {%- comment -%} Center column: title, price, short line, staffel (Langbeschreibung siehe Tabs) {%- endcomment -%}
+      {%- comment -%} Center column: title, price, Kurztext, Staffel, Langbeschreibung (zusätzlich in Tabs) {%- endcomment -%}
       <div class="product-page__details">
         <div class="product-info product-info--details">
           <h1 class="product-info__title">{{ product.title }}</h1>
@@ -102,6 +114,13 @@
           {%- endif -%}
 
           {%- render 'tier-prices', product: product, class: 'tier-prices--minimal' -%}
+
+          {%- if product.description != blank -%}
+            <div class="product-info__article rte">
+              <h2 class="product-info__article-heading">{{ 'products.product.article_info_heading' | t }}</h2>
+              {{ product.description }}
+            </div>
+          {%- endif -%}
         </div>
       </div>
 
@@ -160,7 +179,7 @@
               <div class="product-form__actions product-form__actions--buybox">
                 <div class="product-form__qty-wrap">
                   <label class="product-form__qty-label" for="{{ qty_field_id }}">{{ 'products.product.quantity' | t }}</label>
-                  {%- render 'qty-stepper', variant: current_variant, size: 'lg', form_id: section.id, input_id: qty_field_id -%}
+                  {%- render 'qty-stepper', variant: current_variant, size: 'lg', form_id: section.id, input_id: qty_field_id, full_width: true -%}
                 </div>
 
                 <button
@@ -208,17 +227,17 @@
             <div class="product-buybox__contact product-info__contact">
               <p class="product-info__contact-title">{{ 'products.product.product_question' | t }}</p>
               <p class="product-info__contact-text">{{ 'products.product.product_question_text' | t }}</p>
-              <div class="product-info__contact-links">
+              <div class="product-info__contact-links product-info__contact-links--buybox">
                 {%- if settings.contact_phone != blank -%}
-                  <a href="tel:{{ settings.contact_phone | remove: ' ' }}" class="product-info__contact-link product-info__contact-link--buybox">
-                    {%- render 'icon-phone' -%}
-                    {{ settings.contact_phone }}
+                  <a href="tel:{{ settings.contact_phone | remove: ' ' }}" class="product-info__contact-link product-info__contact-link--buybox product-info__contact-link--phone">
+                    <span class="product-info__contact-icon" aria-hidden="true">{%- render 'icon-phone' -%}</span>
+                    <span class="product-info__contact-text-inline">{{ settings.contact_phone }}</span>
                   </a>
                 {%- endif -%}
                 {%- if settings.contact_email != blank -%}
-                  <a href="mailto:{{ settings.contact_email }}" class="product-info__contact-link product-info__contact-link--buybox">
-                    {%- render 'icon-mail' -%}
-                    {{ settings.contact_email }}
+                  <a href="mailto:{{ settings.contact_email }}" class="product-info__contact-link product-info__contact-link--buybox product-info__contact-link--email">
+                    <span class="product-info__contact-icon" aria-hidden="true">{%- render 'icon-mail' -%}</span>
+                    <span class="product-info__contact-text-inline">{{ settings.contact_email }}</span>
                   </a>
                 {%- endif -%}
               </div>
@@ -377,6 +396,23 @@
     font-size: var(--font-size-md);
     color: var(--color-ink-soft);
     line-height: 1.5;
+  }
+
+  .product-info__article-heading {
+    font-size: var(--font-size-md);
+    font-weight: 800;
+    margin: 28px 0 12px;
+    color: var(--color-text);
+  }
+
+  .product-info__article {
+    font-size: var(--font-size-md);
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+
+  .product-info__article.rte > p:first-child {
+    margin-top: 0;
   }
 
   /* Buy box */
@@ -608,14 +644,20 @@
     flex-direction: column;
     gap: 10px;
   }
-  
+
   @media (min-width: 750px) {
-    .product-info__contact-links {
+    .product-info__contact-links:not(.product-info__contact-links--buybox) {
       flex-direction: row;
       gap: var(--spacing-lg);
     }
   }
-  
+
+  .product-info__contact-links--buybox {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
   .product-info__contact-link {
     display: inline-flex;
     align-items: center;
@@ -624,12 +666,37 @@
     font-weight: 700;
     color: var(--color-secondary);
   }
-  
-  .product-info__contact-link svg {
-    width: 16px;
-    height: 16px;
+
+  .product-info__contact-links--buybox .product-info__contact-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    text-decoration: none;
   }
-  
+
+  .product-info__contact-links--buybox .product-info__contact-link--phone {
+    white-space: nowrap;
+  }
+
+  .product-info__contact-links--buybox .product-info__contact-link--email .product-info__contact-text-inline {
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  .product-info__contact-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text);
+  }
+
+  .product-info__contact-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
   /* Tabs Wrapper */
   .product-tabs-wrapper {
     margin-top: 44px;
@@ -637,22 +704,41 @@
 </style>
 
 <script>
-  // Gallery thumbnail switching
-  document.addEventListener('DOMContentLoaded', function() {
-    const thumbs = document.querySelectorAll('[data-gallery-thumb]');
-    const mainImage = document.getElementById('product-main-image');
-    
-    thumbs.forEach(thumb => {
-      thumb.addEventListener('click', function() {
-        const imageUrl = this.dataset.imageUrl;
-        if (mainImage && imageUrl) {
-          mainImage.src = imageUrl;
-          thumbs.forEach(t => t.classList.remove('is-active'));
-          this.classList.add('is-active');
-        }
+  (function () {
+    var section = document.querySelector('.product-page[data-section-id="{{ section.id }}"]');
+    if (!section) return;
+    var mainImage = section.querySelector('#product-main-image');
+    if (!mainImage) return;
+
+    section.addEventListener('click', function (e) {
+      var thumb = e.target.closest('[data-gallery-thumb]');
+      if (!thumb || !section.contains(thumb)) return;
+
+      var src = thumb.dataset.imageSrc;
+      var srcset = thumb.dataset.imageSrcset;
+      if (!src) return;
+
+      mainImage.src = src;
+      if (srcset) {
+        mainImage.setAttribute('srcset', srcset);
+      } else {
+        mainImage.removeAttribute('srcset');
+      }
+
+      var w = thumb.dataset.imageWidth;
+      var h = thumb.dataset.imageHeight;
+      if (w) mainImage.width = parseInt(w, 10);
+      if (h) mainImage.height = parseInt(h, 10);
+
+      if (thumb.dataset.imageAlt !== undefined) {
+        mainImage.alt = thumb.dataset.imageAlt;
+      }
+
+      section.querySelectorAll('[data-gallery-thumb]').forEach(function (t) {
+        t.classList.toggle('is-active', t === thumb);
       });
     });
-  });
+  })();
 </script>
 
 {% schema %}

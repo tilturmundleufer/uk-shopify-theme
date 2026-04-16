@@ -12,9 +12,11 @@
   - name: {String} Input name attribute (default: 'quantity')
   - input_id: {String} Input ID (optional)
   - disabled: {Boolean} Disable the stepper (default: false)
+  - full_width: {Boolean} Add qty-stepper--full (input grows, narrow +/- column)
 {%- endcomment -%}
 
 {%- liquid
+  assign full_width = full_width | default: false
   assign value = value | default: 1
   assign min = min | default: 1
   assign name = name | default: 'quantity'
@@ -37,7 +39,7 @@
 -%}
 
 <qty-stepper 
-  class="qty-stepper{% if size %} qty-stepper--{{ size }}{% endif %}{% if disabled %} is-disabled{% endif %}"
+  class="qty-stepper{% if size %} qty-stepper--{{ size }}{% endif %}{% if full_width %} qty-stepper--full{% endif %}{% if disabled %} is-disabled{% endif %}"
   data-qty-stepper
   {% if form_id %}data-form-id="{{ form_id }}"{% endif %}
 >

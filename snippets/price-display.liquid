@@ -5,7 +5,7 @@
   - product: {Object} Product Liquid object
   - variant: {Object} Variant Liquid object (optional, uses first available if not provided)
   - show_compare: {Boolean} Show compare at price (default: true)
-  - show_unit: {Boolean} Show unit price (default: true)
+  - show_unit: {Boolean} Show unit/Stückpreis when set (Shopify variant unit price or Metafield custom.unit_price; no fallback to full price)
   - show_net_label: {Boolean} Show "netto" label (default: true)
   - size: {String} Size variant: 'sm', 'lg' (optional)
   - class: {String} Additional CSS classes
@@ -21,9 +21,9 @@
   if variant.compare_at_price > variant.price
     assign is_on_sale = true
   endif
-  
-  assign unit_price = product.metafields.custom.unit_price.value | default: product.metafields.custom.unit_price
-  assign unit_label = product.metafields.custom.unit_label.value | default: product.metafields.custom.unit_label | default: '/ Stück'
+
+  assign mf_unit_price = product.metafields.custom.unit_price.value | default: product.metafields.custom.unit_price
+  assign mf_unit_label = product.metafields.custom.unit_label.value | default: product.metafields.custom.unit_label | default: '/ Stück'
 -%}
 
 <div class="price-display{% if size %} price-display--{{ size }}{% endif %}{% if class %} {{ class }}{% endif %}">
@@ -41,11 +41,26 @@
     {{ variant.price | money }}
   </span>
   
-  {%- comment -%} Unit Price {%- endcomment -%}
+  {%- comment -%} Unit / Stückpreis: nur bei Shopify unit_price oder Metafield custom.unit_price {%- endcomment -%}
   {%- if show_unit -%}
-    <span class="price-display__unit">
-      ({% if unit_price != blank %}{{ unit_price }}{% else %}{{ variant.price | money }}{% endif %}{{ unit_label }})
-    </span>
+    {%- if variant.unit_price -%}
+      <span class="price-display__unit">
+        (
+        {{- variant.unit_price | money -}}
+        <span class="price-display__unit-sep"> / </span>
+        <span class="price-display__unit-base">
+          {%- if variant.unit_price_measurement.reference_value != 1 -%}
+            {{- variant.unit_price_measurement.reference_value -}}
+          {%- endif -%}
+          {{- variant.unit_price_measurement.reference_unit -}}
+        </span>
+        )
+      </span>
+    {%- elsif mf_unit_price != blank -%}
+      <span class="price-display__unit">
+        ({{ mf_unit_price }}{{ mf_unit_label }})
+      </span>
+    {%- endif -%}
   {%- endif -%}
   
   {%- comment -%} Net Label {%- endcomment -%}

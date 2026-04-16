@@ -7,6 +7,7 @@
 .qty-stepper {
   display: inline-flex;
   align-items: stretch;
+  max-width: 100%;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   overflow: hidden;
@@ -15,7 +16,9 @@
 }
 
 .qty-stepper__input {
+  flex: 0 0 auto;
   width: 60px;
+  min-width: 0;
   height: 100%;
   padding: 0 var(--spacing-sm);
   font-size: var(--font-size-md);
@@ -38,10 +41,13 @@
   background-color: #fff;
 }
 
-/* Buttons Container - Stacked vertically */
+/* Buttons column: fixed width so layout does not stretch oddly at 100% width */
 .qty-stepper__buttons {
   display: flex;
   flex-direction: column;
+  flex: 0 0 auto;
+  width: 36px;
+  min-width: 36px;
   border-left: 1px solid var(--color-border);
 }
 
@@ -49,8 +55,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  flex: 1;
+  width: 100%;
+  flex: 1 1 50%;
+  min-height: 0;
   padding: 0;
   background-color: transparent;
   border: none;
@@ -101,8 +108,9 @@
   font-size: var(--font-size-sm);
 }
 
-.qty-stepper--card .qty-stepper__btn {
-  width: 28px;
+.qty-stepper--card .qty-stepper__buttons {
+  width: 32px;
+  min-width: 32px;
 }
 
 .qty-stepper--card .qty-stepper__btn svg {
@@ -120,8 +128,9 @@
   font-size: var(--font-size-sm);
 }
 
-.qty-stepper--sm .qty-stepper__btn {
-  width: 26px;
+.qty-stepper--sm .qty-stepper__buttons {
+  width: 30px;
+  min-width: 30px;
 }
 
 .qty-stepper--sm .qty-stepper__btn svg {
@@ -139,8 +148,9 @@
   font-size: var(--font-size-lg);
 }
 
-.qty-stepper--lg .qty-stepper__btn {
-  width: 40px;
+.qty-stepper--lg .qty-stepper__buttons {
+  width: 44px;
+  min-width: 44px;
 }
 
 .qty-stepper--lg .qty-stepper__btn svg {
@@ -148,13 +158,19 @@
   height: 14px;
 }
 
-/* Full Width */
+/* Full width: Zahl füllt die Zeile, +/- bleiben schmal rechts */
 .qty-stepper--full {
+  display: flex;
   width: 100%;
 }
 
 .qty-stepper--full .qty-stepper__input {
-  flex: 1;
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 3rem;
+}
+
+.qty-stepper--full.qty-stepper--lg .qty-stepper__input {
   width: auto;
 }
 
