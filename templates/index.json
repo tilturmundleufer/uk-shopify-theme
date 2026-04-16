@@ -290,11 +290,25 @@
       "settings": {
         "background_image": "shopify://shop_images/687d4291899b1dafc0207b8d_getty-images-z3JcNfA7xbg-unsplash.jpg",
         "overlay_opacity": 75,
-        "heading": "Sie haben Fragen? Unser Team hilft Ihnen gerne weiter!",
+        "show_badge": true,
+        "badge_text": "Hilfe & Kontakt",
+        "heading_line1": "Sie haben Fragen?",
+        "heading_line2": "Unser Team hilft gerne weiter!",
         "text": "Rufen Sie uns an oder schreiben Sie uns per Mail!",
         "primary_label": "Kontakt aufnehmen",
         "primary_url": "shopify://pages/contact",
-        "phone_display": ""
+        "show_feature_cards": true,
+        "feature_group_label": "Leistungen",
+        "show_box1": true,
+        "box1_title": "Deutschlandweit",
+        "box1_text": "Schnelle und transparente Lieferung",
+        "box1_url": "",
+        "box1_icon": "cube",
+        "show_box2": true,
+        "box2_title": "Service",
+        "box2_text": "Erhalten Sie erstklassigen Service",
+        "box2_url": "",
+        "box2_icon": "diamond"
       }
     },
     "usp_bar": {

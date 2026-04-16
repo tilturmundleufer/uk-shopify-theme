@@ -2,6 +2,55 @@
   CTA-Banner: Referenz Hilfe & Kontakt + Feature-Karten unten rechts
 {%- endcomment -%}
 
+{%- liquid
+  assign show_badge = section.settings.show_badge
+  assign show_cards = section.settings.show_feature_cards
+  assign show_box1 = section.settings.show_box1
+  assign show_box2 = section.settings.show_box2
+  assign box1_visible = false
+  assign box2_visible = false
+  if show_cards and show_box1
+    if section.settings.box1_title != blank or section.settings.box1_text != blank
+      assign box1_visible = true
+    endif
+  endif
+  if show_cards and show_box2
+    if section.settings.box2_title != blank or section.settings.box2_text != blank
+      assign box2_visible = true
+    endif
+  endif
+  assign feature_count = 0
+  if box1_visible
+    assign feature_count = feature_count | plus: 1
+  endif
+  if box2_visible
+    assign feature_count = feature_count | plus: 1
+  endif
+
+  assign primary_href = section.settings.primary_url | default: '#'
+-%}
+
+{%- capture home_cta_icon_cube -%}
+  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+    <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+    <line x1="12" y1="22.08" x2="12" y2="12"/>
+  </svg>
+{%- endcapture -%}
+{%- capture home_cta_icon_diamond -%}
+  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+    <path d="M12 2l9 10-9 10-9-10 9-10z"/>
+    <path d="M3 12h18"/>
+  </svg>
+{%- endcapture -%}
+{%- capture home_cta_icon_layers -%}
+  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+    <path d="M2 17l10 5 10-5"/>
+    <path d="M2 12l10 5 10-5"/>
+  </svg>
+{%- endcapture -%}
+
 <section
   class="home-cta-banner section"
   id="home-cta-{{ section.id }}"
@@ -13,26 +62,28 @@
 
   <div class="page-width home-cta-banner__wrap">
     <div class="home-cta-banner__main">
-      {%- if section.settings.badge_text != blank -%}
+      {%- if show_badge and section.settings.badge_text != blank -%}
         <p class="home-cta-banner__badge">{{ section.settings.badge_text }}</p>
       {%- endif -%}
 
-      <h2 class="home-cta-banner__heading">
-        {%- if section.settings.heading_line1 != blank -%}
-          <span class="home-cta-banner__heading-line">{{ section.settings.heading_line1 }}</span>
-        {%- endif -%}
-        {%- if section.settings.heading_line2 != blank -%}
-          <span class="home-cta-banner__heading-line">{{ section.settings.heading_line2 }}</span>
-        {%- endif -%}
-      </h2>
+      {%- if section.settings.heading_line1 != blank or section.settings.heading_line2 != blank -%}
+        <h2 class="home-cta-banner__heading">
+          {%- if section.settings.heading_line1 != blank -%}
+            <span class="home-cta-banner__heading-line">{{ section.settings.heading_line1 }}</span>
+          {%- endif -%}
+          {%- if section.settings.heading_line2 != blank -%}
+            <span class="home-cta-banner__heading-line">{{ section.settings.heading_line2 }}</span>
+          {%- endif -%}
+        </h2>
+      {%- endif -%}
 
       {%- if section.settings.text != blank -%}
         <p class="home-cta-banner__text">{{ section.settings.text }}</p>
       {%- endif -%}
 
-      {%- if section.settings.primary_url != blank -%}
+      {%- if section.settings.primary_label != blank -%}
         <div class="home-cta-banner__cta-row">
-          <a href="{{ section.settings.primary_url }}" class="home-cta-banner__square-btn" aria-label="{{ section.settings.primary_label | escape }}">
+          <a href="{{ primary_href }}" class="home-cta-banner__square-btn" aria-label="{{ section.settings.primary_label | escape }}">
             {%- render 'icon-arrow-up-right', class: 'home-cta-banner__square-ico' -%}
           </a>
           <span class="home-cta-banner__cta-label">{{ section.settings.primary_label }}</span>
@@ -40,42 +91,86 @@
       {%- endif -%}
     </div>
 
-    <div class="home-cta-banner__feature-box" role="group" aria-label="Leistungen">
-      <div class="home-cta-banner__feature home-cta-banner__feature--navy">
-        <div class="home-cta-banner__feature-text">
-          {%- if section.settings.box1_title != blank -%}
-            <strong class="home-cta-banner__feature-title">{{ section.settings.box1_title }}</strong>
-          {%- endif -%}
-          {%- if section.settings.box1_text != blank -%}
-            <span class="home-cta-banner__feature-sub">{{ section.settings.box1_text }}</span>
-          {%- endif -%}
-        </div>
-        <span class="home-cta-banner__feature-ico" aria-hidden="true">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-            <line x1="12" y1="22.08" x2="12" y2="12"/>
-          </svg>
-        </span>
+    {%- if feature_count > 0 -%}
+      <div
+        class="home-cta-banner__feature-box{% if feature_count < 2 %} home-cta-banner__feature-box--single{% endif %}"
+        role="group"
+        aria-label="{{ section.settings.feature_group_label | escape }}"
+      >
+        {%- if box1_visible -%}
+          {%- liquid
+            assign b1_ico = section.settings.box1_icon
+            assign b1_tag = 'div'
+            if section.settings.box1_url != blank
+              assign b1_tag = 'a'
+            endif
+          -%}
+          <{{ b1_tag }}
+            class="home-cta-banner__feature home-cta-banner__feature--navy{% if section.settings.box1_url != blank %} home-cta-banner__feature--link{% endif %}"
+            {% if section.settings.box1_url != blank %}
+              href="{{ section.settings.box1_url }}"
+            {% endif %}
+          >
+            <div class="home-cta-banner__feature-text">
+              {%- if section.settings.box1_title != blank -%}
+                <strong class="home-cta-banner__feature-title">{{ section.settings.box1_title }}</strong>
+              {%- endif -%}
+              {%- if section.settings.box1_text != blank -%}
+                <span class="home-cta-banner__feature-sub">{{ section.settings.box1_text }}</span>
+              {%- endif -%}
+            </div>
+            {%- if b1_ico != 'none' -%}
+              <span class="home-cta-banner__feature-ico" aria-hidden="true">
+                {%- case b1_ico -%}
+                  {%- when 'diamond' -%}
+                    {{ home_cta_icon_diamond }}
+                  {%- when 'layers' -%}
+                    {{ home_cta_icon_layers }}
+                  {%- else -%}
+                    {{ home_cta_icon_cube }}
+                {%- endcase -%}
+              </span>
+            {%- endif -%}
+          </{{ b1_tag }}>
+        {%- endif -%}
+        {%- if box2_visible -%}
+          {%- liquid
+            assign b2_ico = section.settings.box2_icon
+            assign b2_tag = 'div'
+            if section.settings.box2_url != blank
+              assign b2_tag = 'a'
+            endif
+          -%}
+          <{{ b2_tag }}
+            class="home-cta-banner__feature home-cta-banner__feature--yellow{% if section.settings.box2_url != blank %} home-cta-banner__feature--link{% endif %}"
+            {% if section.settings.box2_url != blank %}
+              href="{{ section.settings.box2_url }}"
+            {% endif %}
+          >
+            <div class="home-cta-banner__feature-text">
+              {%- if section.settings.box2_title != blank -%}
+                <strong class="home-cta-banner__feature-title">{{ section.settings.box2_title }}</strong>
+              {%- endif -%}
+              {%- if section.settings.box2_text != blank -%}
+                <span class="home-cta-banner__feature-sub">{{ section.settings.box2_text }}</span>
+              {%- endif -%}
+            </div>
+            {%- if b2_ico != 'none' -%}
+              <span class="home-cta-banner__feature-ico home-cta-banner__feature-ico--dark" aria-hidden="true">
+                {%- case b2_ico -%}
+                  {%- when 'cube' -%}
+                    {{ home_cta_icon_cube }}
+                  {%- when 'layers' -%}
+                    {{ home_cta_icon_layers }}
+                  {%- else -%}
+                    {{ home_cta_icon_diamond }}
+                {%- endcase -%}
+              </span>
+            {%- endif -%}
+          </{{ b2_tag }}>
+        {%- endif -%}
       </div>
-      <div class="home-cta-banner__feature home-cta-banner__feature--yellow">
-        <div class="home-cta-banner__feature-text">
-          {%- if section.settings.box2_title != blank -%}
-            <strong class="home-cta-banner__feature-title">{{ section.settings.box2_title }}</strong>
-          {%- endif -%}
-          {%- if section.settings.box2_text != blank -%}
-            <span class="home-cta-banner__feature-sub">{{ section.settings.box2_text }}</span>
-          {%- endif -%}
-        </div>
-        <span class="home-cta-banner__feature-ico home-cta-banner__feature-ico--dark" aria-hidden="true">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-            <path d="M2 17l10 5 10-5"/>
-            <path d="M2 12l10 5 10-5"/>
-          </svg>
-        </span>
-      </div>
-    </div>
+    {%- endif -%}
   </div>
 </section>
 
@@ -121,9 +216,8 @@
     padding: 8px 16px;
     font-size: var(--font-size-xs);
     font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--color-secondary);
+    letter-spacing: 0.02em;
+    color: #0a0a0a;
     background: var(--color-primary);
     border-radius: 999px;
   }
@@ -187,8 +281,15 @@
     overflow: hidden;
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
   }
+  .home-cta-banner__feature-box--single {
+    grid-template-columns: 1fr;
+    max-width: 280px;
+  }
   @media (max-width: 989px) {
     .home-cta-banner__feature-box {
+      max-width: none;
+    }
+    .home-cta-banner__feature-box--single {
       max-width: none;
     }
   }
@@ -199,6 +300,18 @@
     gap: 12px;
     padding: 20px 18px;
     min-height: 120px;
+  }
+  a.home-cta-banner__feature--link {
+    text-decoration: none;
+    color: inherit;
+    transition: filter 0.2s ease, transform 0.2s ease;
+  }
+  a.home-cta-banner__feature--link:hover {
+    filter: brightness(1.06);
+  }
+  a.home-cta-banner__feature--link:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
   }
   .home-cta-banner__feature--navy {
     background: var(--color-secondary);
@@ -258,9 +371,15 @@
       "default": 72
     },
     {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Badge „Hilfe & Kontakt“ anzeigen",
+      "default": true
+    },
+    {
       "type": "text",
       "id": "badge_text",
-      "label": "Badge",
+      "label": "Badge-Text",
       "default": "Hilfe & Kontakt"
     },
     {
@@ -290,11 +409,34 @@
     {
       "type": "url",
       "id": "primary_url",
-      "label": "Link (Button + Text)"
+      "label": "Link (Button + Text)",
+      "info": "Ohne URL wird „#“ verwendet."
+    },
+    {
+      "type": "header",
+      "content": "Rechte Info-Karten"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_feature_cards",
+      "label": "Beide Karten-Bereich anzeigen",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "feature_group_label",
+      "label": "Gruppe (Barrierefreiheit)",
+      "default": "Leistungen"
     },
     {
       "type": "header",
       "content": "Karte links (dunkel)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_box1",
+      "label": "Diese Karte anzeigen",
+      "default": true
     },
     {
       "type": "text",
@@ -309,8 +451,31 @@
       "default": "Schnelle und transparente Lieferung"
     },
     {
+      "type": "url",
+      "id": "box1_url",
+      "label": "Optional: Link (ganze Karte klickbar)"
+    },
+    {
+      "type": "select",
+      "id": "box1_icon",
+      "label": "Icon",
+      "options": [
+        { "value": "cube", "label": "Paket / Würfel" },
+        { "value": "diamond", "label": "Diamant" },
+        { "value": "layers", "label": "Ebenen" },
+        { "value": "none", "label": "Keins" }
+      ],
+      "default": "cube"
+    },
+    {
       "type": "header",
       "content": "Karte rechts (gelb)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_box2",
+      "label": "Diese Karte anzeigen",
+      "default": true
     },
     {
       "type": "text",
@@ -323,6 +488,23 @@
       "id": "box2_text",
       "label": "Unterzeile",
       "default": "Erhalten Sie erstklassigen Service"
+    },
+    {
+      "type": "url",
+      "id": "box2_url",
+      "label": "Optional: Link (ganze Karte klickbar)"
+    },
+    {
+      "type": "select",
+      "id": "box2_icon",
+      "label": "Icon",
+      "options": [
+        { "value": "cube", "label": "Paket / Würfel" },
+        { "value": "diamond", "label": "Diamant" },
+        { "value": "layers", "label": "Ebenen" },
+        { "value": "none", "label": "Keins" }
+      ],
+      "default": "diamond"
     }
   ],
   "presets": [{ "name": "CTA Banner (Startseite)" }]

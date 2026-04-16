@@ -49,7 +49,7 @@
                   {{ featured_image | image_url: width: 800 }} 800w,
                   {{ featured_image | image_url: width: 1000 }} 1000w
                 "
-                sizes="(min-width: 990px) 50vw, 100vw"
+                sizes="(min-width: 990px) 34vw, 100vw"
                 alt="{{ featured_image.alt | escape | default: product.title }}"
                 class="product-gallery__image"
                 id="product-main-image"
@@ -87,48 +87,55 @@
           {%- endif -%}
         </div>
       </div>
-      
-      {%- comment -%} Content {%- endcomment -%}
-      <div class="product-page__content">
-        <div class="product-info">
-          {%- if product.collections.size > 0 -%}
-            <span class="eyebrow product-info__eyebrow">{{ product.collections.first.title }}</span>
-          {%- endif -%}
 
-          {%- comment -%} Title {%- endcomment -%}
+      {%- comment -%} Center column: title, price, short line, staffel, long description {%- endcomment -%}
+      <div class="product-page__details">
+        <div class="product-info product-info--details">
           <h1 class="product-info__title">{{ product.title }}</h1>
-          
-          {%- if short_subtitle != blank -%}
-            <p class="product-info__subtitle">{{ short_subtitle }}</p>
-          {%- endif -%}
-          
-          {%- comment -%} Price {%- endcomment -%}
-          <div class="product-info__price">
+
+          <div class="product-info__price product-info__price--hero">
             {%- render 'price-display', product: product, variant: current_variant, size: 'lg' -%}
           </div>
-          
-          {%- comment -%} Tier Prices {%- endcomment -%}
-          {%- render 'tier-prices', product: product -%}
-          
-          {%- comment -%} Delivery Time {%- endcomment -%}
-          {%- if delivery_time != blank -%}
-            <div class="product-info__delivery">
-              <span class="product-info__delivery-label">{{ 'products.product.delivery_time' | t }}:</span>
-              <span class="product-info__delivery-value">{{ delivery_time }}</span>
+
+          {%- if short_subtitle != blank -%}
+            <p class="product-info__lede">{{ short_subtitle }}</p>
+          {%- endif -%}
+
+          {%- render 'tier-prices', product: product, class: 'tier-prices--minimal' -%}
+
+          {%- if product.description != blank -%}
+            <div class="product-info__article rte">
+              <h2 class="product-info__article-heading">{{ 'products.product.article_info_heading' | t }}</h2>
+              {{ product.description }}
             </div>
           {%- endif -%}
-          
-          {%- comment -%} Stock Badge {%- endcomment -%}
-          <div class="product-info__stock">
-            {%- render 'stock-badge', product: product, variant: current_variant, show_quantity: true -%}
+        </div>
+      </div>
+
+      {%- comment -%} Right column: buy box {%- endcomment -%}
+      <aside class="product-page__buybox" aria-label="{{ 'products.product.purchase_sidebar_label' | t }}">
+        <div class="product-buybox">
+          <div class="product-buybox__summary">
+            <div class="product-buybox__price">
+              {%- render 'price-display', product: product, variant: current_variant, size: 'sm' -%}
+            </div>
+
+            {%- if delivery_time != blank -%}
+              <p class="product-buybox__delivery">
+                <span class="product-buybox__delivery-label">{{ 'products.product.delivery_time' | t }}:</span>
+                <span class="product-buybox__delivery-value">{{ delivery_time }}</span>
+              </p>
+            {%- endif -%}
+
+            <div class="product-buybox__stock">
+              {%- render 'stock-badge', product: product, variant: current_variant, show_quantity: true -%}
+            </div>
           </div>
-          
-          {%- comment -%} Product Form {%- endcomment -%}
-          <product-form class="product-form" data-product-form>
+
+          <product-form class="product-form product-form--buybox" data-product-form>
             {%- form 'product', product, id: 'product-form', class: 'product-form__form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
               <input type="hidden" name="id" value="{{ current_variant.id }}">
-              
-              {%- comment -%} Variant Selector (if multiple variants) {%- endcomment -%}
+
               {%- if product.has_only_default_variant == false -%}
                 <div class="product-form__variants">
                   {%- for option in product.options_with_values -%}
@@ -155,18 +162,18 @@
                   {%- endfor -%}
                 </div>
               {%- endif -%}
-              
-              {%- comment -%} Quantity & Add to Cart {%- endcomment -%}
-              <div class="product-form__actions">
-                <div class="product-form__qty">
-                  <label class="visually-hidden" for="Quantity-{{ section.id }}">{{ 'products.product.quantity' | t }}</label>
-                  {%- render 'qty-stepper', variant: current_variant, size: 'lg', form_id: section.id -%}
+
+              {%- assign qty_field_id = 'Quantity-' | append: section.id -%}
+              <div class="product-form__actions product-form__actions--buybox">
+                <div class="product-form__qty-wrap">
+                  <label class="product-form__qty-label" for="{{ qty_field_id }}">{{ 'products.product.quantity' | t }}</label>
+                  {%- render 'qty-stepper', variant: current_variant, size: 'lg', form_id: section.id, input_id: qty_field_id -%}
                 </div>
-                
+
                 <button
                   type="submit"
                   name="add"
-                  class="btn btn--primary btn--lg product-form__submit"
+                  class="btn btn--primary btn--lg product-form__submit product-form__submit--full"
                   {% unless current_variant.available %}disabled{% endunless %}
                   data-add-to-cart
                 >
@@ -177,50 +184,46 @@
                   {%- endif -%}
                 </button>
               </div>
-              
-              {%- comment -%} Buy Now Button {%- endcomment -%}
+
               {%- if section.settings.show_dynamic_checkout and current_variant.available -%}
-                <div class="product-form__dynamic-checkout">
+                <div class="product-form__dynamic-checkout product-form__dynamic-checkout--buybox">
                   {{ form | payment_button }}
                 </div>
               {%- endif -%}
             {%- endform -%}
           </product-form>
-          
-          {%- comment -%} Sold Out Message {%- endcomment -%}
+
           {%- unless current_variant.available -%}
-            <div class="product-info__sold-out-message">
+            <div class="product-buybox__sold-out">
               <p>{{ 'products.product.out_of_stock_message' | t }}</p>
             </div>
           {%- endunless -%}
-          
-          {%- comment -%} VAT Notice {%- endcomment -%}
+
           {%- if settings.show_vat_notice and settings.vat_notice_text != blank -%}
-            <div class="product-info__vat-notice">
+            <div class="product-buybox__vat product-info__vat-notice">
               <strong>{{ 'products.product.vat_notice' | t }}</strong>
               <p>{{ settings.vat_notice_text }}</p>
             </div>
           {%- endif -%}
-          
-          {%- comment -%} Payment Icons {%- endcomment -%}
+
           {%- if section.settings.show_payment_icons -%}
-            {%- render 'payment-icons', title: 'products.product.payment_options' | t -%}
+            {%- assign payment_icons_title = 'products.product.payment_options' | t -%}
+            {%- render 'payment-icons', title: payment_icons_title, class: 'payment-icons--buybox' -%}
           {%- endif -%}
-          
-          {%- comment -%} Contact CTA {%- endcomment -%}
+
           {%- if section.settings.show_contact_cta -%}
-            <div class="product-info__contact">
+            <div class="product-buybox__contact product-info__contact">
               <p class="product-info__contact-title">{{ 'products.product.product_question' | t }}</p>
               <p class="product-info__contact-text">{{ 'products.product.product_question_text' | t }}</p>
               <div class="product-info__contact-links">
                 {%- if settings.contact_phone != blank -%}
-                  <a href="tel:{{ settings.contact_phone | remove: ' ' }}" class="product-info__contact-link">
+                  <a href="tel:{{ settings.contact_phone | remove: ' ' }}" class="product-info__contact-link product-info__contact-link--buybox">
                     {%- render 'icon-phone' -%}
                     {{ settings.contact_phone }}
                   </a>
                 {%- endif -%}
                 {%- if settings.contact_email != blank -%}
-                  <a href="mailto:{{ settings.contact_email }}" class="product-info__contact-link">
+                  <a href="mailto:{{ settings.contact_email }}" class="product-info__contact-link product-info__contact-link--buybox">
                     {%- render 'icon-mail' -%}
                     {{ settings.contact_email }}
                   </a>
@@ -229,12 +232,12 @@
             </div>
           {%- endif -%}
         </div>
-      </div>
+      </aside>
     </div>
     
     {%- comment -%} Product Tabs {%- endcomment -%}
     <div class="product-tabs-wrapper">
-      {%- render 'product-tabs', product: product -%}
+      {%- render 'product-tabs', product: product, skip_description_tab: true -%}
     </div>
   </div>
 </section>
@@ -253,8 +256,9 @@
   }
   
   .breadcrumb__item::after {
-    content: '/';
+    content: '>';
     margin-left: var(--spacing-xs);
+    font-size: 0.72em;
     color: var(--color-text-light);
   }
   
@@ -267,7 +271,7 @@
   }
   
   .breadcrumb__item a:hover {
-    color: var(--color-primary);
+    color: var(--color-text);
   }
   
   .breadcrumb__item--active {
@@ -276,13 +280,14 @@
   
   .product-page__inner {
     display: grid;
-    gap: 32px;
+    gap: 28px;
   }
-  
+
   @media (min-width: 990px) {
     .product-page__inner {
-      grid-template-columns: minmax(0, 1.04fr) minmax(320px, 0.96fr);
-      gap: 44px;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr) minmax(280px, 340px);
+      gap: 36px 40px;
+      align-items: start;
     }
   }
   
@@ -290,11 +295,9 @@
   .product-gallery__main {
     position: relative;
     aspect-ratio: 1;
-    background:
-      radial-gradient(circle at top, rgba(var(--color-primary-rgb), 0.08) 0%, rgba(var(--color-primary-rgb), 0) 58%),
-      var(--color-surface);
+    background: #ececec;
     border: 1px solid var(--color-border);
-    border-radius: 22px;
+    border-radius: 12px;
     overflow: hidden;
     margin-bottom: 14px;
   }
@@ -327,7 +330,7 @@
     width: 80px;
     height: 80px;
     border: 2px solid var(--color-border);
-    border-radius: 14px;
+    border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
     transition: border-color var(--transition-fast);
@@ -345,54 +348,131 @@
     object-fit: cover;
   }
   
-  /* Product Info */
-  .product-info__title {
-    font-size: clamp(2rem, 4vw, 3.6rem);
-    margin-bottom: 10px;
-    max-width: 12ch;
+  /* Center column */
+  .product-info--details .product-info__title {
+    font-size: clamp(1.65rem, 2.8vw, 2.35rem);
+    font-weight: 800;
+    color: var(--color-text);
+    margin: 0 0 12px;
+    max-width: none;
+    line-height: 1.15;
   }
-  
-  @media (min-width: 750px) {
-    .product-info__title {
-      font-size: var(--font-size-3xl);
-    }
+
+  .product-info__price--hero {
+    margin-bottom: 14px;
   }
-  
-  .product-info__subtitle {
+
+  .product-info__price--hero .price-display__unit,
+  .product-info__price--hero .price-display__net {
+    display: none;
+  }
+
+  .product-info__price--hero .price-display__price,
+  .product-buybox__price .price-display__price {
+    color: var(--color-primary);
+  }
+
+  .product-info__price--hero .price-display__price--sale,
+  .product-buybox__price .price-display__price--sale {
+    color: var(--color-primary);
+  }
+
+  .product-info__lede {
+    margin: 0 0 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     font-size: var(--font-size-md);
     color: var(--color-ink-soft);
-    margin-bottom: 18px;
+    line-height: 1.5;
   }
-  
-  .product-info__price {
+
+  .product-info__article-heading {
+    font-size: var(--font-size-md);
+    font-weight: 800;
+    margin: 28px 0 12px;
+    color: var(--color-text);
+  }
+
+  .product-info__article {
+    font-size: var(--font-size-md);
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+
+  .product-info__article.rte > p:first-child {
+    margin-top: 0;
+  }
+
+  /* Buy box */
+  .product-buybox {
+    padding: 20px 22px 22px;
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    background: #fff;
+  }
+
+  .product-buybox__summary {
+    margin-bottom: 6px;
+  }
+
+  .product-buybox__price .price-display {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px 0;
+    margin-bottom: 10px;
+  }
+
+  .product-buybox__price .price-display__compare {
+    width: auto;
+    margin-bottom: 0;
+    order: -1;
+  }
+
+  .product-buybox__delivery {
+    margin: 0 0 10px;
+    font-size: var(--font-size-sm);
+    color: var(--color-ink-soft);
+  }
+
+  .product-buybox__delivery-value {
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .product-buybox__stock {
     margin-bottom: 8px;
   }
 
-  .product-info__eyebrow {
-    margin-bottom: 14px;
-  }
-  
-  .product-info__delivery {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  .product-buybox__sold-out {
+    padding: 12px 14px;
+    margin-top: 12px;
+    background-color: rgba(239, 68, 68, 0.08);
+    border-radius: 12px;
+    color: var(--color-error);
     font-size: var(--font-size-sm);
-    margin-bottom: 10px;
   }
-  
-  .product-info__delivery-label {
-    color: var(--color-ink-soft);
+
+  .product-buybox__vat {
+    margin-top: 16px;
   }
-  
-  .product-info__delivery-value {
-    font-weight: 600;
+
+  .product-buybox__contact {
+    margin-top: 8px;
   }
-  
-  .product-info__stock {
-    margin-bottom: 18px;
+
+  .product-info__contact-link--buybox {
+    color: var(--color-text);
   }
-  
+
+  .product-info__contact-link--buybox:hover {
+    color: var(--color-primary);
+  }
+
   /* Product Form */
+  .product-form--buybox {
+    margin-bottom: 0;
+  }
+
   .product-form {
     margin-bottom: 22px;
   }
@@ -426,17 +506,59 @@
     gap: 12px;
     margin-bottom: 14px;
   }
-  
+
+  .product-form__actions--buybox {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    margin-bottom: 12px;
+  }
+
+  .product-form__qty-wrap {
+    width: 100%;
+  }
+
+  .product-form__qty-label {
+    display: block;
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .product-form__actions--buybox .qty-stepper {
+    width: 100%;
+  }
+
+  .product-form__submit--full {
+    width: 100%;
+  }
+
   .product-form__qty {
     flex-shrink: 0;
   }
-  
+
   .product-form__submit {
     flex-grow: 1;
   }
-  
+
   .product-form__dynamic-checkout {
     margin-bottom: var(--spacing-md);
+  }
+
+  .product-form__dynamic-checkout--buybox {
+    margin-bottom: 0;
+  }
+
+  .product-form__dynamic-checkout--buybox .shopify-payment-button__button--unbranded {
+    background-color: #1a1a1a !important;
+    color: #fff !important;
+    font-weight: 700 !important;
+    border-radius: var(--radius-md) !important;
+    min-height: 48px !important;
+  }
+
+  .product-form__dynamic-checkout--buybox .shopify-payment-button__button {
+    border-radius: var(--radius-md) !important;
   }
   
   /* Sold Out Message */
@@ -468,6 +590,17 @@
     color: var(--color-ink-soft);
   }
   
+  .payment-icons--buybox .payment-icons__list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .payment-icons--buybox .payment-icons__icon {
+    justify-content: center;
+    min-height: 32px;
+  }
+
   /* Contact CTA */
   .product-info__contact {
     padding: 18px 20px;
@@ -475,6 +608,12 @@
     border: 1px solid var(--color-border);
     border-radius: 18px;
     margin-top: 20px;
+  }
+
+  .product-buybox .product-info__contact {
+    margin-top: 16px;
+    background: #f7f7f7;
+    border-radius: 12px;
   }
   
   .product-info__contact-title {

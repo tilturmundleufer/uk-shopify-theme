@@ -4,9 +4,11 @@
   
   Accepts:
   - product: {Object} Product Liquid object
+  - skip_description_tab: {Boolean} If true, description is omitted (e.g. shown in the product column)
 {%- endcomment -%}
 
 {%- liquid
+  assign skip_description_tab = skip_description_tab | default: false
   assign downloads_json = product.metafields.custom.downloads
   assign has_downloads = false
   if downloads_json != blank
@@ -17,20 +19,22 @@
 {%- comment -%} Desktop Tabs {%- endcomment -%}
 <div class="product-tabs tabs" data-tabs>
   <div class="tabs__list" role="tablist">
+    {%- unless skip_description_tab -%}
+      <button 
+        class="tabs__btn" 
+        role="tab" 
+        aria-selected="true" 
+        aria-controls="tab-description"
+        id="tab-btn-description"
+        data-tab-btn
+      >
+        {{ 'products.product.description' | t }}
+      </button>
+    {%- endunless -%}
     <button 
       class="tabs__btn" 
       role="tab" 
-      aria-selected="true" 
-      aria-controls="tab-description"
-      id="tab-btn-description"
-      data-tab-btn
-    >
-      {{ 'products.product.description' | t }}
-    </button>
-    <button 
-      class="tabs__btn" 
-      role="tab" 
-      aria-selected="false" 
+      aria-selected="{% if skip_description_tab %}true{% else %}false{% endif %}" 
       aria-controls="tab-shipping"
       id="tab-btn-shipping"
       data-tab-btn
@@ -51,28 +55,30 @@
     {%- endif -%}
   </div>
   
-  <div 
-    class="tabs__panel" 
-    role="tabpanel" 
-    id="tab-description"
-    aria-labelledby="tab-btn-description"
-    data-tab-panel
-  >
-    <div class="tabs__panel-content rte">
-      {%- if product.description != blank -%}
-        {{ product.description }}
-      {%- else -%}
-        <p>{{ 'products.product.no_description' | t | default: 'Keine Beschreibung verfügbar.' }}</p>
-      {%- endif -%}
+  {%- unless skip_description_tab -%}
+    <div 
+      class="tabs__panel" 
+      role="tabpanel" 
+      id="tab-description"
+      aria-labelledby="tab-btn-description"
+      data-tab-panel
+    >
+      <div class="tabs__panel-content rte">
+        {%- if product.description != blank -%}
+          {{ product.description }}
+        {%- else -%}
+          <p>{{ 'products.product.no_description' | t | default: 'Keine Beschreibung verfügbar.' }}</p>
+        {%- endif -%}
+      </div>
     </div>
-  </div>
+  {%- endunless -%}
   
   <div 
     class="tabs__panel" 
     role="tabpanel" 
     id="tab-shipping"
     aria-labelledby="tab-btn-shipping"
-    hidden
+    {% unless skip_description_tab %}hidden{% endunless %}
     data-tab-panel
   >
     <div class="tabs__panel-content rte">
@@ -110,40 +116,42 @@
 
 {%- comment -%} Mobile Accordion {%- endcomment -%}
 <div class="product-accordion accordion accordion--minimal" data-accordion>
-  <div class="accordion__item">
-    <button 
-      class="accordion__header" 
-      aria-expanded="true"
-      aria-controls="accordion-description"
-      data-accordion-header
-    >
-      {{ 'products.product.description' | t }}
-      <span class="accordion__icon">{%- render 'icon-chevron' -%}</span>
-    </button>
-    <div class="accordion__content" id="accordion-description" aria-hidden="false" data-accordion-content>
-      <div class="accordion__inner">
-        <div class="accordion__body rte">
-          {%- if product.description != blank -%}
-            {{ product.description }}
-          {%- else -%}
-            <p>Keine Beschreibung verfügbar.</p>
-          {%- endif -%}
+  {%- unless skip_description_tab -%}
+    <div class="accordion__item">
+      <button 
+        class="accordion__header" 
+        aria-expanded="true"
+        aria-controls="accordion-description"
+        data-accordion-header
+      >
+        {{ 'products.product.description' | t }}
+        <span class="accordion__icon">{%- render 'icon-chevron' -%}</span>
+      </button>
+      <div class="accordion__content" id="accordion-description" aria-hidden="false" data-accordion-content>
+        <div class="accordion__inner">
+          <div class="accordion__body rte">
+            {%- if product.description != blank -%}
+              {{ product.description }}
+            {%- else -%}
+              <p>Keine Beschreibung verfügbar.</p>
+            {%- endif -%}
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  {%- endunless -%}
   
   <div class="accordion__item">
     <button 
       class="accordion__header" 
-      aria-expanded="false"
+      aria-expanded="{% if skip_description_tab %}true{% else %}false{% endif %}"
       aria-controls="accordion-shipping"
       data-accordion-header
     >
       {{ 'products.product.shipping' | t }}
       <span class="accordion__icon">{%- render 'icon-chevron' -%}</span>
     </button>
-    <div class="accordion__content" id="accordion-shipping" aria-hidden="true" data-accordion-content>
+    <div class="accordion__content" id="accordion-shipping" aria-hidden="{% if skip_description_tab %}false{% else %}true{% endif %}" data-accordion-content>
       <div class="accordion__inner">
         <div class="accordion__body rte">
           {%- if settings.shipping_info != blank -%}

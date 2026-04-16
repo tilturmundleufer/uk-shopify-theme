@@ -59,6 +59,8 @@
       "out_of_stock_message": "Dieses Produkt ist nicht mehr auf Lager",
       "vat_notice": "0% Mehrwertsteuer",
       "payment_options": "Zahlungsmöglichkeiten",
+      "article_info_heading": "Infos zu diesem Artikel:",
+      "purchase_sidebar_label": "Kaufen",
       "product_question": "Fragen zu unserem Shop oder Artikeln?",
       "product_question_text": "Kontaktieren Sie unser Team. Wir melden uns innerhalb kürzester Zeit bei Ihnen!"
     }
