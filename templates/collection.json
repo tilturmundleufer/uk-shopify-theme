@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main-collection": {
@@ -10,22 +19,55 @@
         "show_sidebar": true,
         "sidebar_heading": "Sie haben Fragen?",
         "sidebar_text": "Unsere Experten helfen Ihnen gerne weiter!",
-        "sidebar_button_text": "Jetzt kontaktieren"
+        "sidebar_button_text": "Jetzt kontaktieren",
+        "sidebar_button_link": ""
       }
     },
-    "contact-cta": {
-      "type": "contact-cta",
+    "usp_service_AMBBqe": {
+      "type": "usp-service",
+      "blocks": {
+        "usp_fYNBzz": {
+          "type": "usp",
+          "settings": {
+            "title": "Hochwertige Produkte",
+            "description": "Wir setzen auf geprüfte Markenqualität.",
+            "icon": ""
+          }
+        },
+        "usp_6fJXzp": {
+          "type": "usp",
+          "settings": {
+            "title": "Schneller Versand",
+            "description": "Wir setzen auf geprüfte Markenqualität.",
+            "icon": ""
+          }
+        },
+        "usp_xxfXVD": {
+          "type": "usp",
+          "settings": {
+            "title": "24/7 für Sie da",
+            "description": "Wir setzen auf geprüfte Markenqualität.",
+            "icon": ""
+          }
+        }
+      },
+      "block_order": [
+        "usp_fYNBzz",
+        "usp_6fJXzp",
+        "usp_xxfXVD"
+      ],
+      "name": "USP / Service",
       "settings": {
-        "subheading": "Hilfe & Kontakt",
-        "heading": "Sie haben Fragen?",
-        "description": "Rufen Sie uns an oder schreiben Sie uns per Mail!",
-        "button_text": "Jetzt kontaktieren",
-        "background_color": "#1a1a1a"
+        "subheading": "Service",
+        "heading": "Gute Gründe für uns",
+        "description": "",
+        "columns": 3,
+        "show_image": false
       }
     }
   },
   "order": [
     "main-collection",
-    "contact-cta"
+    "usp_service_AMBBqe"
   ]
 }
