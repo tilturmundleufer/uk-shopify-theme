@@ -63,7 +63,15 @@ Das Theme nutzt folgende Product Metafields für erweiterte Funktionen:
 - **Typ**: Single line text
 - **Beispiel**: `Performanceschiene, schwarz pulverbeschichtet`
 
-### 4. Downloads (`custom.downloads`)
+### 4. Datenblatt / PDF (`custom.datasheet`)
+
+- **Namespace**: `custom`
+- **Key**: `datasheet` (alternativ `datasheet_pdf` als zweite Datei-Definition oder `datasheet_url` als URL)
+- **Typ**: **File** (empfohlen) oder URL / Single line text mit Link
+- Erscheint im Produkttab **„Datenblatt“** direkt **rechts neben „Lieferung & Versand“**, sobald eine Datei/URL gesetzt ist.
+- Optional: `custom.datasheet_title` (Single line) überschreibt den Button-Text (Standard: „Datenblatt öffnen (PDF)“).
+
+### 5. Downloads (`custom.downloads`)
 
 - **Namespace**: `custom`
 - **Key**: `downloads`

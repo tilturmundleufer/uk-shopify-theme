@@ -1,92 +1,202 @@
 {%- comment -%}
-  Facts links (Icons), Zitat, Bild rechts
+  Vertikaler Leisten-Text links (z. B. SERVICE), Überschrift + Text + Facts, Bild rechts
 {%- endcomment -%}
 
 <section class="testimonial-split section" id="testimonial-{{ section.id }}">
-  <div class="page-width testimonial-split__grid">
-    <div class="testimonial-split__left">
-      <figure class="testimonial-split__quote">
-        <blockquote class="testimonial-split__text">
-          <p>{{ section.settings.quote }}</p>
-        </blockquote>
-        {%- if section.settings.author != blank -%}
-          <figcaption class="testimonial-split__author">{{ section.settings.author }}</figcaption>
-        {%- endif -%}
-      </figure>
-
-      {%- if section.blocks.size > 0 -%}
-        <ul class="testimonial-split__facts" role="list">
-          {%- for block in section.blocks -%}
-            {%- if block.type == 'fact' -%}
-              <li class="testimonial-split__fact" {{ block.shopify_attributes }}>
-                <span class="testimonial-split__fact-icon" aria-hidden="true">
-                  {%- render 'testimonial-fact-icon', icon: block.settings.icon -%}
-                </span>
-                <span class="testimonial-split__fact-label">{{ block.settings.title }}</span>
-              </li>
-            {%- endif -%}
-          {%- endfor -%}
-        </ul>
-      {%- endif -%}
-    </div>
-
-    <div class="testimonial-split__media">
-      {%- if section.settings.image != blank -%}
-        <img
-          src="{{ section.settings.image | image_url: width: 1200 }}"
-          alt="{{ section.settings.image_alt | escape }}"
-          loading="lazy"
-          width="{{ section.settings.image.width }}"
-          height="{{ section.settings.image.height }}"
-        >
-      {%- else -%}
-        <div class="testimonial-split__placeholder">
-          {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
-          <p class="testimonial-split__hint">{{ section.settings.placeholder_hint }}</p>
+  <div class="page-width testimonial-split__page">
+    <div class="testimonial-split__row">
+      {%- if section.settings.show_vertical_rail and section.settings.vertical_label != blank -%}
+        <div class="testimonial-split__rail" aria-hidden="true">
+          <span class="testimonial-split__rail-label">{{ section.settings.vertical_label | escape }}</span>
+          <span class="testimonial-split__rail-line"></span>
         </div>
       {%- endif -%}
+
+      <div class="testimonial-split__grid">
+        <div class="testimonial-split__left">
+          {%- if section.settings.heading != blank -%}
+            <h2 class="testimonial-split__heading">{{ section.settings.heading | escape }}</h2>
+          {%- endif -%}
+
+          {%- if section.settings.body != blank -%}
+            <div class="testimonial-split__body rte">{{ section.settings.body }}</div>
+          {%- elsif section.settings.quote != blank -%}
+            {%- comment -%} Rückwärtskompatibilität: ältere „Zitat“-Konfiguration {%- endcomment -%}
+            <div class="testimonial-split__body testimonial-split__body--legacy rte">
+              {{ section.settings.quote | newline_to_br }}
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.author != blank and section.settings.heading == blank and section.settings.body == blank -%}
+            <p class="testimonial-split__author">{{ section.settings.author | escape }}</p>
+          {%- endif -%}
+
+          {%- if section.blocks.size > 0 -%}
+            <ul class="testimonial-split__facts" role="list">
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'fact' -%}
+                  <li class="testimonial-split__fact" {{ block.shopify_attributes }}>
+                    <span class="testimonial-split__fact-icon" aria-hidden="true">
+                      {%- render 'testimonial-fact-icon', icon: block.settings.icon -%}
+                    </span>
+                    <span class="testimonial-split__fact-label">{{ block.settings.title }}</span>
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </div>
+
+        <div class="testimonial-split__media">
+          {%- if section.settings.image != blank -%}
+            <img
+              src="{{ section.settings.image | image_url: width: 1200 }}"
+              alt="{{ section.settings.image_alt | escape }}"
+              loading="lazy"
+              width="{{ section.settings.image.width }}"
+              height="{{ section.settings.image.height }}"
+            >
+          {%- else -%}
+            <div class="testimonial-split__placeholder">
+              {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+              <p class="testimonial-split__hint">{{ section.settings.placeholder_hint }}</p>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <style>
   .testimonial-split {
-    padding: var(--spacing-2xl) 0;
-    background: linear-gradient(180deg, #f9fafb 0%, #fff 100%);
+    padding: clamp(2.5rem, 5vw, 4rem) 0;
+    background: #fff;
+    color: var(--color-text);
   }
-  .testimonial-split__grid {
-    display: grid;
-    gap: var(--spacing-xl);
+
+  .testimonial-split__page {
+    max-width: 100%;
+  }
+
+  .testimonial-split__row {
+    display: flex;
     align-items: stretch;
+    gap: 0;
+    min-width: 0;
   }
-  @media (min-width: 990px) {
-    .testimonial-split__grid {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
-      gap: var(--spacing-3xl);
+
+  /* Vertikaler „SERVICE“-Streifen: unten → oben lesbar, Linie bis zur Sektionshöhe */
+  .testimonial-split__rail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    width: 1.75rem;
+    margin-right: clamp(0.75rem, 2vw, 1.75rem);
+    padding-top: 0.2rem;
+    min-height: 100%;
+  }
+
+  @media (max-width: 749px) {
+    .testimonial-split__rail {
+      width: 1.25rem;
+      margin-right: 0.65rem;
     }
   }
+
+  .testimonial-split__rail-label {
+    display: block;
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: #6b7280;
+    line-height: 1;
+    white-space: nowrap;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    margin-bottom: 0.625rem;
+  }
+
+  .testimonial-split__rail-line {
+    display: block;
+    width: 1px;
+    flex: 1 1 auto;
+    align-self: stretch;
+    min-height: 5rem;
+    margin-top: 2px;
+    background: #c4c9d0;
+  }
+
+  .testimonial-split__grid {
+    display: grid;
+    gap: clamp(1.75rem, 4vw, 3rem);
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+  }
+
+  @media (min-width: 990px) {
+    .testimonial-split__grid {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      gap: clamp(2rem, 4vw, 3.5rem);
+    }
+  }
+
   .testimonial-split__left {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-xl);
+    gap: 1.5rem;
     min-width: 0;
   }
-  .testimonial-split__quote {
+
+  .testimonial-split__heading {
     margin: 0;
+    font-size: clamp(1.5rem, 2.8vw, 2.125rem);
+    font-weight: 800;
+    line-height: 1.2;
+    color: #0f172a;
+    letter-spacing: -0.02em;
   }
+
+  .testimonial-split__body {
+    font-size: var(--font-size-md);
+    font-weight: 400;
+    line-height: 1.65;
+    color: #4b5563;
+  }
+
+  .testimonial-split__body p {
+    margin: 0 0 0.75rem;
+  }
+
+  .testimonial-split__body p:last-child {
+    margin-bottom: 0;
+  }
+
+  .testimonial-split__author {
+    margin: 0;
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    color: var(--color-ink-soft);
+  }
+
   .testimonial-split__facts {
     list-style: none;
-    margin: 0;
+    margin: 0.25rem 0 0;
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
+    gap: 1.125rem;
   }
+
   .testimonial-split__fact {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 1rem;
   }
+
   .testimonial-split__fact-icon {
     flex-shrink: 0;
     width: 48px;
@@ -94,52 +204,41 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1.5px solid var(--color-secondary);
+    border: 1.5px solid #e5e7eb;
     border-radius: 50%;
-    color: var(--color-secondary);
+    color: #374151;
     background: #fff;
   }
+
   .testimonial-split__fact-icon-svg {
-    width: 26px;
-    height: 26px;
+    width: 24px;
+    height: 24px;
   }
+
   .testimonial-split__fact-label {
     font-size: var(--font-size-md);
     font-weight: 600;
     color: var(--color-secondary);
-    line-height: 1.3;
-  }
-  .testimonial-split__text {
-    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-    font-weight: 600;
     line-height: 1.35;
-    color: var(--color-secondary);
-    margin: 0;
   }
-  .testimonial-split__text p {
-    margin: 0;
-  }
-  .testimonial-split__author {
-    margin-top: var(--spacing-lg);
-    font-size: var(--font-size-sm);
-    font-weight: 700;
-    color: var(--color-ink-soft);
-  }
+
   .testimonial-split__media {
-    min-height: 280px;
+    min-height: 240px;
   }
+
   .testimonial-split__media img {
     width: 100%;
     height: 100%;
-    min-height: 360px;
-    border-radius: var(--radius-md);
+    min-height: clamp(280px, 38vw, 420px);
+    border-radius: 10px;
     object-fit: cover;
-    max-height: none;
+    display: block;
   }
+
   .testimonial-split__placeholder {
-    border-radius: var(--radius-md);
-    background: #eef2f7;
-    min-height: 360px;
+    border-radius: 10px;
+    background: #f3f4f6;
+    min-height: clamp(280px, 38vw, 420px);
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -148,10 +247,12 @@
     gap: var(--spacing-sm);
     padding: var(--spacing-lg);
   }
+
   .testimonial-split__placeholder .placeholder-svg {
     width: 100px;
     opacity: 0.35;
   }
+
   .testimonial-split__hint {
     font-size: var(--font-size-sm);
     color: var(--color-text-light);
@@ -166,16 +267,40 @@
   "class": "section-testimonial-split",
   "settings": [
     {
+      "type": "checkbox",
+      "id": "show_vertical_rail",
+      "label": "Vertikalen Text links anzeigen (z. B. SERVICE)",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "vertical_label",
+      "label": "Vertikaler Text links",
+      "default": "SERVICE"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "Gute Gründe für Schneider"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Fließtext",
+      "default": "<p>Bei uns finden Sie alles rund um Photovoltaik aus einer Hand – von Unterkonstruktionen über Module bis hin zu Wechselrichtern und Speichern. Wir setzen auf geprüfte Markenqualität, faire Preise und schnelle Lieferzeiten. Dank unserer langjährigen Erfahrung und persönlichen Fachberatung bekommen Sie genau die Lösung, die zu Ihrem Projekt passt.</p>"
+    },
+    {
       "type": "textarea",
       "id": "quote",
-      "label": "Zitat",
-      "default": "„Wir sind für Sie da – von der Planung bis zur Lieferung.“"
+      "label": "Alternativ: Zitat (nur wenn Überschrift & Fließtext leer)",
+      "default": ""
     },
     {
       "type": "text",
       "id": "author",
-      "label": "Quelle / Autor",
-      "default": "Ihr Team von Unterkonstruktion"
+      "label": "Quelle / Autor (nur Legacy-Zitat)",
+      "default": ""
     },
     {
       "type": "image_picker",

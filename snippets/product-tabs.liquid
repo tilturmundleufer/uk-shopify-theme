@@ -1,6 +1,8 @@
 {%- comment -%}
   Product Tabs Component
-  Shows Description, Shipping, Downloads as tabs (desktop) or accordion (mobile)
+  Description, Shipping, optional Datenblatt (PDF), optional Downloads
+  
+  Datenblatt: Produkt-Metafeld `custom.datasheet` (Datei) oder `custom.datasheet_pdf` / `custom.datasheet_url` (URL)
   
   Accepts:
   - product: {Object} Product Liquid object
@@ -13,6 +15,39 @@
   assign has_downloads = false
   if downloads_json != blank
     assign has_downloads = true
+  endif
+
+  assign has_datasheet = false
+  assign datasheet_href = ''
+  assign datasheet_btn_label = 'products.product.datasheet_open_pdf' | t
+
+  assign ds_file = product.metafields.custom.datasheet
+  if ds_file != blank and ds_file.value != blank and ds_file.value.url != blank
+    assign datasheet_href = ds_file.value.url
+    assign has_datasheet = true
+  endif
+
+  if has_datasheet == false
+    assign ds_alt = product.metafields.custom.datasheet_pdf
+    if ds_alt != blank and ds_alt.value != blank and ds_alt.value.url != blank
+      assign datasheet_href = ds_alt.value.url
+      assign has_datasheet = true
+    endif
+  endif
+
+  if has_datasheet == false
+    assign ds_link = product.metafields.custom.datasheet_url
+    if ds_link != blank
+      assign datasheet_href = ds_link.value | default: ds_link | strip
+      if datasheet_href != blank
+        assign has_datasheet = true
+      endif
+    endif
+  endif
+
+  assign ds_title_mf = product.metafields.custom.datasheet_title
+  if ds_title_mf != blank and ds_title_mf.value != blank
+    assign datasheet_btn_label = ds_title_mf.value | strip
   endif
 -%}
 
@@ -28,7 +63,7 @@
         id="tab-btn-description"
         data-tab-btn
       >
-        {{ 'products.product.description_specs_tab' | t }}
+        {{ 'products.product.description' | t }}
       </button>
     {%- endunless -%}
     <button 
@@ -41,6 +76,18 @@
     >
       {{ 'products.product.shipping' | t }}
     </button>
+    {%- if has_datasheet -%}
+      <button 
+        class="tabs__btn" 
+        role="tab" 
+        aria-selected="false" 
+        aria-controls="tab-datasheet"
+        id="tab-btn-datasheet"
+        data-tab-btn
+      >
+        {{ 'products.product.datasheet_tab' | t }}
+      </button>
+    {%- endif -%}
     {%- if has_downloads -%}
       <button 
         class="tabs__btn" 
@@ -90,6 +137,26 @@
       {%- endif -%}
     </div>
   </div>
+
+  {%- if has_datasheet -%}
+    <div 
+      class="tabs__panel" 
+      role="tabpanel" 
+      id="tab-datasheet"
+      aria-labelledby="tab-btn-datasheet"
+      hidden
+      data-tab-panel
+    >
+      <div class="tabs__panel-content">
+        <p class="product-tabs__datasheet-lead">
+          <a href="{{ datasheet_href }}" class="btn btn--secondary product-tabs__datasheet-link" target="_blank" rel="noopener">
+            {%- render 'icon-download' -%}
+            {{ datasheet_btn_label }}
+          </a>
+        </p>
+      </div>
+    </div>
+  {%- endif -%}
   
   {%- if has_downloads -%}
     <div 
@@ -125,7 +192,7 @@
         aria-controls="accordion-description"
         data-accordion-header
       >
-      {{ 'products.product.description_specs_tab' | t }}
+      {{ 'products.product.description' | t }}
       <span class="accordion__icon">{%- render 'icon-chevron' -%}</span>
     </button>
     <div class="accordion__content" id="accordion-description" aria-hidden="false" data-accordion-content>
@@ -165,6 +232,32 @@
       </div>
     </div>
   </div>
+
+  {%- if has_datasheet -%}
+    <div class="accordion__item">
+      <button 
+        class="accordion__header" 
+        aria-expanded="false"
+        aria-controls="accordion-datasheet"
+        data-accordion-header
+      >
+        {{ 'products.product.datasheet_tab' | t }}
+        <span class="accordion__icon">{%- render 'icon-chevron' -%}</span>
+      </button>
+      <div class="accordion__content" id="accordion-datasheet" aria-hidden="true" data-accordion-content>
+        <div class="accordion__inner">
+          <div class="accordion__body">
+            <p class="product-tabs__datasheet-lead">
+              <a href="{{ datasheet_href }}" class="btn btn--secondary product-tabs__datasheet-link" target="_blank" rel="noopener">
+                {%- render 'icon-download' -%}
+                {{ datasheet_btn_label }}
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
   
   {%- if has_downloads -%}
     <div class="accordion__item">
@@ -222,5 +315,21 @@
 
   .product-tabs__description.rte > p:first-of-type {
     margin-top: 0;
+  }
+
+  .product-tabs__datasheet-lead {
+    margin: 0;
+  }
+
+  .product-tabs__datasheet-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+  }
+
+  .product-tabs__datasheet-link svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
   }
 </style>

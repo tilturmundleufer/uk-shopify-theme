@@ -244,8 +244,12 @@
         "fact_F8XNA3"
       ],
       "settings": {
-        "quote": "Gute Gründe für Schneider\n\nBei uns finden Sie alles rund um Photovoltaik aus einer Hand – von Unterkonstruktionen über Module bis hin zu Wechselrichtern und Speichern. Wir setzen auf geprüfte Markenqualität, faire Preise und schnelle Lieferzeiten. Dank unserer langjährigen Erfahrung und persönlichen Fachberatung bekommen Sie genau die Lösung, die zu Ihrem Projekt passt.",
-        "author": "Gute Gründe für Schneider",
+        "show_vertical_rail": true,
+        "vertical_label": "SERVICE",
+        "heading": "Gute Gründe für Schneider",
+        "body": "<p>Bei uns finden Sie alles rund um Photovoltaik aus einer Hand – von Unterkonstruktionen über Module bis hin zu Wechselrichtern und Speichern. Wir setzen auf geprüfte Markenqualität, faire Preise und schnelle Lieferzeiten. Dank unserer langjährigen Erfahrung und persönlichen Fachberatung bekommen Sie genau die Lösung, die zu Ihrem Projekt passt.</p>",
+        "quote": "",
+        "author": "",
         "image": "shopify://shop_images/68b31055e86b0b10ea7f75ea_Jungs_auf_dem_Dach.png",
         "image_alt": "Montage-Team bei der Installation einer PV-Anlage",
         "placeholder_hint": "Motiv-Bild (z. B. Team auf dem Dach) im Editor hinterlegen."
