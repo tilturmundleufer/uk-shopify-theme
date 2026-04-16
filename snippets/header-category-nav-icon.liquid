@@ -1,6 +1,6 @@
 {%- comment -%}
-  Icon für die gelbe Kategorien-Leiste: optionales Bild aus Header-Block „Kategorie-Icon“,
-  sonst die eingebauten SVGs (inkl. Kreis als Fallback).
+  Gelbe Kategorien-Leiste: Bild aus Block „Kategorie-Icon“, sonst feste SVGs nur für
+  Unterkonstruktion + Solarmodule; alle weiteren Kategorien bitte per Block mit Bild.
 {%- endcomment -%}
 {%- liquid
   assign nav_custom_icon = blank
@@ -23,27 +23,25 @@
 -%}
 {%- if nav_custom_icon != blank -%}
   <img
-    src="{{ nav_custom_icon | image_url: width: 40 }}"
+    src="{{ nav_custom_icon | image_url: width: 48 }}"
     alt=""
     class="header__nav-icon header__nav-icon--custom"
-    width="20"
-    height="20"
+    width="24"
+    height="24"
     loading="eager"
     decoding="async"
   >
 {%- else -%}
   {%- case link.title | downcase -%}
     {%- when 'unterkonstruktion' -%}
-      <svg class="header__nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      <svg class="header__nav-icon header__nav-icon--filled" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+        <path fill="currentColor" fill-rule="evenodd" d="M7 3C7 2.44772 6.55228 2 6 2C5.44772 2 5 2.44772 5 3V5H3C2.44772 5 2 5.44772 2 6C2 6.55228 2.44772 7 3 7H5V11H3C2.44772 11 2 11.4477 2 12C2 12.5523 2.44772 13 3 13H5V17H3C2.44772 17 2 17.4477 2 18C2 18.5523 2.44772 19 3 19H5V21C5 21.5523 5.44772 22 6 22C6.55228 22 7 21.5523 7 21V19H11V21C11 21.5523 11.4477 22 12 22C12.5523 22 13 21.5523 13 21V19H17V21C17 21.5523 17.4477 22 18 22C18.5523 22 19 21.5523 19 21V19H21C21.5523 19 22 18.5523 22 18C22 17.4477 21.5523 17 21 17H19V13H21C21.5523 13 22 12.5523 22 12C22 11.4477 21.5523 11 21 11H19V7H21C21.5523 7 22 6.55228 22 6C22 5.44771 21.5523 5 21 5H19V3C19 2.44772 18.5523 2 18 2C17.4477 2 17 2.44772 17 3V5H13V3C13 2.44772 12.5523 2 12 2C11.4477 2 11 2.44772 11 3V5H7V3ZM17 17V13H13V17H17ZM11 17V13H7V17H11ZM11 11H7V7L11 7V11ZM17 11H13V7L17 7V11Z" clip-rule="evenodd"></path>
+      </svg>
     {%- when 'solarmodule' -%}
-      <svg class="header__nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-    {%- when 'wechselrichter' -%}
-      <svg class="header__nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="7" width="20" height="10" rx="2"/><line x1="6" y1="12" x2="10" y2="12"/><circle cx="16" cy="12" r="2"/></svg>
-    {%- when 'batteriespeicher' -%}
-      <svg class="header__nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="7" width="18" height="10" rx="2"/><line x1="22" y1="11" x2="22" y2="13"/><line x1="6" y1="11" x2="6" y2="13"/><line x1="10" y1="11" x2="10" y2="13"/><line x1="14" y1="11" x2="14" y2="13"/></svg>
-    {%- when 'zubehör' -%}
-      <svg class="header__nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+      <svg class="header__nav-icon header__nav-icon--filled" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+        <path fill="currentColor" d="M5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12ZM5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM12,5a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5Zm5.66,2.34a1,1,0,0,0,.7-.29l.71-.71a1,1,0,0,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34Zm-12-.29a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5ZM12,19a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19Z"></path>
+      </svg>
     {%- else -%}
-      <svg class="header__nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/></svg>
+      <svg class="header__nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/></svg>
   {%- endcase -%}
 {%- endif -%}

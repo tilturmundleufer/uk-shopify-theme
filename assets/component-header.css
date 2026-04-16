@@ -394,7 +394,8 @@
 .header__nav-bar {
   background-color: var(--color-primary);
   display: none;
-  box-shadow: inset 0 -1px 0 rgba(0, 31, 63, 0.08);
+  border-top: 1px solid rgba(7, 37, 68, 0.22);
+  border-bottom: 1px solid rgba(7, 37, 68, 0.22);
 }
 
 @media (min-width: 990px) {
@@ -407,52 +408,69 @@
   padding: 0;
 }
 
-/* Navigation */
+/* Navigation — volle Breite, gestrichelte Spalten wie Referenz */
 .header__nav {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: stretch;
+  flex-wrap: nowrap;
+  width: 100%;
 }
 
 .header__nav-item {
   position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  border-right: 1px dashed rgba(0, 0, 0, 0.35);
 }
 
-.header__nav-link {
+.header__nav-item:last-child {
+  border-right: none;
+}
+
+.header__nav-bar .header__nav-link {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 16px 20px;
-  font-size: var(--font-size-sm);
-  font-weight: 600;
-  color: var(--color-secondary);
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 100%;
+  padding: 14px 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #000;
   transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 
-.header__nav-link:hover,
-.header__nav-link--active {
-  background-color: rgba(0, 31, 63, 0.08);
-  color: var(--color-secondary);
+.header__nav-bar .header__nav-link:hover,
+.header__nav-bar .header__nav-link--active {
+  background-color: rgba(0, 0, 0, 0.06);
+  color: #000;
 }
 
-.header__nav-link svg {
-  width: 18px;
-  height: 18px;
+.header__nav-bar .header__nav-link svg {
+  width: 24px;
+  height: 24px;
   flex-shrink: 0;
 }
 
-.header__nav-link .chevron-icon {
+.header__nav-bar .header__nav-link .chevron-icon {
   width: 14px;
   height: 14px;
-  margin-left: var(--spacing-xs);
+  margin-left: 2px;
+  flex-shrink: 0;
 }
 
 /* Nav Icons */
 .header__nav-icon {
-  width: 20px;
-  height: 20px;
-  margin-right: var(--spacing-xs);
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.header__nav-icon--filled {
+  stroke: none;
 }
 
 .header__nav-icon--custom {
