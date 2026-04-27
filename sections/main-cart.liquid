@@ -19,7 +19,11 @@
             </div>
             
             {%- for item in cart.items -%}
-              <div class="cart-item" data-cart-item data-key="{{ item.key }}">
+              {%- assign is_locked_surcharge = false -%}
+              {%- if item.sku == 'SURCHARGE_LONG_RAIL' -%}
+                {%- assign is_locked_surcharge = true -%}
+              {%- endif -%}
+              <div class="cart-item" data-cart-item data-key="{{ item.key }}"{% if is_locked_surcharge %} data-cart-locked="true"{% endif %}>
                 <div class="cart-item__image">
                   {%- if item.image -%}
                     <a href="{{ item.url }}">
@@ -40,14 +44,18 @@
                     <p class="cart-item__variant">{{ item.variant.title }}</p>
                   {%- endunless -%}
                   
-                  <button 
-                    type="button" 
-                    class="cart-item__remove"
-                    data-cart-remove="{{ item.key }}"
-                    aria-label="{{ 'cart.general.remove' | t }}"
-                  >
-                    {{ 'cart.general.remove' | t }}
-                  </button>
+                  {%- unless is_locked_surcharge -%}
+                    <button
+                      type="button"
+                      class="cart-item__remove"
+                      data-cart-remove="{{ item.key }}"
+                      aria-label="{{ 'cart.general.remove' | t }}"
+                    >
+                      {{ 'cart.general.remove' | t }}
+                    </button>
+                  {%- else -%}
+                    <p class="cart-item__lock-note">Automatisch hinzugefügt</p>
+                  {%- endunless -%}
                 </div>
                 
                 <div class="cart-item__price">
@@ -62,12 +70,16 @@
                 
                 <div class="cart-item__qty">
                   <span class="cart-item__meta-label">{{ 'cart.general.column_quantity' | t }}</span>
-                  {%- render 'qty-stepper', 
-                    variant: item.variant, 
-                    value: item.quantity,
-                    name: 'updates[]',
-                    size: 'sm'
-                  -%}
+                  {%- if is_locked_surcharge -%}
+                    <span class="cart-item__qty-static">{{ item.quantity }}</span>
+                  {%- else -%}
+                    {%- render 'qty-stepper',
+                      variant: item.variant,
+                      value: item.quantity,
+                      name: 'updates[]',
+                      size: 'sm'
+                    -%}
+                  {%- endif -%}
                 </div>
                 
                 <div class="cart-item__total">
@@ -327,6 +339,13 @@
     border-radius: 2px;
   }
 
+  .cart-item__lock-note {
+    margin: 0;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--color-ink-soft);
+  }
+
   .cart-item__price,
   .cart-item__qty,
   .cart-item__total {
@@ -431,6 +450,21 @@
   }
 
   .cart-item__price-current {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cart-item__qty-static {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    height: 36px;
+    padding: 0 var(--spacing-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    font-size: var(--font-size-sm);
+    font-weight: 700;
     font-variant-numeric: tabular-nums;
   }
 

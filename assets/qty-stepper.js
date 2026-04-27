@@ -4,18 +4,21 @@
  */
 
 class QuantityStepper extends HTMLElement {
-  constructor() {
-    super();
+  connectedCallback() {
+    if (this._initialized) return;
+    this._initialized = true;
+
     this.input = this.querySelector('[data-qty-value]');
     this.decreaseBtn = this.querySelector('[data-qty-decrease]');
     this.increaseBtn = this.querySelector('[data-qty-increase]');
-    
+
     if (!this.input) return;
-    
+
     this.min = parseInt(this.input.min) || 1;
     this.max = parseInt(this.input.max) || 99;
-    
+
     this.bindEvents();
+    this.updateButtonStates();
   }
   
   bindEvents() {

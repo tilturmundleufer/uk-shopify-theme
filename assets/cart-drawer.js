@@ -168,6 +168,7 @@ class CartDrawer {
   renderItem(item) {
     const imageUrl = item.image || '';
     const itemUrl = item.url || window.routes.cart_url;
+    const isLockedSurcharge = String(item.sku || '').toUpperCase() === 'SURCHARGE_LONG_RAIL';
     const comparePrice = item.original_line_price > item.final_line_price
       ? `<span class="cart-drawer__item-compare">${this.formatMoney(item.original_line_price)}</span>`
       : '';
@@ -175,16 +176,9 @@ class CartDrawer {
       ? `<p class="cart-drawer__item-variant">${this.escapeHtml(item.variant_title)}</p>`
       : '';
 
-    return `
-      <article class="cart-drawer__item" data-cart-item data-key="${this.escapeHtml(item.key)}">
-        <a href="${this.escapeAttribute(itemUrl)}" class="cart-drawer__item-image">
-          ${imageUrl ? `<img src="${this.escapeAttribute(imageUrl)}" alt="${this.escapeAttribute(item.product_title)}" loading="lazy" width="72" height="72">` : ''}
-        </a>
-        <div class="cart-drawer__item-content">
-          <a href="${this.escapeAttribute(itemUrl)}" class="cart-drawer__item-title">${this.escapeHtml(item.product_title)}</a>
-          ${variantTitle}
-          <div class="cart-drawer__item-actions">
-            <qty-stepper class="qty-stepper qty-stepper--sm" data-qty-stepper>
+    const qtyControl = isLockedSurcharge
+      ? `<span class="cart-item__qty-static">${Number(item.quantity) || 1}</span>`
+      : `<qty-stepper class="qty-stepper qty-stepper--sm" data-qty-stepper>
               <input
                 type="number"
                 class="qty-stepper__input"
@@ -205,15 +199,30 @@ class CartDrawer {
                   <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
                 </button>
               </div>
-            </qty-stepper>
+            </qty-stepper>`;
+
+    const removeControl = isLockedSurcharge
+      ? `<p class="cart-item__lock-note">Automatisch hinzugefügt</p>`
+      : `<button type="button" class="cart-drawer__item-remove" data-cart-remove="${this.escapeAttribute(item.key)}">
+            ${this.escapeHtml(this.strings.remove)}
+          </button>`;
+
+    return `
+      <article class="cart-drawer__item" data-cart-item data-key="${this.escapeHtml(item.key)}"${isLockedSurcharge ? ' data-cart-locked="true"' : ''}>
+        <a href="${this.escapeAttribute(itemUrl)}" class="cart-drawer__item-image">
+          ${imageUrl ? `<img src="${this.escapeAttribute(imageUrl)}" alt="${this.escapeAttribute(item.product_title)}" loading="lazy" width="72" height="72">` : ''}
+        </a>
+        <div class="cart-drawer__item-content">
+          <a href="${this.escapeAttribute(itemUrl)}" class="cart-drawer__item-title">${this.escapeHtml(item.product_title)}</a>
+          ${variantTitle}
+          <div class="cart-drawer__item-actions">
+            ${qtyControl}
             <div class="cart-drawer__item-prices">
               ${comparePrice}
               <span class="cart-drawer__item-total">${this.formatMoney(item.final_line_price)}</span>
             </div>
           </div>
-          <button type="button" class="cart-drawer__item-remove" data-cart-remove="${this.escapeAttribute(item.key)}">
-            ${this.escapeHtml(this.strings.remove)}
-          </button>
+          ${removeControl}
         </div>
       </article>
     `;

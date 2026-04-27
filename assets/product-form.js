@@ -168,6 +168,8 @@ document.addEventListener('click', async function(event) {
   
   const key = removeButton.dataset.cartRemove;
   const isDrawerAction = Boolean(removeButton.closest('[data-cart-drawer]'));
+  const cartItem = removeButton.closest('[data-cart-item]');
+  if (cartItem?.dataset.cartLocked === 'true') return;
   
   try {
     const cart = await requestCartChange({
@@ -234,6 +236,7 @@ document.addEventListener('qty-change', async function(event) {
   const key = cartItem.dataset.key;
   const quantity = Number(event.detail?.value);
   const isDrawerAction = Boolean(cartItem.closest('[data-cart-drawer]'));
+  if (cartItem.dataset.cartLocked === 'true') return;
 
   if (!key || !Number.isFinite(quantity) || quantity < 0) return;
   if (stepper.dataset.cartUpdating === 'true') return;

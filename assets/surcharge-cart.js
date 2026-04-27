@@ -138,13 +138,20 @@
         if (hasLongRails && !surchargeItem) {
           // Schienen im Cart, kein Zuschlag → hinzufügen
           return addSurcharge().then(function () {
-            // Cart-Update-Event feuern damit Theme-UI sich aktualisiert
-            document.dispatchEvent(new CustomEvent('cart:updated'));
+            return fetchCart().then(function (updatedCart) {
+              document.dispatchEvent(new CustomEvent('cart:updated', {
+                detail: { cart: updatedCart, source: 'surcharge' }
+              }));
+            });
           });
         } else if (!hasLongRails && surchargeItem) {
           // Keine Schienen mehr, Zuschlag noch da → entfernen
           return removeSurcharge(surchargeItem.key).then(function () {
-            document.dispatchEvent(new CustomEvent('cart:updated'));
+            return fetchCart().then(function (updatedCart) {
+              document.dispatchEvent(new CustomEvent('cart:updated', {
+                detail: { cart: updatedCart, source: 'surcharge' }
+              }));
+            });
           });
         }
         // Sonst: alles korrekt, nichts tun
