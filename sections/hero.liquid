@@ -143,6 +143,9 @@
       {%- endif -%}
     </div>
   </div>
+  {% for block in section.blocks %}
+    {% render block %}
+  {% endfor %}
 </section>
 
 {% schema %}
@@ -278,9 +281,7 @@
   ],
   "blocks": [
     {
-      "type": "cta",
-      "name": "CTA (App Embed)",
-      "settings": []
+    "type": "@app"
     }
   ],
   "presets": [
