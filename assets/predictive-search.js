@@ -144,8 +144,9 @@ class PredictiveSearch {
     this.selectedIndex = -1;
   }
 
-  money(cents) {
-    const amount = Number(cents || 0) / 100;
+  money(price) {
+    // Suggest API returns prices already in currency units (e.g. "12.34"), not cents
+    const amount = Number(price || 0);
     const currency = window.Shopify?.currency?.active || 'EUR';
     const locale = document.documentElement.lang || 'de-DE';
     try {

@@ -1,0 +1,213 @@
+{%- comment -%} Search Results Page {%- endcomment -%}
+
+{%- assign search_performed = false -%}
+{%- if search.performed -%}
+  {%- assign search_performed = true -%}
+{%- endif -%}
+
+<section class="search-page section">
+  <div class="page-width">
+
+    {%- comment -%} Header + Search Form {%- endcomment -%}
+    <div class="search-page__header">
+      <h1 class="search-page__title">
+        {%- if search_performed -%}
+          {%- if search.results_count == 0 -%}
+            Keine Ergebnisse für „{{ search.terms | escape }}"
+          {%- else -%}
+            Suchergebnisse für „{{ search.terms | escape }}"
+          {%- endif -%}
+        {%- else -%}
+          Produkte durchsuchen
+        {%- endif -%}
+      </h1>
+
+      <div class="search-page__form-wrap" data-search-wrapper>
+        <form action="{{ routes.search_url }}" method="get" class="search-page__form header__search-form" role="search">
+          <input type="hidden" name="type" value="product">
+          <span class="header__search-icon" aria-hidden="true">{%- render 'icon-search' -%}</span>
+          <input
+            type="search"
+            name="q"
+            class="header__search-input search-page__input"
+            value="{{ search.terms | escape }}"
+            placeholder="Alle Produkte durchsuchen…"
+            aria-label="Suche"
+            autocomplete="off"
+            data-search-input
+          >
+          <button type="submit" class="search-page__submit btn btn--primary">Suchen</button>
+        </form>
+        <div class="search-results" data-search-results aria-live="polite" hidden></div>
+      </div>
+    </div>
+
+    {%- if search_performed -%}
+      {%- if search.results_count > 0 -%}
+        {%- paginate search.results by 24 -%}
+        <p class="search-page__count">
+          {{ search.results_count }} Produkt{%- if search.results_count != 1 -%}e{%- endif -%} gefunden
+        </p>
+
+        <div class="search-page__grid product-grid">
+          {%- for product in search.results -%}
+            {%- render 'product-card', product: product, lazy_load: true, show_description: false -%}
+          {%- endfor -%}
+        </div>
+
+        {%- if paginate.pages > 1 -%}
+          <nav class="search-page__pagination pagination" aria-label="Seitennavigation">
+            {%- if paginate.previous -%}
+              <a href="{{ paginate.previous.url }}" class="pagination__btn btn btn--secondary">
+                &larr; Zurück
+              </a>
+            {%- endif -%}
+            <span class="pagination__info">{{ paginate.current_page }} / {{ paginate.pages }}</span>
+            {%- if paginate.next -%}
+              <a href="{{ paginate.next.url }}" class="pagination__btn btn btn--secondary">
+                Weiter &rarr;
+              </a>
+            {%- endif -%}
+          </nav>
+        {%- endif -%}
+        {%- endpaginate -%}
+
+      {%- else -%}
+        <div class="search-page__empty">
+          <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <circle cx="22" cy="22" r="15" stroke="currentColor" stroke-width="2.5"/>
+            <path d="M33 33l9 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M16 22h12M22 16v12" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".4"/>
+          </svg>
+          <p>Für <strong>„{{ search.terms | escape }}"</strong> wurden keine Produkte gefunden.</p>
+          <p class="search-page__empty-hint">Tipp: Überprüfen Sie die Schreibweise oder versuchen Sie einen anderen Suchbegriff.</p>
+          <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary">Alle Produkte ansehen</a>
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+
+  </div>
+</section>
+
+<style>
+  .search-page {
+    padding-top: var(--spacing-2xl);
+    padding-bottom: var(--spacing-3xl);
+  }
+
+  .search-page__header {
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .search-page__title {
+    font-size: clamp(1.5rem, 2.5vw, 2.1rem);
+    font-family: var(--font-heading-family);
+    font-weight: var(--font-heading-weight);
+    color: var(--color-secondary);
+    letter-spacing: -0.02em;
+    margin: 0 0 var(--spacing-lg);
+  }
+
+  .search-page__form-wrap {
+    position: relative;
+    max-width: 620px;
+  }
+
+  .search-page__form {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+
+  .search-page__form .header__search-icon {
+    left: 14px;
+  }
+
+  .search-page__input {
+    flex: 1;
+    padding: 14px 16px 14px 44px;
+    font-size: var(--font-size-md);
+  }
+
+  .search-page__submit {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .search-page__count {
+    font-size: var(--font-size-sm);
+    color: var(--color-ink-soft);
+    margin: 0 0 var(--spacing-lg);
+  }
+
+  /* Product Grid */
+  .search-page__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+  }
+
+  @media (min-width: 750px) {
+    .search-page__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--spacing-lg);
+    }
+  }
+
+  @media (min-width: 990px) {
+    .search-page__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* Empty State */
+  .search-page__empty {
+    text-align: center;
+    padding: var(--spacing-3xl) var(--spacing-xl);
+  }
+
+  .search-page__empty svg {
+    width: 52px;
+    height: 52px;
+    color: var(--color-border);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .search-page__empty p {
+    font-size: var(--font-size-lg);
+    color: var(--color-text);
+    margin: 0 0 var(--spacing-sm);
+  }
+
+  .search-page__empty-hint {
+    font-size: var(--font-size-sm) !important;
+    color: var(--color-ink-soft) !important;
+    margin-bottom: var(--spacing-xl) !important;
+  }
+
+  /* Pagination */
+  .search-page__pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-2xl);
+  }
+
+  .pagination__info {
+    font-size: var(--font-size-sm);
+    color: var(--color-ink-soft);
+  }
+
+  /* Results dropdown on search page: position below input only */
+  .search-page__form-wrap .search-results {
+    top: calc(100% + 4px);
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Suchergebnisse",
+  "tag": "section"
+}
+{% endschema %}
