@@ -59,7 +59,7 @@
     // ─── KONFIGURATION ───────────────────────────────────────────────────────────
   
     /** Shopify Variant ID des Zuschlag-Produkts (Zahl aus der URL) */
-    const SURCHARGE_VARIANT_ID = 581af3c14c2d917fdcca8fce77e7d919; // ← HIER DEINE VARIANT ID EINTRAGEN
+    const SURCHARGE_VARIANT_ID = 53775244296533; // ← HIER DEINE VARIANT ID EINTRAGEN
   
     /** SKU des Zuschlag-Produkts — zur Erkennung im Cart */
     const SURCHARGE_SKU = 'SURCHARGE_LONG_RAIL';
