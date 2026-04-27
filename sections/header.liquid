@@ -72,17 +72,21 @@
         </div>
         
         {%- comment -%} Search Bar {%- endcomment -%}
-        <div class="header__search">
+        <div class="header__search" data-search-wrapper>
           <form action="{{ routes.search_url }}" method="get" class="header__search-form" role="search">
             <input type="hidden" name="type" value="product">
+            <span class="header__search-icon" aria-hidden="true">{%- render 'icon-search' -%}</span>
             <input
               type="search"
               name="q"
               class="header__search-input"
               placeholder="{{ 'sections.header.search_placeholder' | t | default: 'Alle Produkte durchsuchen...' }}"
               aria-label="{{ 'sections.header.search' | t }}"
+              autocomplete="off"
+              data-search-input
             >
           </form>
+          <div class="search-results" data-search-results aria-live="polite" hidden></div>
         </div>
         
         {%- comment -%} Actions {%- endcomment -%}
@@ -194,16 +198,22 @@
     
     <div class="mobile-menu__content">
       {%- comment -%} Mobile Search {%- endcomment -%}
-      <form action="{{ routes.search_url }}" method="get" class="mobile-menu__search" role="search">
-        <input type="hidden" name="type" value="product">
-        <input
-          type="search"
-          name="q"
-          class="header__search-input"
-          placeholder="{{ 'sections.header.search_placeholder' | t | default: 'Produkte durchsuchen...' }}"
-          aria-label="{{ 'sections.header.search' | t }}"
-        >
-      </form>
+      <div class="mobile-menu__search" data-search-wrapper>
+        <form action="{{ routes.search_url }}" method="get" class="header__search-form" role="search">
+          <input type="hidden" name="type" value="product">
+          <span class="header__search-icon" aria-hidden="true">{%- render 'icon-search' -%}</span>
+          <input
+            type="search"
+            name="q"
+            class="header__search-input"
+            placeholder="{{ 'sections.header.search_placeholder' | t | default: 'Produkte durchsuchen...' }}"
+            aria-label="{{ 'sections.header.search' | t }}"
+            autocomplete="off"
+            data-search-input
+          >
+        </form>
+        <div class="search-results" data-search-results aria-live="polite" hidden></div>
+      </div>
 
       {%- if show_account and account_label != blank -%}
         <a href="{{ account_url }}" class="mobile-menu__account">
